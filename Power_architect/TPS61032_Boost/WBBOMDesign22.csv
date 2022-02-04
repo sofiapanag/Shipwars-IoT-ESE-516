@@ -1,0 +1,10 @@
+﻿Part,Manufacturer,Part Number,Quantity,Price ($),Footprint (mm²),Description
+Coutx,Kemet,C0603C105K8PACTU,1,0.01,4.68,Cap: 1 µF  Total Derated Cap: 950 nF  VDC: 10 V  ESR: 1 mΩ  Package: 0603  
+Cin,TDK,C1608X5R1A156M080AC,1,0.12,4.68,Cap: 15 µF  Total Derated Cap: 3.7 µF  VDC: 10 V  ESR: 6.53 mΩ  Package: 0603  
+Cinx,MuRata,GRM155R71A104KA01D,1,0.01,3,Cap: 100 nF  Total Derated Cap: 100 nF  VDC: 10 V  ESR: 1 mΩ  Package: 0402  
+Cout,Panasonic,6TPB470M,1,0.96,58.59,Cap: 470 µF  Total Derated Cap: 470 µF  VDC: 6.3 V  ESR: 35 mΩ  Package: 7343-40  
+L1,Coiltronics,DR127-2R2-R,1,0.84,210.25,L: 2.2 µH  DCR: 4.02 mΩ  IDC: 12.5 A  
+Rlbb,Yageo,RC0603FR-07390KL,1,0.01,4.68,Resistance: 390 kΩ  Tolerance: 1.0%  Power: 100 mW  
+Rlbo,Vishay-Dale,CRCW04022M15FKED,1,0.01,3,Resistance: 2.15 MΩ  Tolerance: 1.0%  Power: 63 mW  
+Rlbt,Vishay-Dale,CRCW04022M15FKED,1,0.01,3,Resistance: 2.15 MΩ  Tolerance: 1.0%  Power: 63 mW  
+U1,Texas Instruments,TPS61032PWPR,1,1.113,58.8,

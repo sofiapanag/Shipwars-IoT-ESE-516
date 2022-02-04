@@ -1,0 +1,6 @@
+﻿Part,Manufacturer,Part Number,Quantity,Price ($),Footprint (mm²),Description
+Cin,MuRata,GRJ155R60J106ME11D,1,0.02,3,Cap: 10 µF  Total Derated Cap: 2 µF  VDC: 6.3 V  ESR: 1 mΩ  Package: 0402  
+Cout,MuRata,GRM188R60J226MEA0D,1,0.05,4.68,Cap: 22 µF  Total Derated Cap: 7.9 µF  VDC: 6.3 V  ESR: 1 mΩ  Package: 0603  
+L1,Wurth Elektronik,744311100,1,2.55,80.1,L: 1 µH  DCR: 5.06 mΩ  IDC: 15 A  
+Rpg,Yageo,RC0603FR-07178KL,1,0.01,4.68,Resistance: 178 kΩ  Tolerance: 1.0%  Power: 100 mW  
+U1,Texas Instruments,TPS62082DSGR,1,0.552,9.61,
