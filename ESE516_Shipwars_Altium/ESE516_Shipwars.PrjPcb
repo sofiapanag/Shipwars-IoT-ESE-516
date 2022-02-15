@@ -23,7 +23,7 @@ DefaultPcbPcad=0
 ReorderDocumentsOnCompile=1
 NameNetsHierarchically=1
 PowerPortNamesTakePriority=1
-AutoSheetNumbering=0
+AutoSheetNumbering=1
 AutoCrossReferences=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
@@ -41,9 +41,6 @@ CrossRefPorts=3
 CrossRefCrossSheets=1
 CrossRefSheetEntries=0
 CrossRefFollowFromMainSettings=1
-VaultGUID=
-ReleaseVaultName=
-ItemGUID=
 
 [Preferences]
 PrefsVaultGUID=
@@ -186,7 +183,7 @@ GenerateClassCluster=0
 DocumentUniqueId=OSJQXDRN
 
 [Document9]
-DocumentPath=ESE516_ExampleProject.BomDoc
+DocumentPath=ESE516_Shipwars_BOM.BomDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -203,7 +200,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document10]
-DocumentPath=ESE516_PCB.PcbDoc
+DocumentPath=ESE516_shipwars_PCB.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -407,23 +404,6 @@ GenerateClassCluster=0
 DocumentUniqueId=OUHHOMFR
 
 [Document22]
-DocumentPath=CommonComponents.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=9
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=ANTAGUIF
-
-[Document23]
 DocumentPath=Library\Components - 01.02.21 - 21.11.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -440,7 +420,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KKIGBAYA
 
-[Document24]
+[Document23]
 DocumentPath=Library\Components - 01.02.21 - 21.11.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -457,7 +437,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=EOSDNEIM
 
-[Document25]
+[Document24]
 DocumentPath=Library\S4B-PH-SM4-TB_LF_SN.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -474,7 +454,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TIRAXPIQ
 
-[Document26]
+[Document25]
 DocumentPath=Library\S4B-PH-SM4-TB(LF)(SN).PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -491,7 +471,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QCRMYUWA
 
-[Document27]
+[Document26]
 DocumentPath=SnapDocs\TPS55332QPWPRQ1.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -508,7 +488,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=JVHTISAB
 
-[Document28]
+[Document27]
 DocumentPath=SnapDocs\TPS55332QPWPRQ1.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -525,7 +505,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=GMIVLSFD
 
-[Document29]
+[Document28]
 DocumentPath=3.3v_BUCK.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -542,7 +522,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=ROXEKOPQ
 
-[Document30]
+[Document29]
 DocumentPath=CommonComponents_DIY.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -559,7 +539,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=LOGHFUWF
 
-[Document31]
+[Document30]
 DocumentPath=CommonComponents_DIY.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -576,7 +556,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SYYYOKGS
 
-[Document32]
+[Document31]
 DocumentPath=Joystick.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -593,7 +573,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=VQABLQZD
 
-[Document33]
+[Document32]
 DocumentPath=LSM6DSO_ACCELERO.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -610,7 +590,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SZFLWFNH
 
-[Document34]
+[Document33]
 DocumentPath=Buzzer.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -632,21 +612,32 @@ UniqueID=BC0CE679-049C-4B69-94F9-44606582BF8E
 Description=Build_Alt
 AllowFabrication=0
 ParameterCount=0
-VariationCount=14
-Variation1=Designator=TP1|UniqueId=\NJVBXXVZ|Kind=1|AlternatePart=
-Variation2=Designator=TP3|UniqueId=\MFGVQVPB|Kind=1|AlternatePart=
-Variation3=Designator=TP2|UniqueId=\CTJKUFZO|Kind=1|AlternatePart=
-Variation4=Designator=TP4|UniqueId=\FZLPNHUH|Kind=1|AlternatePart=
-Variation5=Designator=TP5|UniqueId=\WAYKQBKK|Kind=1|AlternatePart=
-Variation6=Designator=FD2|UniqueId=\UFFYDEFG|Kind=1|AlternatePart=
-Variation7=Designator=FD1|UniqueId=\DLXMMHAS|Kind=1|AlternatePart=
-Variation8=Designator=FD3|UniqueId=\YHOXKFEF|Kind=1|AlternatePart=
-Variation9=Designator=TP6|UniqueId=\OSLTIIAV\DXBQGUUP|Kind=1|AlternatePart=
-Variation10=Designator=TP7|UniqueId=\OSLTIIAV\FSITPHYW|Kind=1|AlternatePart=
-Variation11=Designator=TP8|UniqueId=\OSLTIIAV\CMNWXLMF|Kind=1|AlternatePart=
-Variation12=Designator=TP9|UniqueId=\OSLTIIAV\FGHRZLWI|Kind=1|AlternatePart=
-Variation13=Designator=TP10|UniqueId=\OSLTIIAV\KPEGWKOG|Kind=1|AlternatePart=
-Variation14=Designator=TP11|UniqueId=\OSLTIIAV\MOEIAXXC|Kind=1|AlternatePart=
+VariationCount=25
+Variation1=Designator=TP1|UniqueId=\NJVBXXVZ|Kind=1|AlternatePart= 
+Variation2=Designator=TP3|UniqueId=\MFGVQVPB|Kind=1|AlternatePart= 
+Variation3=Designator=TP2|UniqueId=\CTJKUFZO|Kind=1|AlternatePart= 
+Variation4=Designator=TP4|UniqueId=\FZLPNHUH|Kind=1|AlternatePart= 
+Variation5=Designator=TP5|UniqueId=\WAYKQBKK|Kind=1|AlternatePart= 
+Variation6=Designator=FD2|UniqueId=\UFFYDEFG|Kind=1|AlternatePart= 
+Variation7=Designator=FD1|UniqueId=\DLXMMHAS|Kind=1|AlternatePart= 
+Variation8=Designator=FD3|UniqueId=\YHOXKFEF|Kind=1|AlternatePart= 
+Variation9=Designator=TP6|UniqueId=\OSLTIIAV\DXBQGUUP|Kind=1|AlternatePart= 
+Variation10=Designator=TP7|UniqueId=\OSLTIIAV\FSITPHYW|Kind=1|AlternatePart= 
+Variation11=Designator=TP8|UniqueId=\OSLTIIAV\CMNWXLMF|Kind=1|AlternatePart= 
+Variation12=Designator=TP9|UniqueId=\OSLTIIAV\FGHRZLWI|Kind=1|AlternatePart= 
+Variation13=Designator=TP10|UniqueId=\OSLTIIAV\KPEGWKOG|Kind=1|AlternatePart= 
+Variation14=Designator=TP11|UniqueId=\OSLTIIAV\MOEIAXXC|Kind=1|AlternatePart= 
+Variation15=Designator=TP12|UniqueId=\KABPZABH\QMDQUKEB|Kind=1|AlternatePart= 
+Variation16=Designator=TP13|UniqueId=\KABPZABH\WIZSCYYN|Kind=1|AlternatePart= 
+Variation17=Designator=TP14|UniqueId=\KABPZABH\UYORGEPY|Kind=1|AlternatePart= 
+Variation18=Designator=TP15|UniqueId=\KABPZABH\BMLFJXMJ|Kind=1|AlternatePart= 
+Variation19=Designator=TP16|UniqueId=\KABPZABH\AICWKVGQ|Kind=1|AlternatePart= 
+Variation20=Designator=TP17|UniqueId=\GWMHBMMT|Kind=1|AlternatePart= 
+Variation21=Designator=TP19|UniqueId=\XYNCJGLW|Kind=1|AlternatePart= 
+Variation22=Designator=TP20|UniqueId=\UHUGUQJS|Kind=1|AlternatePart= 
+Variation23=Designator=TP21|UniqueId=\CQCAKPFG|Kind=1|AlternatePart= 
+Variation24=Designator=TP22|UniqueId=\UFRJHIOP|Kind=1|AlternatePart= 
+Variation25=Designator=TP23|UniqueId=\CKISDWUG|Kind=1|AlternatePart= 
 ParamVariationCount=0
 
 [Configuration1]
@@ -768,7 +759,7 @@ OutputDefault20=0
 [OutputGroup2]
 Name=Simulator Outputs
 Description=
-TargetPrinter=EPSONA7A240 (ET-M1170 Series)
+TargetPrinter=Adobe PDF
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 
 [OutputGroup3]
@@ -969,6 +960,18 @@ OutputName2=Component Cross Reference Report
 OutputDocumentPath2=
 OutputVariantName2=[No Variations]
 OutputDefault2=0
+Configuration2_Name1=ColumnNameFormat
+Configuration2_Item1=CaptionAsName
+Configuration2_Name2=ForceUpdateSettings
+Configuration2_Item2=False
+Configuration2_Name3=General
+Configuration2_Item3=OpenExported=False|AddToProject=False|ReportBOMViolationsInMessages=False|ForceFit=False|NotFitted=False|Database=False|DatabasePriority=False|IncludePcbData=False|IncludeVaultData=False|IncludeCloudData=False|IncludeDocumentData=True|IncludeAlternatives=False|ShowExportOptions=True|TemplateFilename=|TemplateVaultGuid=|TemplateItemGuid=|TemplateRevisionGuid=|BatchMode=5|FormWidth=1200|FormHeight=710|SupplierProdQty=1|SupplierAutoQty=False|SupplierUseCachedPricing=False|SupplierCurrency=USD|SolutionsPerItem=1|SuppliersPerSolution=1|ViewType=0|UseDirectApi=False|BomSetName=
+Configuration2_Name4=GroupOrder
+Configuration2_Item4=Document=True
+Configuration2_Name5=SortOrder
+Configuration2_Item5=Document=Up|Designator=Up
+Configuration2_Name6=VisibleOrder
+Configuration2_Item6=Comment=120|Description=120|Designator=120|Footprint=120|LibRef=120|Quantity=120
 OutputType3=ReportHierarchy
 OutputName3=Report Project Hierarchy
 OutputDocumentPath3=
