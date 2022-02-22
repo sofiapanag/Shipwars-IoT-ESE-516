@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=GND Pin=J3-3
+Removed Pin From Net: NetName=GND Pin=R17-1
+Removed Pin From Net: NetName=GND Pin=TP18-1
+Added Pin To Net: NetName=KEYPAD_I2C_SDA Pin=J3-3
+Added Pin To Net: NetName=KEYPAD_I2C_SDA Pin=R17-1
+Added Pin To Net: NetName=KEYPAD_I2C_SDA Pin=TP18-1
+Added Pin To Net: NetName=KEYPAD_I2C_SDA Pin=U4-15
+Added Net: Name=KEYPAD_I2C_SDA
