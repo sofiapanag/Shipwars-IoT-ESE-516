@@ -607,6 +607,23 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=EMFSWOFO
 
+[Document34]
+DocumentPath=ESE516_shipwars_PCB.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=HKYJAUIA
+
 [ProjectVariant1]
 UniqueID=BC0CE679-049C-4B69-94F9-44606582BF8E
 Description=Build_Alt
@@ -639,6 +656,10 @@ Variation23=Designator=TP21|UniqueId=\CQCAKPFG|Kind=1|AlternatePart=
 Variation24=Designator=TP22|UniqueId=\UFRJHIOP|Kind=1|AlternatePart= 
 Variation25=Designator=TP23|UniqueId=\CKISDWUG|Kind=1|AlternatePart= 
 ParamVariationCount=0
+
+[GeneratedDocument1]
+DocumentPath=Project Outputs for ESE516_Shipwars\Design Rule Check - ESE516_shipwars_PCB.html
+DItemRevisionGUID=
 
 [Configuration1]
 Name=Sources

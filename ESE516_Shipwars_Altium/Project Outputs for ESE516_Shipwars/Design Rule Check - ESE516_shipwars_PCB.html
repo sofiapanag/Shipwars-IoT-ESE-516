@@ -1,0 +1,660 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2/23/2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">5:50:42 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc" class="file"><acronym title="C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc">C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">96</td></tr>
+</table>
+</td>
+</table><a name="IDP32HGH4R5CG2OG4T0QDGJO0NOGFGHLAIOJE4PIIUJ1Q1SWEIKUHP"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYFK3OT1431IEFINXFBTMWJM4WKVDDHFRMHRM0MH05EE4H0FS3LDI">Clearance Constraint (Gap=6mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDNKC4VNURVWHCLPA23G3AUO1EQLIVUWKUR1D4KCC3FLQGMIIEHGVJ">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIEQAQBXJCWRCJZYVDKGKDGYAJFRNEIKKP5IPSBLU142YDD22QMWF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTBYAEZWLNXYSNJWKJYU1CR11KBFIPDI2YOMNP5IVQLBWUIOFAQJM">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMZWO4CHMSSEJF10C2J2BZDLREJS5YCHYEKXY5TLEWHQQ2NE1VDT">Width Constraint (Min=6mil) (Max=1000mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPL2VX2XUDPUNBBEM3ZPMZVZDAPRG3KERMAEARSCYHJD2ULJ2A2PH">SMD To Corner (Distance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYN35XVDIJUAFL5CXTSAIKZJKEO5DK1LZEC3D3HOHURRX2OTINV0H">SMD To Plane Constraint (Distance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDRMPYQDP0TDZWEOWZC5PTEFUQBI2KSALRQ2V4QWLG5XXF55X0JLDC">SMD Neck-Down Constraint (Percent=90%) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUBK2MA2MLN3WE25OJ1C2MXD4OFNCECBLH5VONSCIUBEX0CM2UFFH">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDOELHV3JNXMKIBOJ1GG2VR1X1CD2UN44YSQJJL2OPXGMRAHG4LEKO">Minimum Annular Ring (Minimum=6mil) (All)</a></td>
+<td class="column2">16</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDPYWAPV33SZYWO5HRT5G0IN0ZKIYQPKQ5UVEUNVGHF35XA5H1O14O">Acute Angle Constraint [Tracks Only] (Minimum=60.000) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZQSZ0U2NZXRJLVJW2Y134KW41OJCKTECBKJH2ZOYXSUWNCW50JBG">Hole Size Constraint (Min=8mil) (Max=150mil) (All)</a></td>
+<td class="column2">13</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNNSWOTVHOEBBHMLLUO1GYV2ZQKLER4JIY4QO2WPL0GPGHLIPRCT">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXOEL5ZSUEYMACPPMSAVCYS4XVKWKGK312VXDRAKGCB132QDOB11H">Minimum Solder Mask Sliver (Gap=2mil) (All),(All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFOOEWO2E3FG0BILRIRZJTBA3BHRI0AUUOL5VVKXVSGH3R1CTTHJ">Silk To Solder Mask (Clearance=2mil) (IsPad),(All)</a></td>
+<td class="column2">54</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUSNZNILGZBLEK0POWHSWNXQFUKKXQF4BLSAMSUKXPAG23PO5JARB">Silk to Silk (Clearance=0mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDROTAPHRWDG1MJH0J1RQ4NKPOZB4ELKODPXWRQLDO5BGKX3XHED4K">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0LVEPO3H2IRZYIBTLRWKI5JGMEYZ4VFHW01NDINDEBVUQPLTRBK">Board Clearance Constraint (Gap=0mil) (OnLayer('GroundPlane')OR OnLayer('PowerPlane'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBVHRKKPPKW5EHIXS0GNVPVT4VJ3HJ0CKBIMFA53RYUCSVMCM2JD">Board Clearance Constraint (Gap=0mil) (All)</a></td>
+<td class="column2">9</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDINV5GOV3LBE0GPKANUZ1TZALQBNRCYYT5JPD3XLVGRBL2FX0OYIP">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">96</td>
+</tr>
+</table><br><a name="IDOELHV3JNXMKIBOJ1GG2VR1X1CD2UN44YSQJJL2OPXGMRAHG4LEKO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Annular Ring (Minimum=6mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3575.296mil|Location2.X=3582.546mil|Location1.Y=5067.375mil|Location2.Y=5074.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3575.296mil|Location2.X=3582.546mil|Location1.Y=5067.375mil|Location2.Y=5074.625mil|Absolute=True">Minimum Annular Ring: (3.149mil &lt; 6mil) Pad Q-1(2909mil,549mil) on Multi-Layer (Annular Ring=3.15mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.296mil|Location2.X=3532.546mil|Location1.Y=5067.375mil|Location2.Y=5074.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3525.296mil|Location2.X=3532.546mil|Location1.Y=5067.375mil|Location2.Y=5074.625mil|Absolute=True">Minimum Annular Ring: (3.149mil &lt; 6mil) Pad Q-2(2859mil,549mil) on Multi-Layer (Annular Ring=3.15mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3475.296mil|Location2.X=3482.546mil|Location1.Y=5067.375mil|Location2.Y=5074.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3475.296mil|Location2.X=3482.546mil|Location1.Y=5067.375mil|Location2.Y=5074.625mil|Absolute=True">Minimum Annular Ring: (3.149mil &lt; 6mil) Pad Q-3(2809mil,549mil) on Multi-Layer (Annular Ring=3.15mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2931.091mil|Location2.X=2938.341mil|Location1.Y=5685.517mil|Location2.Y=5692.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2931.091mil|Location2.X=2938.341mil|Location1.Y=5685.517mil|Location2.Y=5692.767mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (2244.716mil,1160.252mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2931.091mil|Location2.X=2938.341mil|Location1.Y=5717.013mil|Location2.Y=5724.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2931.091mil|Location2.X=2938.341mil|Location1.Y=5717.013mil|Location2.Y=5724.263mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (2244.716mil,1191.748mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.54mil|Location2.X=1098.79mil|Location1.Y=6577.54mil|Location2.Y=6584.79mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.54mil|Location2.X=1098.79mil|Location1.Y=6577.54mil|Location2.Y=6584.79mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (405.165mil,2052.276mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.54mil|Location2.X=1098.79mil|Location1.Y=6612.973mil|Location2.Y=6620.223mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.54mil|Location2.X=1098.79mil|Location1.Y=6612.973mil|Location2.Y=6620.223mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (405.165mil,2087.709mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.54mil|Location2.X=1098.79mil|Location1.Y=6648.407mil|Location2.Y=6655.657mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1091.54mil|Location2.X=1098.79mil|Location1.Y=6648.407mil|Location2.Y=6655.657mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (405.165mil,2123.142mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1130.91mil|Location2.X=1138.16mil|Location1.Y=6577.54mil|Location2.Y=6584.79mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1130.91mil|Location2.X=1138.16mil|Location1.Y=6577.54mil|Location2.Y=6584.79mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (444.535mil,2052.276mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1130.91mil|Location2.X=1138.16mil|Location1.Y=6612.973mil|Location2.Y=6620.223mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1130.91mil|Location2.X=1138.16mil|Location1.Y=6612.973mil|Location2.Y=6620.223mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (444.535mil,2087.709mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1130.91mil|Location2.X=1138.16mil|Location1.Y=6648.407mil|Location2.Y=6655.657mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1130.91mil|Location2.X=1138.16mil|Location1.Y=6648.407mil|Location2.Y=6655.657mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (444.535mil,2123.142mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1552.69mil|Location2.X=1559.94mil|Location1.Y=6725.579mil|Location2.Y=6732.829mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1552.69mil|Location2.X=1559.94mil|Location1.Y=6725.579mil|Location2.Y=6732.829mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (866.315mil,2200.315mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1552.69mil|Location2.X=1559.94mil|Location1.Y=6764.95mil|Location2.Y=6772.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1552.69mil|Location2.X=1559.94mil|Location1.Y=6764.95mil|Location2.Y=6772.2mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (866.315mil,2239.685mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1572.375mil|Location2.X=1579.625mil|Location1.Y=6745.265mil|Location2.Y=6752.515mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1572.375mil|Location2.X=1579.625mil|Location1.Y=6745.265mil|Location2.Y=6752.515mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (886mil,2220mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.06mil|Location2.X=1599.31mil|Location1.Y=6725.58mil|Location2.Y=6732.83mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.06mil|Location2.X=1599.31mil|Location1.Y=6725.58mil|Location2.Y=6732.83mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (905.685mil,2200.315mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.06mil|Location2.X=1599.31mil|Location1.Y=6764.95mil|Location2.Y=6772.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.06mil|Location2.X=1599.31mil|Location1.Y=6764.95mil|Location2.Y=6772.2mil|Absolute=True">Minimum Annular Ring: (5.906mil &lt; 6mil) Via (905.685mil,2239.685mil) from Top Layer to Bottom Layer (Annular Ring=5.906mil) On (Top Layer)</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDZQSZ0U2NZXRJLVJW2Y134KW41OJCKTECBKJH2ZOYXSUWNCW50JBG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=8mil) (Max=150mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2930.155mil|Location2.X=2939.278mil|Location1.Y=5677.69mil|Location2.Y=5686.814mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2930.155mil|Location2.X=2939.278mil|Location1.Y=5677.69mil|Location2.Y=5686.814mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (2244.716mil,1160.252mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2930.155mil|Location2.X=2939.278mil|Location1.Y=5709.186mil|Location2.Y=5718.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2930.155mil|Location2.X=2939.278mil|Location1.Y=5709.186mil|Location2.Y=5718.31mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (2244.716mil,1191.748mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.603mil|Location2.X=1099.727mil|Location1.Y=6569.714mil|Location2.Y=6578.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.603mil|Location2.X=1099.727mil|Location1.Y=6569.714mil|Location2.Y=6578.838mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (405.165mil,2052.276mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.603mil|Location2.X=1099.727mil|Location1.Y=6605.147mil|Location2.Y=6614.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.603mil|Location2.X=1099.727mil|Location1.Y=6605.147mil|Location2.Y=6614.271mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (405.165mil,2087.709mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.603mil|Location2.X=1099.727mil|Location1.Y=6640.58mil|Location2.Y=6649.704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1090.603mil|Location2.X=1099.727mil|Location1.Y=6640.58mil|Location2.Y=6649.704mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (405.165mil,2123.142mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.973mil|Location2.X=1139.097mil|Location1.Y=6569.714mil|Location2.Y=6578.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.973mil|Location2.X=1139.097mil|Location1.Y=6569.714mil|Location2.Y=6578.838mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (444.535mil,2052.276mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.973mil|Location2.X=1139.097mil|Location1.Y=6605.147mil|Location2.Y=6614.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.973mil|Location2.X=1139.097mil|Location1.Y=6605.147mil|Location2.Y=6614.271mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (444.535mil,2087.709mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.973mil|Location2.X=1139.097mil|Location1.Y=6640.58mil|Location2.Y=6649.704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.973mil|Location2.X=1139.097mil|Location1.Y=6640.58mil|Location2.Y=6649.704mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (444.535mil,2123.142mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.753mil|Location2.X=1560.877mil|Location1.Y=6717.753mil|Location2.Y=6726.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.753mil|Location2.X=1560.877mil|Location1.Y=6717.753mil|Location2.Y=6726.877mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (866.315mil,2200.315mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.753mil|Location2.X=1560.877mil|Location1.Y=6757.123mil|Location2.Y=6766.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1551.753mil|Location2.X=1560.877mil|Location1.Y=6757.123mil|Location2.Y=6766.247mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (866.315mil,2239.685mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.438mil|Location2.X=1580.562mil|Location1.Y=6737.438mil|Location2.Y=6746.562mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1571.438mil|Location2.X=1580.562mil|Location1.Y=6737.438mil|Location2.Y=6746.562mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (886mil,2220mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.123mil|Location2.X=1600.247mil|Location1.Y=6717.753mil|Location2.Y=6726.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.123mil|Location2.X=1600.247mil|Location1.Y=6717.753mil|Location2.Y=6726.877mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (905.685mil,2200.315mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.123mil|Location2.X=1600.247mil|Location1.Y=6757.123mil|Location2.Y=6766.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.123mil|Location2.X=1600.247mil|Location1.Y=6757.123mil|Location2.Y=6766.247mil|Absolute=True">Hole Size Constraint: (7.874mil &lt; 8mil) Via (905.685mil,2239.685mil) from Top Layer to Bottom Layer Actual Hole Size = 7.874mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDXOEL5ZSUEYMACPPMSAVCYS4XVKWKGK312VXDRAKGCB132QDOB11H"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=2mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.532mil|Location2.X=1570.609mil|Location1.Y=6727.797mil|Location2.Y=6733.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.532mil|Location2.X=1570.609mil|Location1.Y=6727.797mil|Location2.Y=6733.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.154mil &lt; 2mil) Between Via (866.315mil,2200.315mil) from Top Layer to Bottom Layer And Via (886mil,2220mil) from Top Layer to Bottom Layer [Bottom Solder] Mask Sliver [0.154mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.532mil|Location2.X=1570.517mil|Location1.Y=6750.217mil|Location2.Y=6756.294mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.532mil|Location2.X=1570.517mil|Location1.Y=6750.217mil|Location2.Y=6756.294mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.154mil &lt; 2mil) Between Via (866.315mil,2239.685mil) from Top Layer to Bottom Layer And Via (886mil,2220mil) from Top Layer to Bottom Layer [Bottom Solder] Mask Sliver [0.154mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.217mil|Location2.X=1590.203mil|Location1.Y=6730.532mil|Location2.Y=6736.609mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.217mil|Location2.X=1590.203mil|Location1.Y=6730.532mil|Location2.Y=6736.609mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.154mil &lt; 2mil) Between Via (886mil,2220mil) from Top Layer to Bottom Layer And Via (905.685mil,2200.315mil) from Top Layer to Bottom Layer [Bottom Solder] Mask Sliver [0.154mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.217mil|Location2.X=1590.294mil|Location1.Y=6747.482mil|Location2.Y=6753.467mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1584.217mil|Location2.X=1590.294mil|Location1.Y=6747.482mil|Location2.Y=6753.467mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.154mil &lt; 2mil) Between Via (886mil,2220mil) from Top Layer to Bottom Layer And Via (905.685mil,2239.685mil) from Top Layer to Bottom Layer [Bottom Solder] Mask Sliver [0.154mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDFOOEWO2E3FG0BILRIRZJTBA3BHRI0AUUOL5VVKXVSGH3R1CTTHJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=2mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1003.3mil|Location2.X=1005.633mil|Location1.Y=5444.109mil|Location2.Y=5446.442mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1003.3mil|Location2.X=1005.633mil|Location1.Y=5444.109mil|Location2.Y=5446.442mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Arc (300.374mil,923.276mil) on Top Overlay And Pad C10-1(312.567mil,922mil) on Top Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1641.695mil|Location2.X=1644.028mil|Location1.Y=6835.148mil|Location2.Y=6837.482mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1641.695mil|Location2.X=1644.028mil|Location1.Y=6835.148mil|Location2.Y=6837.482mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Arc (948.008mil,2313.504mil) on Top Overlay And Pad R21-2(969.504mil,2334mil) on Top Layer [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2223.29mil|Location2.X=2225.623mil|Location1.Y=5961.518mil|Location2.Y=5963.852mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2223.29mil|Location2.X=2225.623mil|Location1.Y=5961.518mil|Location2.Y=5963.852mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C13-1(1516mil,1421mil) on Top Layer And Text "C1bst" (1534.457mil,1430.041mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2223.29mil|Location2.X=2225.623mil|Location1.Y=6000.858mil|Location2.Y=6003.192mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2223.29mil|Location2.X=2225.623mil|Location1.Y=6000.858mil|Location2.Y=6003.192mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C14-1(1516mil,1485.284mil) on Top Layer And Text "C1bst" (1534.457mil,1430.041mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.601mil|Location2.X=1967.934mil|Location1.Y=7120.261mil|Location2.Y=7122.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1965.601mil|Location2.X=1967.934mil|Location1.Y=7120.261mil|Location2.Y=7122.594mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C15-1(1298.496mil,2580.126mil) on Top Layer And Text "C15" (1126.816mil,2539.447mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1739.718mil|Location2.X=1742.968mil|Location1.Y=6760.214mil|Location2.Y=6763.464mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1739.718mil|Location2.X=1742.968mil|Location1.Y=6760.214mil|Location2.Y=6763.464mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.317mil &lt; 2mil) Between Pad C24-1(1031mil,2249.528mil) on Top Layer And Text "C24" (1116.982mil,2149.868mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.317mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1739.718mil|Location2.X=1742.968mil|Location1.Y=6700.234mil|Location2.Y=6703.484mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1739.718mil|Location2.X=1742.968mil|Location1.Y=6700.234mil|Location2.Y=6703.484mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.317mil &lt; 2mil) Between Pad C24-2(1031mil,2186.535mil) on Top Layer And Text "C24" (1116.982mil,2149.868mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.317mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2368.538mil|Location2.X=2371.788mil|Location1.Y=5907.244mil|Location2.Y=5910.494mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2368.538mil|Location2.X=2371.788mil|Location1.Y=5907.244mil|Location2.Y=5910.494mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.789mil &lt; 2mil) Between Pad C2bst-1(1690.354mil,1398mil) on Top Layer And Text "C2bst" (1590.192mil,1320.994mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.789mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2359.044mil|Location2.X=2362.294mil|Location1.Y=5907.244mil|Location2.Y=5910.494mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2359.044mil|Location2.X=2362.294mil|Location1.Y=5907.244mil|Location2.Y=5910.494mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.789mil &lt; 2mil) Between Pad C2bst-2(1659.646mil,1398mil) on Top Layer And Text "C2bst" (1590.192mil,1320.994mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.789mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2352.445mil|Location2.X=2354.778mil|Location1.Y=5903.706mil|Location2.Y=5906.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2352.445mil|Location2.X=2354.778mil|Location1.Y=5903.706mil|Location2.Y=5906.039mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C2bst-2(1659.646mil,1398mil) on Top Layer And Text "R2bst" (1663.611mil,1382.872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=836.85mil|Location2.X=839.183mil|Location1.Y=6538.021mil|Location2.Y=6540.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=836.85mil|Location2.X=839.183mil|Location1.Y=6538.021mil|Location2.Y=6540.354mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C3-1(128.504mil,1997.503mil) on Top Layer And Text "R5" (148.016mil,2010.302mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=869.951mil|Location2.X=872.284mil|Location1.Y=6538.021mil|Location2.Y=6540.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=869.951mil|Location2.X=872.284mil|Location1.Y=6538.021mil|Location2.Y=6540.354mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C3-2(191.496mil,1997.503mil) on Top Layer And Text "R5" (148.016mil,2010.302mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2656.996mil|Location2.X=2659.329mil|Location1.Y=6139.261mil|Location2.Y=6141.594mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2656.996mil|Location2.X=2659.329mil|Location1.Y=6139.261mil|Location2.Y=6141.594mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C4bst-1(2018.921mil,1672mil) on Top Layer And Text "U2" (1874.764mil,1585.01mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=836.85mil|Location2.X=839.183mil|Location1.Y=6591.116mil|Location2.Y=6593.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=836.85mil|Location2.X=839.183mil|Location1.Y=6591.116mil|Location2.Y=6593.449mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad C7-1(125.567mil,2091.404mil) on Top Layer And Text "R5" (148.016mil,2010.302mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1067.235mil|Location2.X=1069.568mil|Location1.Y=6825.566mil|Location2.Y=6827.899mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1067.235mil|Location2.X=1069.568mil|Location1.Y=6825.566mil|Location2.Y=6827.899mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad D1-4(384.508mil,2317.126mil) on Top Layer And Text "R1" (378.402mil,2224.759mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.212mil|Location2.X=1583.545mil|Location1.Y=6605.84mil|Location2.Y=6608.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1581.212mil|Location2.X=1583.545mil|Location1.Y=6605.84mil|Location2.Y=6608.173mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad D3-1(886mil,2056.772mil) on Top Layer And Text "U6" (892.378mil,2075.01mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.341mil|Location2.X=1629.675mil|Location1.Y=6527.329mil|Location2.Y=6529.663mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.341mil|Location2.X=1629.675mil|Location1.Y=6527.329mil|Location2.Y=6529.663mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad D4-1(962.13mil,2015.244mil) on Top Layer And Track (924.583mil,2006.496mil)(974.583mil,2006.496mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.341mil|Location2.X=1629.675mil|Location1.Y=6538.404mil|Location2.Y=6540.737mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.341mil|Location2.X=1629.675mil|Location1.Y=6538.404mil|Location2.Y=6540.737mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad D4-1(962.13mil,2015.244mil) on Top Layer And Track (924.583mil,2031.496mil)(949.583mil,2006.496mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.341mil|Location2.X=1629.675mil|Location1.Y=6552.329mil|Location2.Y=6554.663mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1627.341mil|Location2.X=1629.675mil|Location1.Y=6552.329mil|Location2.Y=6554.663mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad D4-1(962.13mil,2015.244mil) on Top Layer And Track (924.583mil,2031.496mil)(974.583mil,2031.496mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1638.416mil|Location2.X=1640.749mil|Location1.Y=6527.329mil|Location2.Y=6529.663mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1638.416mil|Location2.X=1640.749mil|Location1.Y=6527.329mil|Location2.Y=6529.663mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad D4-1(962.13mil,2015.244mil) on Top Layer And Track (949.583mil,2006.496mil)(974.583mil,2031.496mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1236.673mil|Location2.X=1239.006mil|Location1.Y=6976.944mil|Location2.Y=6979.277mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1236.673mil|Location2.X=1239.006mil|Location1.Y=6976.944mil|Location2.Y=6979.277mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad J1-6(551.63mil,2495.48mil) on Top Layer And Text "C6" (514.016mil,2399.962mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1063.148mil|Location2.X=1065.482mil|Location1.Y=6781.492mil|Location2.Y=6783.826mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1063.148mil|Location2.X=1065.482mil|Location1.Y=6781.492mil|Location2.Y=6783.826mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R1-1(394mil,2257.496mil) on Top Layer And Text "R1" (378.402mil,2224.759mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2004.621mil|Location2.X=2006.954mil|Location1.Y=6890.824mil|Location2.Y=6893.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2004.621mil|Location2.X=2006.954mil|Location1.Y=6890.824mil|Location2.Y=6893.157mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R13-2(1333.504mil,2390mil) on Top Layer And Text "R14" (1288.024mil,2310.01mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2008.895mil|Location2.X=2011.228mil|Location1.Y=6838.793mil|Location2.Y=6841.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2008.895mil|Location2.X=2011.228mil|Location1.Y=6838.793mil|Location2.Y=6841.126mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R14-2(1334.504mil,2295mil) on Top Layer And Text "R14" (1288.024mil,2310.01mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2487.944mil|Location2.X=2490.277mil|Location1.Y=5841.827mil|Location2.Y=5844.16mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2487.944mil|Location2.X=2490.277mil|Location1.Y=5841.827mil|Location2.Y=5844.16mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R1bst-1(1790.252mil,1331mil) on Top Layer And Text "C2bst" (1590.192mil,1320.994mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2498.954mil|Location2.X=2501.288mil|Location1.Y=5851.824mil|Location2.Y=5854.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2498.954mil|Location2.X=2501.288mil|Location1.Y=5851.824mil|Location2.Y=5854.157mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R1bst-2(1821.748mil,1331mil) on Top Layer And Text "C2bst" (1590.192mil,1320.994mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1739.06mil|Location2.X=1742.31mil|Location1.Y=6489.721mil|Location2.Y=6492.971mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1739.06mil|Location2.X=1742.31mil|Location1.Y=6489.721mil|Location2.Y=6492.971mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.882mil &lt; 2mil) Between Pad R23-2(1031mil,1987.504mil) on Top Layer And Track (1000.713mil,1964.968mil)(1050.713mil,1964.968mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.882mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1709.727mil|Location2.X=1712.061mil|Location1.Y=6490.621mil|Location2.Y=6492.954mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1709.727mil|Location2.X=1712.061mil|Location1.Y=6490.621mil|Location2.Y=6492.954mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R23-2(1031mil,1987.504mil) on Top Layer And Track (1000.713mil,1989.968mil)(1025.713mil,1964.968mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1700.148mil|Location2.X=1702.482mil|Location1.Y=6510.802mil|Location2.Y=6513.135mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1700.148mil|Location2.X=1702.482mil|Location1.Y=6510.802mil|Location2.Y=6513.135mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R23-2(1031mil,1987.504mil) on Top Layer And Track (1000.713mil,1989.968mil)(1050.713mil,1989.968mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1719.365mil|Location2.X=1721.698mil|Location1.Y=6490.621mil|Location2.Y=6492.954mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1719.365mil|Location2.X=1721.698mil|Location1.Y=6490.621mil|Location2.Y=6492.954mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R23-2(1031mil,1987.504mil) on Top Layer And Track (1025.713mil,1964.968mil)(1050.713mil,1989.968mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2378.993mil|Location2.X=2381.327mil|Location1.Y=5841.827mil|Location2.Y=5844.16mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2378.993mil|Location2.X=2381.327mil|Location1.Y=5841.827mil|Location2.Y=5844.16mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R2bst-1(1692.441mil,1336mil) on Top Layer And Text "C2bst" (1590.192mil,1320.994mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2422.613mil|Location2.X=2424.946mil|Location1.Y=5841.827mil|Location2.Y=5844.16mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2422.613mil|Location2.X=2424.946mil|Location1.Y=5841.827mil|Location2.Y=5844.16mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R2bst-2(1747.559mil,1336mil) on Top Layer And Text "C2bst" (1590.192mil,1320.994mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.613mil|Location2.X=1131.946mil|Location1.Y=6406.534mil|Location2.Y=6408.867mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1129.613mil|Location2.X=1131.946mil|Location1.Y=6406.534mil|Location2.Y=6408.867mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R3-1(458.496mil,1894mil) on Top Layer And Track (419.063mil,1907.417mil)(444.063mil,1882.417mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1132.896mil|Location2.X=1135.23mil|Location1.Y=6403.251mil|Location2.Y=6405.584mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1132.896mil|Location2.X=1135.23mil|Location1.Y=6403.251mil|Location2.Y=6405.584mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R3-1(458.496mil,1894mil) on Top Layer And Track (444.063mil,1882.417mil)(444.063mil,1932.417mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1102.548mil|Location2.X=1105.798mil|Location1.Y=6434.06mil|Location2.Y=6437.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1102.548mil|Location2.X=1105.798mil|Location1.Y=6434.06mil|Location2.Y=6437.31mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.906mil &lt; 2mil) Between Pad R3-2(395.504mil,1894mil) on Top Layer And Track (419.063mil,1882.417mil)(419.063mil,1932.417mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1102.548mil|Location2.X=1105.798mil|Location1.Y=6427.792mil|Location2.Y=6431.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1102.548mil|Location2.X=1105.798mil|Location1.Y=6427.792mil|Location2.Y=6431.042mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.906mil &lt; 2mil) Between Pad R3-2(395.504mil,1894mil) on Top Layer And Track (419.063mil,1907.417mil)(444.063mil,1882.417mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1102.548mil|Location2.X=1105.798mil|Location1.Y=6427.792mil|Location2.Y=6431.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1102.548mil|Location2.X=1105.798mil|Location1.Y=6427.792mil|Location2.Y=6431.042mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.906mil &lt; 2mil) Between Pad R3-2(395.504mil,1894mil) on Top Layer And Track (419.063mil,1907.417mil)(444.063mil,1932.417mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=866.84mil|Location2.X=869.173mil|Location1.Y=6591.116mil|Location2.Y=6593.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=866.84mil|Location2.X=869.173mil|Location1.Y=6591.116mil|Location2.Y=6593.449mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R5-1(200.496mil,2091.404mil) on Top Layer And Text "R5" (148.016mil,2010.302mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1805.816mil|Location2.X=1808.149mil|Location1.Y=6820.653mil|Location2.Y=6822.986mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1805.816mil|Location2.X=1808.149mil|Location1.Y=6820.653mil|Location2.Y=6822.986mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R6-1(1134mil,2311.496mil) on Top Layer And Text "C24" (1116.982mil,2149.868mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1805.816mil|Location2.X=1808.149mil|Location1.Y=6770.669mil|Location2.Y=6773.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1805.816mil|Location2.X=1808.149mil|Location1.Y=6770.669mil|Location2.Y=6773.003mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad R6-2(1134mil,2248.504mil) on Top Layer And Text "C24" (1116.982mil,2149.868mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.218mil|Location2.X=2407.551mil|Location1.Y=5234.259mil|Location2.Y=5236.592mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2405.218mil|Location2.X=2407.551mil|Location1.Y=5234.259mil|Location2.Y=5236.592mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad S1-X1(1734.016mil,713.425mil) on Multi-Layer And Track (1380.653mil,713.425mil)(2087.347mil,713.425mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2483.942mil|Location2.X=2486.275mil|Location1.Y=5234.259mil|Location2.Y=5236.592mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2483.942mil|Location2.X=2486.275mil|Location1.Y=5234.259mil|Location2.Y=5236.592mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad S1-X2(1812.74mil,713.425mil) on Multi-Layer And Track (1380.653mil,713.425mil)(2087.347mil,713.425mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2326.462mil|Location2.X=2328.795mil|Location1.Y=5234.259mil|Location2.Y=5236.592mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2326.462mil|Location2.X=2328.795mil|Location1.Y=5234.259mil|Location2.Y=5236.592mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad S1-X3(1655.26mil,713.425mil) on Multi-Layer And Track (1380.653mil,713.425mil)(2087.347mil,713.425mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2776.18mil|Location2.X=2778.513mil|Location1.Y=4868.202mil|Location2.Y=4870.535mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2776.18mil|Location2.X=2778.513mil|Location1.Y=4868.202mil|Location2.Y=4870.535mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad S1-Y1(2087.347mil,365mil) on Multi-Layer And Track (2087.347mil,16.575mil)(2087.347mil,713.425mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2776.18mil|Location2.X=2778.513mil|Location1.Y=4946.942mil|Location2.Y=4949.275mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2776.18mil|Location2.X=2778.513mil|Location1.Y=4946.942mil|Location2.Y=4949.275mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad S1-Y2(2087.347mil,443.74mil) on Multi-Layer And Track (2087.347mil,16.575mil)(2087.347mil,713.425mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2776.18mil|Location2.X=2778.513mil|Location1.Y=4789.462mil|Location2.Y=4791.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2776.18mil|Location2.X=2778.513mil|Location1.Y=4789.462mil|Location2.Y=4791.795mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad S1-Y3(2087.347mil,286.26mil) on Multi-Layer And Track (2087.347mil,16.575mil)(2087.347mil,713.425mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2274.796mil|Location2.X=2277.13mil|Location1.Y=6660.827mil|Location2.Y=6663.16mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2274.796mil|Location2.X=2277.13mil|Location1.Y=6660.827mil|Location2.Y=6663.16mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad SD1-14(1621.516mil,2164.909mil) on Top Layer And Text "L1bst" (1346.041mil,2090.01mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2088.858mil|Location2.X=2091.191mil|Location1.Y=5859.84mil|Location2.Y=5862.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2088.858mil|Location2.X=2091.191mil|Location1.Y=5859.84mil|Location2.Y=5862.173mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad TP14-1(1378mil,1329.339mil) on Top Layer And Text "C13" (1400.024mil,1329.01mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2092.529mil|Location2.X=2094.862mil|Location1.Y=5863.718mil|Location2.Y=5866.052mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2092.529mil|Location2.X=2094.862mil|Location1.Y=5863.718mil|Location2.Y=5866.052mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad TP14-1(1378mil,1329.339mil) on Top Layer And Text "R2bst" (1663.611mil,1382.872mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2062.922mil|Location2.X=2066.172mil|Location1.Y=6749.52mil|Location2.Y=6752.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2062.922mil|Location2.X=2066.172mil|Location1.Y=6749.52mil|Location2.Y=6752.77mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.274mil &lt; 2mil) Between Pad TP7-1(1400mil,2226mil) on Top Layer And Text "TP7" (1209.026mil,2180.01mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.274mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1059.957mil|Location2.X=1062.29mil|Location1.Y=6650.383mil|Location2.Y=6652.716mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1059.957mil|Location2.X=1062.29mil|Location1.Y=6650.383mil|Location2.Y=6652.716mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad U1-1(371.701mil,2132mil) on Top Layer And Text "R4" (311.143mil,2099.559mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1089.947mil|Location2.X=1092.28mil|Location1.Y=6620.393mil|Location2.Y=6622.726mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1089.947mil|Location2.X=1092.28mil|Location1.Y=6620.393mil|Location2.Y=6622.726mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad U1-13(424.85mil,2087.709mil) on Top Layer And Text "R4" (311.143mil,2099.559mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2463.213mil|Location2.X=2465.546mil|Location1.Y=5997.333mil|Location2.Y=5999.667mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2463.213mil|Location2.X=2465.546mil|Location1.Y=5997.333mil|Location2.Y=5999.667mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad U2-7(1785.441mil,1469mil) on Top Layer And Text "C1bst" (1534.457mil,1430.041mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2463.213mil|Location2.X=2465.546mil|Location1.Y=5960.871mil|Location2.Y=5963.205mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2463.213mil|Location2.X=2465.546mil|Location1.Y=5960.871mil|Location2.Y=5963.205mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 2mil) Between Pad U2-8(1785.441mil,1444mil) on Top Layer And Text "C1bst" (1534.457mil,1430.041mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDBVHRKKPPKW5EHIXS0GNVPVT4VJ3HJ0CKBIMFA53RYUCSVMCM2JD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2271.836mil|Location2.X=2283.086mil|Location1.Y=7161.708mil|Location2.Y=7172.958mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2271.836mil|Location2.X=2283.086mil|Location1.Y=7161.708mil|Location2.Y=7172.958mil|Absolute=True">Board Outline Clearance(Outline Edge): (2.185mil &lt; 10mil) Between Arc (1587.461mil,2634.398mil) on Top Overlay And Board Edge </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6026.033mil|Location2.Y=6054.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6026.033mil|Location2.Y=6054.153mil|Absolute=True">Board Outline Clearance(Outline Edge): (11.568mil &lt; 20mil) Between Board Edge And Pad J3-5(2910.504mil,1492mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6447.292mil|Location2.Y=6475.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6447.292mil|Location2.Y=6475.412mil|Absolute=True">Board Outline Clearance(Outline Edge): (11.568mil &lt; 20mil) Between Board Edge And Pad J3-5(2910.504mil,1913.26mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6550.343mil|Location2.Y=6578.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6550.343mil|Location2.Y=6578.463mil|Absolute=True">Board Outline Clearance(Outline Edge): (11.568mil &lt; 20mil) Between Board Edge And Pad J4-5(2910.504mil,2016.311mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6971.604mil|Location2.Y=6999.723mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3662.592mil|Location2.X=3683.842mil|Location1.Y=6971.604mil|Location2.Y=6999.723mil|Absolute=True">Board Outline Clearance(Outline Edge): (11.568mil &lt; 20mil) Between Board Edge And Pad J4-5(2910.504mil,2437.571mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=671.675mil|Location2.X=679.341mil|Location1.Y=6528.89mil|Location2.Y=6536.556mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=671.675mil|Location2.X=679.341mil|Location1.Y=6528.89mil|Location2.Y=6536.556mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Text "C3" (-8.984mil,1980.733mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=673.675mil|Location2.X=681.341mil|Location1.Y=6435.459mil|Location2.Y=6443.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=673.675mil|Location2.X=681.341mil|Location1.Y=6435.459mil|Location2.Y=6443.126mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Text "C4" (-4.984mil,1887.302mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=671.675mil|Location2.X=679.341mil|Location1.Y=6638.287mil|Location2.Y=6645.954mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=671.675mil|Location2.X=679.341mil|Location1.Y=6638.287mil|Location2.Y=6645.954mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 10mil) Between Board Edge And Text "C7" (-8.984mil,2090.13mil) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=775.398mil|Location2.X=786.648mil|Location1.Y=6234.187mil|Location2.Y=6245.437mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=775.398mil|Location2.X=786.648mil|Location1.Y=6234.187mil|Location2.Y=6245.437mil|Absolute=True">Board Outline Clearance(Outline Edge): (4.981mil &lt; 10mil) Between Board Edge And Text "FB1" (101.023mil,1730.302mil) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
