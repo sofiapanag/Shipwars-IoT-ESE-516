@@ -1,0 +1,23 @@
+Added Component: Designator=S1(ADA_2765)
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "https://media.digikey.com/pdf/Data%20Sheets/Adafruit%20PDFs/2765_Web.pdf?src-supplier=Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://media.digikey.com/pdf/Data%20Sheets/Adafruit%20PDFs/2765_Web.pdf?src-supplier=Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.472inch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "0.707inch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Adafruit Industries"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "2765"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mount"; Value = "Through Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Bulk"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pricing 1"; Value = "1=2.50000 (USD)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance"; Value = "10kR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHS"; Value = "Yes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Stock 1"; Value = "673"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "1528-1730-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "0.697inch"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=ADC_1_THUMBSTICK Pin=S1-X1
+Added Pin To Net: NetName=Vin Pin=S1-X2
+Added Pin To Net: NetName=GND Pin=S1-X3
+Added Pin To Net: NetName=ADC_2_THUMBSTICK Pin=S1-Y1
+Added Pin To Net: NetName=Vin Pin=S1-Y2
+Added Pin To Net: NetName=GND Pin=S1-Y3
+Added Member To Class: ClassName=U_Joystick Member=Component S1 ADA_2765
