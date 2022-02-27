@@ -1,0 +1,31 @@
+Removed Pin From Net: NetName=5V Pin=R17-2
+Removed Pin From Net: NetName=5V Pin=R26-2
+Removed Pin From Net: NetName=Vin Pin=S1-X2
+Removed Pin From Net: NetName=Vin Pin=S1-Y2
+Added Component: Designator=R36(RESC0603(1608)_N)
+Add component (AddParameter): Name = "Case-EIA"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case-Metric"; Value = "1608"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power"; Value = "0.1 W"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Technology"; Value = "SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "1 %"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10000.00 Ohm"; VariantName = "[No Variations]"
+Added Component: Designator=R38(RESC0603(1608)_N)
+Add component (AddParameter): Name = "Case-EIA"; Value = "0603"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Case-Metric"; Value = "1608"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power"; Value = "0.1 W"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Technology"; Value = "SMT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "1 %"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "10000.00 Ohm"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=3V3 Pin=R17-2
+Added Pin To Net: NetName=3V3 Pin=R26-2
+Added Pin To Net: NetName=Vin Pin=R36-2
+Added Pin To Net: NetName=Vin Pin=R38-2
+Added Pin To Net: NetName=GND Pin=U8-1
+Added Pin To Net: NetName=NetR36_1 Pin=R36-1
+Added Pin To Net: NetName=NetR36_1 Pin=S1-X2
+Added Net: Name=NetR36_1
+Added Pin To Net: NetName=NetR38_1 Pin=R38-1
+Added Pin To Net: NetName=NetR38_1 Pin=S1-Y2
+Added Net: Name=NetR38_1
+Added Member To Class: ClassName=U_Joystick Member=Component R36 10K? 1%
+Added Member To Class: ClassName=U_Joystick Member=Component R38 10K? 1%
