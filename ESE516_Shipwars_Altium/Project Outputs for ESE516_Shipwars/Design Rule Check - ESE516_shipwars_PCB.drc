@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
-PCB File : C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc
+PCB File : C:\Users\pattana\Desktop\shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc
 Date     : 2/28/2022
-Time     : 2:40:28 AM
+Time     : 6:34:55 PM
 
 Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
 Rule Violations :0
@@ -42,7 +42,7 @@ Rule Violations :0
 Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
 Rule Violations :0
 
-Processing Rule : Minimum Solder Mask Sliver (Gap=2mil) (All),(All)
+Processing Rule : Minimum Solder Mask Sliver (Gap=4mil) (All),(All)
 Rule Violations :0
 
 Processing Rule : Silk To Solder Mask (Clearance=2mil) (IsPad),(All)
@@ -66,4 +66,4 @@ Rule Violations :0
 
 Violations Detected : 0
 Waived Violations : 0
-Time Elapsed        : 00:00:03
+Time Elapsed        : 00:00:02
