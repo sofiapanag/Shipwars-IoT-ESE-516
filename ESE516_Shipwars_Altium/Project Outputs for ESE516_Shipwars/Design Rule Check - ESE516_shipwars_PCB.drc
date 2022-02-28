@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc
-Date     : 2/27/2022
-Time     : 12:47:38 PM
+Date     : 2/28/2022
+Time     : 2:40:28 AM
 
 Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
 Rule Violations :0
@@ -66,4 +66,4 @@ Rule Violations :0
 
 Violations Detected : 0
 Waived Violations : 0
-Time Elapsed        : 00:00:02
+Time Elapsed        : 00:00:03
