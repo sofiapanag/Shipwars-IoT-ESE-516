@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
-PCB File : C:\Users\Sofia Panagopoulou\Documents\GitHub\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc
+PCB File : C:\Users\Admin\Desktop\ESE516-IOTEDGE\Shipwars\ESE516_Shipwars_Altium\ESE516_shipwars_PCB.PcbDoc
 Date     : 3/2/2022
-Time     : 8:39:29 PM
+Time     : 9:48:44 PM
 
 Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
 Rule Violations :0
@@ -43,20 +43,7 @@ Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
 Rule Violations :0
 
 Processing Rule : Minimum Solder Mask Sliver (Gap=4mil) (All),(All)
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-1(1823.441mil,1156.541mil) on Multi-Layer And Pad U3-2(1873.441mil,1156.541mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-1(1823.441mil,1156.541mil) on Multi-Layer And Pad U3-3(1823.441mil,1106.541mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-10(1873.441mil,956.54mil) on Multi-Layer And Pad U3-8(1873.441mil,1006.54mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-10(1873.441mil,956.54mil) on Multi-Layer And Pad U3-9(1823.441mil,956.54mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-2(1873.441mil,1156.541mil) on Multi-Layer And Pad U3-4(1873.441mil,1106.541mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-3(1823.441mil,1106.541mil) on Multi-Layer And Pad U3-4(1873.441mil,1106.541mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-3(1823.441mil,1106.541mil) on Multi-Layer And Pad U3-5(1823.441mil,1056.541mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-4(1873.441mil,1106.541mil) on Multi-Layer And Pad U3-6(1873.441mil,1056.541mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-5(1823.441mil,1056.541mil) on Multi-Layer And Pad U3-6(1873.441mil,1056.541mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-5(1823.441mil,1056.541mil) on Multi-Layer And Pad U3-7(1823.441mil,1006.54mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-6(1873.441mil,1056.541mil) on Multi-Layer And Pad U3-8(1873.441mil,1006.54mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-7(1823.441mil,1006.54mil) on Multi-Layer And Pad U3-8(1873.441mil,1006.54mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-   Violation between Minimum Solder Mask Sliver Constraint: (2.4mil < 4mil) Between Pad U3-7(1823.441mil,1006.54mil) on Multi-Layer And Pad U3-9(1823.441mil,956.54mil) on Multi-Layer [Top Solder] Mask Sliver [2.4mil] / [Bottom Solder] Mask Sliver [2.4mil]
-Rule Violations :13
+Rule Violations :0
 
 Processing Rule : Silk To Solder Mask (Clearance=2mil) (IsPad),(All)
 Rule Violations :0
@@ -77,6 +64,6 @@ Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (
 Rule Violations :0
 
 
-Violations Detected : 13
+Violations Detected : 0
 Waived Violations : 0
 Time Elapsed        : 00:00:03
