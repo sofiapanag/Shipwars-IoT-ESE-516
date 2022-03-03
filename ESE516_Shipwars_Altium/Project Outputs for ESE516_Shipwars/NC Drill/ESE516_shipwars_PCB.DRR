@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: ESE516_shipwars_PCB.PcbDoc   3/2/2022  6:35:01 PM
+NCDrill File Report For: ESE516_shipwars_PCB.PcbDoc   3/3/2022  11:04:50 AM
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -7,15 +7,14 @@ ASCII RoundHoles File : ESE516_shipwars_PCB.TXT
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      8mil (0.203mm)                                            Round             159       PTH        31.37inch (796.83mm)
-T2      12mil (0.3mm)                                             Round             1         PTH        0.00inch (0.00mm)
-T3      26mil (0.65mm)                                            Round             10        PTH        0.57inch (14.57mm)
-T4      30mil (0.762mm)                                           Round             3         PTH        0.10inch (2.54mm)
-T5      33mil (0.85mm)                                            Round             2         PTH        0.20inch (5.00mm)
-T6      35mil (0.9mm)                                             Round             6         PTH        0.70inch (17.78mm)
-T7      50mil (1.27mm)                                            Round             3         PTH        0.20inch (5.08mm)
-T8      106mil (2.7mm)                                            Round             4         PTH        9.36inch (237.70mm)
+T1      8mil (0.203mm)                                            Round             159       PTH        31.31inch (795.28mm)
+T2      26mil (0.65mm)                                            Round             10        PTH        0.57inch (14.57mm)
+T3      30mil (0.762mm)                                           Round             3         PTH        0.10inch (2.54mm)
+T4      33mil (0.85mm)                                            Round             2         PTH        0.20inch (5.00mm)
+T5      35mil (0.9mm)                                             Round             6         PTH        0.70inch (17.78mm)
+T6      50mil (1.27mm)                                            Round             3         PTH        0.20inch (5.08mm)
+T7      106mil (2.7mm)                                            Round             4         PTH        9.36inch (237.70mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              188
+Totals                                                                              187
 
 Total Processing Time (hh:mm:ss) : 00:00:00
