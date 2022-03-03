@@ -1,9 +1,10 @@
 Output: PCBNG BOM
 Type  : BOM
 From  : Variant [Build_Alt] of Project [ESE516_Shipwars.PrjPcb]
+   Generated File[PCBNG BOM-ESE516_Shipwars_BOM(Build_Alt).xlsx]
 
 
-Files Generated   : 0
+Files Generated   : 1
 Documents Printed : 0
 
-Finished Output Generation At 11:44:57 AM On 3/3/2022
+Finished Output Generation At 1:01:55 PM On 3/3/2022

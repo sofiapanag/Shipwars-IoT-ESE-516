@@ -2,145 +2,26 @@
 FileName = ESE516_shipwars_PCB.GBR
 AutoAperture = True
 *************************************************************
-Generating : Top Layer
-      File : ESE516_shipwars_PCB.GTL
+Generating : Board Shape
+      File : ESE516_shipwars_PCB.GM17
 
-    Adding Layer      : Top Layer
-
-    Adding Layer      : Multi-Layer
+    Adding Layer      : Board Shape
 
 
 Used DCodes :
-    D11
-    D17
-    D22
-    D23
-    D24
-    D25
-    D26
-    D27
-    D28
-    D29
-    D30
-    D33
-    D34
-    D35
-    D36
-    D37
-    D38
-    D39
-    D40
-    D41
-    D42
-    D43
-    D44
-    D45
-    D46
-    D47
-    D48
-    D49
-    D50
-    D51
-    D52
-    D53
-    D54
-    D55
-    D56
-    D57
-    D58
-    D59
-    D60
-    D61
-    D62
-    D63
-    D64
-    D65
-    D66
-    D67
-    D68
-    D69
-    D70
-    D71
-    D72
-    D147
-    D148
-    D149
-    D150
-    D151
-    D152
-    D153
-    D154
-    D155
-    D156
-    D157
-    D158
-    D159
-    D160
-    D161
-    D162
-    D163
-    D164
-    D165
-    D166
-    D167
+    D10
 *************************************************************
 
 *************************************************************
-Generating : GroundPlane
-      File : ESE516_shipwars_PCB.G1
+Generating : Bottom Overlay
+      File : ESE516_shipwars_PCB.GBO
 
-    Adding Layer      : GroundPlane
-
-    Adding Layer      : Multi-Layer
+    Adding Layer      : Bottom Overlay
 
 
 Used DCodes :
-    D158
-    D161
-    D162
-    D163
-    D165
-    D167
-*************************************************************
-
-*************************************************************
-Generating : PowerPlane
-      File : ESE516_shipwars_PCB.G2
-
-    Adding Layer      : PowerPlane
-
-    Adding Layer      : Multi-Layer
-
-
-Used DCodes :
-    D154
-    D159
-    D164
-    D167
-*************************************************************
-
-*************************************************************
-Generating : Bottom Layer
-      File : ESE516_shipwars_PCB.GBL
-
-    Adding Layer      : Bottom Layer
-
-    Adding Layer      : Multi-Layer
-
-
-Used DCodes :
-    D11
-    D158
-    D159
-    D160
-    D161
-    D162
-    D163
-    D164
-    D165
-    D166
-    D167
-    D168
+    D12
+    D169
 *************************************************************
 
 *************************************************************
@@ -158,113 +39,28 @@ Used DCodes :
 *************************************************************
 
 *************************************************************
-Generating : Bottom Overlay
-      File : ESE516_shipwars_PCB.GBO
+Generating : Bottom Solder
+      File : ESE516_shipwars_PCB.GBS
 
-    Adding Layer      : Bottom Overlay
+    Adding Layer      : Bottom Solder
 
-
-Used DCodes :
-    D14
-    D169
-*************************************************************
-
-*************************************************************
-Generating : Board Shape
-      File : ESE516_shipwars_PCB.GM17
-
-    Adding Layer      : Board Shape
-
-
-Used DCodes :
-    D11
-*************************************************************
-
-*************************************************************
-Generating : Top Overlay
-      File : ESE516_shipwars_PCB.GTO
-
-    Adding Layer      : Top Overlay
-
-
-Used DCodes :
-    D10
-    D11
-    D12
-    D13
-    D14
-    D15
-    D16
-    D17
-*************************************************************
-
-*************************************************************
-Generating : Top Paste
-      File : ESE516_shipwars_PCB.GTP
-
-    Adding Layer      : Top Paste
-
-    Adding Layer      : Top Layer
+    Adding Layer      : Bottom Layer
 
     Adding Layer      : Multi-Layer
 
 
 Used DCodes :
-    D18
-    D19
-    D20
-    D21
-    D22
-    D23
-    D24
-    D25
-    D26
-    D27
-    D28
-    D29
-    D30
-    D31
-    D32
-    D33
-    D34
-    D35
-    D36
-    D37
-    D38
-    D39
-    D40
-    D41
-    D42
-    D43
-    D44
-    D45
-    D46
-    D47
-    D48
-    D49
-    D50
-    D51
-    D52
-    D53
-    D54
-    D55
-    D56
-    D57
-    D58
-    D59
-    D60
-    D61
-    D62
-    D63
-    D64
-    D65
-    D66
-    D67
-    D68
-    D69
-    D70
-    D71
-    D72
+    D136
+    D137
+    D138
+    D139
+    D140
+    D141
+    D142
+    D143
+    D144
+    D145
+    D146
 *************************************************************
 
 *************************************************************
@@ -279,13 +75,13 @@ Generating : Top Solder
 
 
 Used DCodes :
-    D38
+    D30
+    D31
+    D42
     D54
-    D55
-    D56
-    D57
-    D58
+    D63
     D68
+    D71
     D73
     D74
     D75
@@ -363,10 +159,95 @@ Used DCodes :
 *************************************************************
 
 *************************************************************
-Generating : Bottom Solder
-      File : ESE516_shipwars_PCB.GBS
+Generating : Top Paste
+      File : ESE516_shipwars_PCB.GTP
 
-    Adding Layer      : Bottom Solder
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D56
+    D57
+    D58
+    D59
+    D60
+    D61
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+    D71
+    D72
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : ESE516_shipwars_PCB.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : ESE516_shipwars_PCB.GBL
 
     Adding Layer      : Bottom Layer
 
@@ -374,16 +255,135 @@ Generating : Bottom Solder
 
 
 Used DCodes :
-    D136
-    D137
-    D138
-    D139
-    D140
-    D141
-    D142
-    D143
-    D144
-    D145
-    D146
+    D10
+    D158
+    D159
+    D160
+    D161
+    D162
+    D163
+    D164
+    D165
+    D166
+    D167
+    D168
+*************************************************************
+
+*************************************************************
+Generating : PowerPlane
+      File : ESE516_shipwars_PCB.G2
+
+    Adding Layer      : PowerPlane
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D154
+    D159
+    D162
+    D167
+*************************************************************
+
+*************************************************************
+Generating : GroundPlane
+      File : ESE516_shipwars_PCB.G1
+
+    Adding Layer      : GroundPlane
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D158
+    D160
+    D161
+    D163
+    D165
+    D167
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : ESE516_shipwars_PCB.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D17
+    D22
+    D23
+    D24
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+    D43
+    D44
+    D45
+    D46
+    D47
+    D48
+    D49
+    D50
+    D51
+    D52
+    D53
+    D54
+    D55
+    D58
+    D59
+    D60
+    D61
+    D62
+    D63
+    D64
+    D65
+    D66
+    D67
+    D68
+    D69
+    D70
+    D71
+    D72
+    D147
+    D148
+    D149
+    D150
+    D151
+    D152
+    D153
+    D154
+    D155
+    D156
+    D157
+    D158
+    D159
+    D160
+    D161
+    D162
+    D163
+    D164
+    D165
+    D166
+    D167
 *************************************************************
 

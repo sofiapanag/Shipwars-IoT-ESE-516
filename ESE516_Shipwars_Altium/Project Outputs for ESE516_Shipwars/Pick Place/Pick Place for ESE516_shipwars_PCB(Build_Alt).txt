@@ -1,11 +1,11 @@
 Altium Designer Pick and Place Locations
-C:\Users\Sofia Panagopoulou\Documents\GitHub\Shipwars\ESE516_Shipwars_Altium\Project Outputs for ESE516_Shipwars\Pick Place\Pick Place for ESE516_shipwars_PCB(Build_Alt).txt
+\\nestor\sofiapan\GitHub\Shipwars\ESE516_Shipwars_Altium\Project Outputs for ESE516_Shipwars\Pick Place\Pick Place for ESE516_shipwars_PCB(Build_Alt).txt
 
 ========================================================================================================================
 File Design Information:
 
 Date:       03/03/22
-Time:       11:04
+Time:       13:01
 Revision:   df5f20aac8672e162984912a27b8131d88a1ffe8
 Variant:    Build_Alt
 Units used: mil
