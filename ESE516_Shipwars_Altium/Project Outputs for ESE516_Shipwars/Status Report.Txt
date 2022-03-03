@@ -1,0 +1,9 @@
+Output: PCBNG BOM
+Type  : BOM
+From  : Variant [Build_Alt] of Project [ESE516_Shipwars.PrjPcb]
+
+
+Files Generated   : 0
+Documents Printed : 0
+
+Finished Output Generation At 6:35:08 PM On 3/2/2022
