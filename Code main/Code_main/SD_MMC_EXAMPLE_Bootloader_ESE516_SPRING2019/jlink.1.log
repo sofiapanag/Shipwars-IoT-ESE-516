@@ -1,0 +1,75 @@
+T8D3C 081:949.985   SEGGER J-Link V6.88a Log File
+T8D3C 081:950.787   DLL Compiled: Nov 18 2020 15:09:23
+T8D3C 081:950.842   Logging started @ 2021-04-07 23:39
+T8D3C 081:950.893 - 81950.925ms
+T8D3C 081:956.577 JLINK_ExecCommand("Device = ATSAMD21G18A", ...). 
+T8D3C 081:957.265   Looking for J-Link GUI Server exe at: C:\Program Files (x86)\Atmel\Studio\7.0\atbackend\JLinkGUIServer.exe
+T8D3C 081:957.625   Looking for J-Link GUI Server exe at: C:\Program Files (x86)\SEGGER\JLink\JLinkGUIServer.exe
+T8D3C 081:957.776   Forking J-Link GUI Server: C:\Program Files (x86)\SEGGER\JLink\JLinkGUIServer.exe
+T8D3C 083:129.400   J-Link GUI Server info: "J-Link GUI server V6.88a "
+T8D3C 088:237.785   The connected J-Link (S/N 682513178) has been designed to work with devices made by Nordic Semi only.
+Debugging the selected device ATSAMD21G18 is not supported by this J-Link.
+
+To program and debug the target device, please consider purchasing a full J-Link.
+More information: https://www.segger.com/jlink-debug-probes.html
+T8D3C 088:239.923   Device "ATSAMD21G18" selected.
+T8D3C 088:240.612 - 6283.995ms returns 0x00
+T930C 088:241.622 JLINK_EMU_GetList(InterfaceMask = 0x00000001, MaxInfos = 0x00000032) 
+T930C 088:243.640   [0]: USB, S/N: 682513178
+T930C 088:243.714 - 2.102ms returns 1
+T930C 088:243.782 JLINK_EMU_GetList(InterfaceMask = 0x00000002, MaxInfos = 0x00000032) 
+T930C 088:269.806 - 26.063ms returns 0
+T8D3C 088:283.542 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T8D3C 088:285.441 - 1.934ms returns 0x00
+T8D3C 088:285.507 JLINK_SetSpeed(4000)
+T8D3C 088:285.705 - 0.223ms
+T8D3C 088:285.753 JLINK_ResetPullsRESET(OFF)
+T8D3C 088:285.801 - 0.077ms
+T8D3C 088:285.851 JLINK_Connect()
+T8D3C 088:287.128   InitTarget() start
+T8D3C 088:287.198    J-Link Script File: Executing InitTarget()
+T8D3C 088:287.795   InitTarget()
+T8D3C 088:291.709   InitTarget() end
+T8D3C 088:353.636   InitTarget() start
+T8D3C 088:353.746    J-Link Script File: Executing InitTarget()
+T8D3C 088:353.827   InitTarget()
+T8D3C 088:358.776   InitTarget() end
+T8D3C 088:358.899 - 73.079ms returns 0xFFFFFFFF
+T8D3C 088:360.757 JLINK_ResetPullsRESET(ON)
+T8D3C 088:360.791 - 0.045ms
+T8D3C 088:360.833 JLINK_ResetNoHalt()
+T8D3C 088:361.213   InitTarget() start
+T8D3C 088:361.251    J-Link Script File: Executing InitTarget()
+T8D3C 088:361.300   InitTarget()
+T8D3C 088:364.377   InitTarget() end
+T8D3C 088:426.494   InitTarget() start
+T8D3C 088:426.569    J-Link Script File: Executing InitTarget()
+T8D3C 088:426.618   InitTarget()
+T8D3C 088:430.646   InitTarget() end
+T8D3C 088:430.708 - 69.885ms
+T8D3C 088:439.960 JLINK_GetHWStatus(...)
+T8D3C 088:440.238 - 0.299ms returns 0
+T930C 089:364.627 JLINK_EMU_GetList(InterfaceMask = 0x00000001, MaxInfos = 0x00000032) 
+T930C 089:365.616   [0]: USB, S/N: 682513178
+T930C 089:365.658 - 1.042ms returns 1
+T930C 089:365.721 JLINK_EMU_GetList(InterfaceMask = 0x00000002, MaxInfos = 0x00000032) 
+T930C 089:390.840 - 25.188ms returns 0
+T930C 090:496.876 JLINK_EMU_GetList(InterfaceMask = 0x00000001, MaxInfos = 0x00000032) 
+T930C 090:497.800   [0]: USB, S/N: 682513178
+T930C 090:497.839 - 0.973ms returns 1
+T930C 090:497.901 JLINK_EMU_GetList(InterfaceMask = 0x00000002, MaxInfos = 0x00000032) 
+T930C 090:523.191 - 25.368ms returns 0
+T930C 091:615.492 JLINK_EMU_GetList(InterfaceMask = 0x00000001, MaxInfos = 0x00000032) 
+T930C 091:616.465   [0]: USB, S/N: 682513178
+T930C 091:616.506 - 1.024ms returns 1
+T930C 091:616.569 JLINK_EMU_GetList(InterfaceMask = 0x00000002, MaxInfos = 0x00000032) 
+T930C 091:641.189 - 24.666ms returns 0
+T930C 092:738.529 JLINK_EMU_GetList(InterfaceMask = 0x00000001, MaxInfos = 0x00000032) 
+T930C 092:739.616   [0]: USB, S/N: 682513178
+T930C 092:739.658 - 1.139ms returns 1
+T930C 092:739.722 JLINK_EMU_GetList(InterfaceMask = 0x00000002, MaxInfos = 0x00000032) 
+T930C 092:765.200 - 25.518ms returns 0
+T8D3C 093:650.374 JLINK_Close()
+T8D3C 093:655.552 - 5.212ms
+T8D3C 093:655.599   
+T8D3C 093:655.620   Closed
