@@ -722,7 +722,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x3e src/ASF/common/services/crc32/crc32.o
  .debug_macro   0x00000000      0x3df src/ASF/common/services/crc32/crc32.o
  .debug_line    0x00000000      0x8d4 src/ASF/common/services/crc32/crc32.o
- .debug_str     0x00000000    0x801c7 src/ASF/common/services/crc32/crc32.o
+ .debug_str     0x00000000    0x801b2 src/ASF/common/services/crc32/crc32.o
  .comment       0x00000000       0x5a src/ASF/common/services/crc32/crc32.o
  .debug_frame   0x00000000       0x50 src/ASF/common/services/crc32/crc32.o
  .ARM.attributes
@@ -1919,7 +1919,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x10 src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
  .debug_macro   0x00000000       0x27 src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
  .debug_line    0x00000000      0xe3d src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
- .debug_str     0x00000000    0x81f34 src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
+ .debug_str     0x00000000    0x81f1f src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
  .comment       0x00000000       0x5a src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
  .debug_frame   0x00000000      0x310 src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
  .ARM.attributes
@@ -10498,76 +10498,76 @@ OUTPUT(ESE516 BOOTLOADER.elf elf32-littlearm)
  .debug_line    0x00018742      0x13c src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
  .debug_line    0x0001887e     0x12cd src/BootMain.o
 
-.debug_str      0x00000000    0x93e3a
- .debug_str     0x00000000    0x7f7cb src/ASF/common2/services/delay/sam0/systick_counter.o
-                              0x800b6 (size before relaxing)
- .debug_str     0x0007f7cb     0x654c src/Systick/Systick.o
+.debug_str      0x00000000    0x93eaf
+ .debug_str     0x00000000    0x7f7b6 src/ASF/common2/services/delay/sam0/systick_counter.o
+                              0x800a1 (size before relaxing)
+ .debug_str     0x0007f7b6     0x65d6 src/Systick/Systick.o
                               0x86637 (size before relaxing)
- .debug_str     0x00085d17      0x30b src/ASF/sam0/boards/board_init.o
-                              0x829f2 (size before relaxing)
- .debug_str     0x00086022      0x581 src/ASF/sam0/drivers/dsu/crc32/crc32.o
-                              0x806ed (size before relaxing)
- .debug_str     0x000865a3      0xfca src/ASF/sam0/drivers/nvm/nvm.o
-                              0x8165c (size before relaxing)
- .debug_str     0x0008756d       0x86 src/ASF/sam0/drivers/pac/pac_sam_d_r_h/pac.o
-                              0x805d6 (size before relaxing)
- .debug_str     0x000875f3     0x4861 src/SD Card/SdCard.o
+ .debug_str     0x00085d8c      0x30b src/ASF/sam0/boards/board_init.o
+                              0x829dd (size before relaxing)
+ .debug_str     0x00086097      0x581 src/ASF/sam0/drivers/dsu/crc32/crc32.o
+                              0x806d8 (size before relaxing)
+ .debug_str     0x00086618      0xfca src/ASF/sam0/drivers/nvm/nvm.o
+                              0x81647 (size before relaxing)
+ .debug_str     0x000875e2       0x86 src/ASF/sam0/drivers/pac/pac_sam_d_r_h/pac.o
+                              0x805c1 (size before relaxing)
+ .debug_str     0x00087668     0x4861 src/SD Card/SdCard.o
                               0x8a97e (size before relaxing)
- .debug_str     0x0008be54      0x1d5 src/SerialConsole/circular_buffer.o
+ .debug_str     0x0008bec9      0x1d5 src/SerialConsole/circular_buffer.o
                                0x67cd (size before relaxing)
- .debug_str     0x0008c029      0xf61 src/SerialConsole/SerialConsole.o
+ .debug_str     0x0008c09e      0xf61 src/SerialConsole/SerialConsole.o
                               0x878b3 (size before relaxing)
- .debug_str     0x0008cf8a      0xb9f src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
-                              0x8b8db (size before relaxing)
- .debug_str     0x0008db29      0x139 src/ASF/common2/components/memory/sd_mmc/sd_mmc_mem.o
-                              0x83776 (size before relaxing)
- .debug_str     0x0008dc62      0x7b4 src/ASF/common2/components/memory/sd_mmc/sd_mmc_spi.o
-                              0x8c1c3 (size before relaxing)
- .debug_str     0x0008e416      0x239 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
-                              0x8331a (size before relaxing)
- .debug_str     0x0008e64f       0x45 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
-                              0x7fea6 (size before relaxing)
- .debug_str     0x0008e694       0xaa src/ASF/sam0/drivers/port/port.o
-                              0x802d2 (size before relaxing)
- .debug_str     0x0008e73e      0x8c2 src/ASF/sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar.o
-                              0x81f2e (size before relaxing)
- .debug_str     0x0008f000      0x39d src/ASF/sam0/drivers/sercom/sercom.o
-                              0x81587 (size before relaxing)
- .debug_str     0x0008f39d      0x17b src/ASF/sam0/drivers/sercom/sercom_interrupt.o
-                              0x813ea (size before relaxing)
- .debug_str     0x0008f518      0x1a9 src/ASF/sam0/drivers/sercom/spi/spi.o
-                              0x82879 (size before relaxing)
- .debug_str     0x0008f6c1      0x244 src/ASF/sam0/drivers/sercom/spi/spi_interrupt.o
-                              0x81835 (size before relaxing)
- .debug_str     0x0008f905       0x6e src/ASF/sam0/drivers/sercom/usart/usart.o
-                              0x82352 (size before relaxing)
- .debug_str     0x0008f973       0xd0 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
-                              0x81598 (size before relaxing)
- .debug_str     0x0008fa43     0x1661 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
-                              0x83133 (size before relaxing)
- .debug_str     0x000910a4      0x1e3 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
-                              0x80b69 (size before relaxing)
- .debug_str     0x00091287      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_str     0x0008cfff      0xb9f src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
+                              0x8b8c6 (size before relaxing)
+ .debug_str     0x0008db9e      0x139 src/ASF/common2/components/memory/sd_mmc/sd_mmc_mem.o
+                              0x83761 (size before relaxing)
+ .debug_str     0x0008dcd7      0x7b4 src/ASF/common2/components/memory/sd_mmc/sd_mmc_spi.o
+                              0x8c1ae (size before relaxing)
+ .debug_str     0x0008e48b      0x239 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
+                              0x83305 (size before relaxing)
+ .debug_str     0x0008e6c4       0x45 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+                              0x7fe91 (size before relaxing)
+ .debug_str     0x0008e709       0xaa src/ASF/sam0/drivers/port/port.o
+                              0x802bd (size before relaxing)
+ .debug_str     0x0008e7b3      0x8c2 src/ASF/sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar.o
+                              0x81f19 (size before relaxing)
+ .debug_str     0x0008f075      0x39d src/ASF/sam0/drivers/sercom/sercom.o
+                              0x81572 (size before relaxing)
+ .debug_str     0x0008f412      0x17b src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+                              0x813d5 (size before relaxing)
+ .debug_str     0x0008f58d      0x1a9 src/ASF/sam0/drivers/sercom/spi/spi.o
+                              0x82864 (size before relaxing)
+ .debug_str     0x0008f736      0x244 src/ASF/sam0/drivers/sercom/spi/spi_interrupt.o
+                              0x81820 (size before relaxing)
+ .debug_str     0x0008f97a       0x6e src/ASF/sam0/drivers/sercom/usart/usart.o
+                              0x8233d (size before relaxing)
+ .debug_str     0x0008f9e8       0xd0 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+                              0x81583 (size before relaxing)
+ .debug_str     0x0008fab8     0x1661 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+                              0x8311e (size before relaxing)
+ .debug_str     0x00091119      0x1e3 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+                              0x80b54 (size before relaxing)
+ .debug_str     0x000912fc      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
                               0x80348 (size before relaxing)
- .debug_str     0x00091400       0x47 src/ASF/sam0/drivers/system/system.o
+ .debug_str     0x00091475       0x47 src/ASF/sam0/drivers/system/system.o
                               0x7ff83 (size before relaxing)
- .debug_str     0x00091447      0xee6 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_str     0x000914bc      0xee6 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
                               0x6b38c (size before relaxing)
- .debug_str     0x0009232d       0x2a src/ASF/sam0/utils/stdio/read.o
+ .debug_str     0x000923a2       0x2a src/ASF/sam0/utils/stdio/read.o
                               0x7fe4d (size before relaxing)
- .debug_str     0x00092357       0x24 src/ASF/sam0/utils/stdio/write.o
+ .debug_str     0x000923cc       0x24 src/ASF/sam0/utils/stdio/write.o
                               0x7fe4e (size before relaxing)
- .debug_str     0x0009237b      0x686 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_str     0x000923f0      0x686 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
                                0x7448 (size before relaxing)
- .debug_str     0x00092a01      0x1c3 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/diskio.o
+ .debug_str     0x00092a76      0x1c3 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/diskio.o
                               0x84d56 (size before relaxing)
- .debug_str     0x00092bc4       0x61 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/sam0/fattime_rtc.o
+ .debug_str     0x00092c39       0x61 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/sam0/fattime_rtc.o
                               0x81476 (size before relaxing)
- .debug_str     0x00092c25      0xd4e src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
+ .debug_str     0x00092c9a      0xd4e src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
                                0x3c92 (size before relaxing)
- .debug_str     0x00093973       0x5a src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
+ .debug_str     0x000939e8       0x5a src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
                                0x2bff (size before relaxing)
- .debug_str     0x000939cd      0x46d src/BootMain.o
+ .debug_str     0x00093a42      0x46d src/BootMain.o
                               0x8c016 (size before relaxing)
 
 .debug_frame    0x00000000     0x3ee0

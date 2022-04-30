@@ -11,10 +11,10 @@
  ******************************************************************************/
 #include "CliThread.h"
 
-#include "DistanceDriver/DistanceSensor.h"
 #include "IMU\lsm6dso_reg.h"
 #include "SeesawDriver/Seesaw.h"
 #include "WifiHandlerThread/WifiHandler.h"
+#include "SHTC3/SHTC3.h"
 
 /******************************************************************************
  * Defines
@@ -40,11 +40,8 @@ static const CLI_Command_Definition_t xNeotrellisProcessButtonCommand = {"getbut
                                                                          "getbutton: Processes and prints the FIFO button buffer from the seesaw.\r\n",
                                                                          (const pdCOMMAND_LINE_CALLBACK)CLI_NeotrellProcessButtonBuffer,
                                                                          0};
-
-static const CLI_Command_Definition_t xDistanceSensorGetDistance = {"getdistance",
-                                                                    "getdistance: Returns the distance from the US-100 Sensor.\r\n",
-                                                                    (const pdCOMMAND_LINE_CALLBACK)CLI_DistanceSensorGetDistance,
-                                                                    0};
+																		 
+static const CLI_Command_Definition_t xSHTCGetCommand = {"shtc", "shtc: get temp and humidity\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_GetSHTC, 0};	
 
 static const CLI_Command_Definition_t xSendDummyGameData = {"game", "game: Sends dummy game data\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_SendDummyGameData, 0};
 static const CLI_Command_Definition_t xI2cScan = {"i2c", "i2c: Scans I2C bus\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_i2cScan, 0};	
@@ -75,11 +72,11 @@ void vCommandConsoleTask(void *pvParameters)
     // REGISTER COMMANDS HERE
     FreeRTOS_CLIRegisterCommand(&xOTAUCommand);
     FreeRTOS_CLIRegisterCommand(&xImuGetCommand);
+	FreeRTOS_CLIRegisterCommand(&xSHTCGetCommand);
     FreeRTOS_CLIRegisterCommand(&xClearScreen);
     FreeRTOS_CLIRegisterCommand(&xResetCommand);
     FreeRTOS_CLIRegisterCommand(&xNeotrellisTurnLEDCommand);
     FreeRTOS_CLIRegisterCommand(&xNeotrellisProcessButtonCommand);
-    FreeRTOS_CLIRegisterCommand(&xDistanceSensorGetDistance);
     FreeRTOS_CLIRegisterCommand(&xSendDummyGameData);
 	FreeRTOS_CLIRegisterCommand(&xI2cScan);
 
@@ -290,6 +287,18 @@ BaseType_t CLI_GetImuData(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const i
     return pdFALSE;
 }
 
+
+BaseType_t CLI_GetSHTC(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString){
+	static int16_t ht[2];
+	if( !shtc_get(ht) ){
+		snprintf((char *)pcWriteBuffer, xWriteBufferLen, "SHTC error!\r\n");
+		return pdFALSE;
+	}
+	
+	snprintf((char *)pcWriteBuffer, xWriteBufferLen, "humidity = %d , temp = %d \r\n", (int)ht[0], (int)ht[1]);
+	return pdFALSE;
+}
+
 // THIS COMMAND USES vt100 TERMINAL COMMANDS TO CLEAR THE SCREEN ON A TERMINAL PROGRAM LIKE TERA TERM
 // SEE http://www.csie.ntu.edu.tw/~r92094/c++/VT100.html for more info
 // CLI SPECIFIC COMMANDS
@@ -396,36 +405,6 @@ BaseType_t CLI_NeotrellProcessButtonBuffer(int8_t *pcWriteBuffer, size_t xWriteB
     }
 }
 
-/**
- BaseType_t CLI_DistanceSensorGetDistance( int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString )
- * @brief	Returns distance in mm
- * @param[out] *pcWriteBuffer. Buffer we can use to write the CLI command response to! See other CLI examples on how we use this to write back!
- * @param[in] xWriteBufferLen. How much we can write into the buffer
- * @param[in] *pcCommandString. Buffer that contains the complete input. You will find the additional arguments, if needed. Please see
- https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/FreeRTOS_Plus_CLI_Implementing_A_Command.html#Example_Of_Using_FreeRTOS_CLIGetParameter
- Example 3
-
- * @return		Returns pdFALSE if the CLI command finished.
- * @note         Please see https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/FreeRTOS_Plus_CLI_Accessing_Command_Line_Parameters.html
-                                 for more information on how to use the FreeRTOS CLI.
-
- */
-BaseType_t CLI_DistanceSensorGetDistance(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
-{
-    uint16_t distance = 0;
-    int error = DistanceSensorGetDistance(&distance, 100);
-    if (0 != error) {
-        snprintf((char *) pcWriteBuffer, xWriteBufferLen, "Sensor Error %d!\r\n", error);
-    } else {
-        snprintf((char *) pcWriteBuffer, xWriteBufferLen, "Distance: %d mm\r\n", distance);
-    }
-
-    error = WifiAddDistanceDataToQueue(&distance);
-    if (error == pdTRUE) {
-        strcat((char *) pcWriteBuffer, "Distance Data MQTT Post\r\n");
-    }
-    return pdFALSE;
-}
 
 /**
  BaseType_t CLI_SendDummyGameData( int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString )

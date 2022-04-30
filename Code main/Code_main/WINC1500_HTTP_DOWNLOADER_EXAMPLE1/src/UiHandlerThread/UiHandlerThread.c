@@ -14,7 +14,6 @@ Thread for ESE516 Spring (Online) Edition
 
 #include <errno.h>
 
-#include "DistanceDriver/DistanceSensor.h"
 #include "IMU/lsm6dso_reg.h"
 #include "SeesawDriver/Seesaw.h"
 #include "SerialConsole.h"

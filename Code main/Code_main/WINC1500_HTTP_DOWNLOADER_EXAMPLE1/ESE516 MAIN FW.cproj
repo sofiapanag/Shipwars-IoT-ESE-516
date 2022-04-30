@@ -1297,6 +1297,7 @@
     <Folder Include="src\IMU" />
     <Folder Include="src\DistanceDriver" />
     <Folder Include="src\ControlThread" />
+    <Folder Include="src\SHTC3" />
     <Folder Include="src\UiHandlerThread" />
     <Folder Include="src\SeesawDriver" />
     <Folder Include="src\WifiHandlerThread" />
@@ -1469,9 +1470,6 @@
     <Compile Include="src\DistanceDriver\DistanceSensor.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\DistanceDriver\DistanceSensor.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\I2cDriver\I2cDriver.c">
       <SubType>compile</SubType>
     </Compile>
@@ -1488,6 +1486,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\SeesawDriver\SeesawDriver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\SHTC3\SHTC3.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\SHTC3\SHTC3.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\UiHandlerThread\UiHandlerThread.c">

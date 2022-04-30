@@ -267,8 +267,8 @@ src/UiHandlerThread/UiHandlerThread.d \
  ../src/iot/http/http_entity.h ../src/main.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\errno.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\errno.h \
- ../src/DistanceDriver/DistanceSensor.h ../src/IMU/lsm6dso_reg.h \
- ../src/SeesawDriver/Seesaw.h ../src/I2cDriver/I2cDriver.h
+ ../src/IMU/lsm6dso_reg.h ../src/SeesawDriver/Seesaw.h \
+ ../src/I2cDriver/I2cDriver.h
 
 ../src/UiHandlerThread/UiHandlerThread.h:
 
@@ -827,8 +827,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\errno.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\errno.h:
-
-../src/DistanceDriver/DistanceSensor.h:
 
 ../src/IMU/lsm6dso_reg.h:
 

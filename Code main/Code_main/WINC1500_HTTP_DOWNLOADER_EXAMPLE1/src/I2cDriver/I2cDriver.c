@@ -221,7 +221,7 @@ int32_t I2cReadData(I2C_Data *data)
     enum status_code hwError;
 
     // Check parameters
-    if (data == NULL || data->msgOut == NULL) {
+    if (data == NULL || data->msgIn == NULL) {
         error = ERR_INVALID_ARG;
         goto exit;
     }
@@ -403,28 +403,30 @@ int32_t I2cReadDataWait(I2C_Data *data, const TickType_t delay, const TickType_t
     error = I2cGetSemaphoreHandle(&semHandle);
     if (ERROR_NONE != error) goto exit;
 
-    //---2. Initiate sending data
+	if(data->msgOut != NULL && data->lenOut != 0 ){
+		//---2. Initiate sending data
+		error = I2cWriteData(data);
+		if (ERROR_NONE != error) {
+			goto exitError0;
+		}
 
-    error = I2cWriteData(data);
-    if (ERROR_NONE != error) {
-        goto exitError0;
-    }
-
-    //---2. Wait for binary semaphore to tell us that we are done!
-    if (xSemaphoreTake(semHandle, xMaxBlockTime) == pdTRUE) {
-        /* The transmission ended as expected. We now delay until the I2C sensor is finished */
-        if (I2cGetTaskErrorStatus()) {
-            I2cSetTaskErrorStatus(false);
-            error = ERROR_ABORTED;
-            goto exitError0;
-        }
-        vTaskDelay(delay);
-    } else {
-        /* The call to ulTaskNotifyTake() timed out. */
-        error = ERR_TIMEOUT;
-        goto exitError0;
-    }
-
+		//---2. Wait for binary semaphore to tell us that we are done!
+		if (xSemaphoreTake(semHandle, xMaxBlockTime) == pdTRUE) {
+			/* The transmission ended as expected. We now delay until the I2C sensor is finished */
+			if (I2cGetTaskErrorStatus()) {
+				I2cSetTaskErrorStatus(false);
+				error = ERROR_ABORTED;
+				goto exitError0;
+			}
+		} else {
+			/* The call to ulTaskNotifyTake() timed out. */
+			error = ERR_TIMEOUT;
+			goto exitError0;
+		}
+	}
+	
+	vTaskDelay(delay);
+	
     //---6. Initiate Read data
     error = I2cReadData(data);
     if (ERROR_NONE != error) {

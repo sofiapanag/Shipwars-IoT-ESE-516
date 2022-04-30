@@ -1,7 +1,6 @@
-src/DistanceDriver/DistanceSensor.d src/DistanceDriver/DistanceSensor.o: \
- ../src/DistanceDriver/DistanceSensor.c \
- ../src/DistanceDriver/DistanceSensor.h ../src/asf.h \
- ../src/ASF/sam0/drivers/adc/adc.h ../src/ASF/sam0/utils/compiler.h \
+src/SHTC3/SHTC3.d src/SHTC3/SHTC3.o: ../src/SHTC3/SHTC3.c \
+ ../src/SHTC3/SHTC3.h ../src/asf.h ../src/ASF/sam0/drivers/adc/adc.h \
+ ../src/ASF/sam0/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
@@ -234,11 +233,9 @@ src/DistanceDriver/DistanceSensor.d src/DistanceDriver/DistanceSensor.o: \
  ../src/ASF/sam0/drivers/tc/tc_interrupt.h \
  ../src/ASF/sam0/drivers/tc/tc.h ../src/ASF/sam0/drivers/tcc/tcc.h \
  ../src/ASF/sam0/drivers/tcc/tcc_callback.h \
- ../src/ASF/sam0/drivers/tcc/tcc.h ../src/I2cDriver/I2cDriver.h \
- ../src/SerialConsole/SerialConsole.h \
- ../src/SerialConsole/circular_buffer.h
+ ../src/ASF/sam0/drivers/tcc/tcc.h ../src/I2cDriver\I2cDriver.h
 
-../src/DistanceDriver/DistanceSensor.h:
+../src/SHTC3/SHTC3.h:
 
 ../src/asf.h:
 
@@ -728,8 +725,4 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/ASF/sam0/drivers/tcc/tcc.h:
 
-../src/I2cDriver/I2cDriver.h:
-
-../src/SerialConsole/SerialConsole.h:
-
-../src/SerialConsole/circular_buffer.h:
+../src/I2cDriver\I2cDriver.h:

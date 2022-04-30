@@ -265,8 +265,7 @@ src/main21.d src/main21.o: ../src/main21.c \
  ../src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.h \
  ../src/iot/http/http_client.h ../src/iot/sw_timer.h \
  ../src/ASF/common/components/wifi/winc1500/http_downloader_example/samd21g18a_samw25_xplained_pro/conf_sw_timer.h \
- ../src/iot/http/http_entity.h ../src/main.h \
- ../src/DistanceDriver\DistanceSensor.h ../src/IMU\lsm6dso_reg.h \
+ ../src/iot/http/http_entity.h ../src/main.h ../src/IMU\lsm6dso_reg.h \
  ../src/SeesawDriver/Seesaw.h ../src/I2cDriver/I2cDriver.h \
  ../src/UiHandlerThread\UiHandlerThread.h ../src/asf.h ../src/main.h \
  ../src/ASF/thirdparty/pahomqtt/MQTTClient/Platforms/MCHP_ATWx.h
@@ -832,8 +831,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/iot/http/http_entity.h:
 
 ../src/main.h:
-
-../src/DistanceDriver\DistanceSensor.h:
 
 ../src/IMU\lsm6dso_reg.h:
 

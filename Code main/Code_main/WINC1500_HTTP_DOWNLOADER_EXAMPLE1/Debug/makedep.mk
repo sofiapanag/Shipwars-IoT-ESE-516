@@ -40,13 +40,13 @@ src\CliThread\CliThread.c
 
 src\ControlThread\ControlThread.c
 
-src\DistanceDriver\DistanceSensor.c
-
 src\I2cDriver\I2cDriver.c
 
 src\IMU\lsm6dso_reg.c
 
 src\SeesawDriver\SeesawDriver.c
+
+src\SHTC3\SHTC3.c
 
 src\UiHandlerThread\UiHandlerThread.c
 
