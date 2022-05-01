@@ -63,7 +63,7 @@ int InitializeSeesaw(void)
 
     // Check if device is on the line - it should answer with its HW ID
 
-    int error = I2cReadDataWait(&seesawData, 0, 100);
+    int error = I2cReadDataWait2(&seesawData, 0, 100);
 
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Error initializing Seesaw!/r/n");
@@ -79,7 +79,7 @@ int InitializeSeesaw(void)
     seesawData.msgOut = &msgNeopixelPin[0];
     seesawData.lenOut = sizeof(msgNeopixelPin);
 
-    error = I2cWriteDataWait(&seesawData, 100);
+    error = I2cWriteDataWait2(&seesawData, 100);
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Could not write Seesaw pin!/r/n");
     }
@@ -88,7 +88,7 @@ int InitializeSeesaw(void)
     seesawData.msgOut = &msgNeopixelSpeed[0];
     seesawData.lenOut = sizeof(msgNeopixelSpeed);
 
-    error = I2cWriteDataWait(&seesawData, 100);
+    error = I2cWriteDataWait2(&seesawData, 100);
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Could not set seesaw Neopixel speed!/r/n");
     }
@@ -97,7 +97,7 @@ int InitializeSeesaw(void)
     seesawData.msgOut = &msgNeopixelBufLength[0];
     seesawData.lenOut = sizeof(msgNeopixelBufLength);
 
-    error = I2cWriteDataWait(&seesawData, 100);
+    error = I2cWriteDataWait2(&seesawData, 100);
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Could not set seesaw Neopixel number of devices/r/n");
     }
@@ -125,7 +125,7 @@ uint8_t SeesawGetKeypadCount(void)
     seesawData.msgIn = &count;
     seesawData.lenIn = 1;
 
-    int error = I2cReadDataWait(&seesawData, 0, 100);
+    int error = I2cReadDataWait2(&seesawData, 0, 100);
 
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Error reading Seesaw counts!/r/n");
@@ -152,7 +152,7 @@ int32_t SeesawReadKeypad(uint8_t *buffer, uint8_t count)
     seesawData.msgIn = buffer;
     seesawData.lenIn = count;
 
-    int error = I2cReadDataWait(&seesawData, 0, 100);
+    int error = I2cReadDataWait2(&seesawData, 0, 100);
 
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Error reading Seesaw counts!/r/n");
@@ -181,7 +181,7 @@ int32_t SeesawActivateKey(uint8_t key, uint8_t edge, bool enable)
     seesawData.msgOut = (const uint8_t *) &cmd[0];
     seesawData.lenOut = sizeof(cmd);
     seesawData.lenIn = 0;
-    int32_t error = I2cWriteDataWait(&seesawData, 100);
+    int32_t error = I2cWriteDataWait2(&seesawData, 100);
     return error;
 }
 
@@ -207,7 +207,7 @@ int32_t SeesawSetLed(uint8_t key, uint8_t red, uint8_t green, uint8_t blue)
 
     seesawData.msgOut = (const uint8_t *)&write_buffer1[0];
     seesawData.lenOut = sizeof(write_buffer1);
-    int error = I2cWriteDataWait(&seesawData, 100);
+    int error = I2cWriteDataWait2(&seesawData, 100);
     return error;
 }
 
@@ -225,7 +225,7 @@ int32_t SeesawOrderLedUpdate(void)
 
     seesawData.msgOut = (const uint8_t *) &orderBuffer[0];
     seesawData.lenOut = sizeof(orderBuffer);
-    int error = I2cWriteDataWait(&seesawData, 100);
+    int error = I2cWriteDataWait2(&seesawData, 100);
     return error;
 }
 
@@ -240,7 +240,7 @@ static void SeesawInitializeKeypad(void)
     seesawData.lenOut = sizeof(msgKeypadEnableInt);
     seesawData.lenIn = 0;
 
-    int32_t error = I2cWriteDataWait(&seesawData, 100);
+    int32_t error = I2cWriteDataWait2(&seesawData, 100);
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Could not initialize Keypad!/r/n");
     }

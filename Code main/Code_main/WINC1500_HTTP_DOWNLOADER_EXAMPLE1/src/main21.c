@@ -97,7 +97,13 @@ void vApplicationDaemonTaskStartupHook(void)
     } else {
         SerialConsoleWriteString("Initialized I2C Driver!\r\n");
     }
-	
+	/*
+	 if (I2cInitializeDriver2() != STATUS_OK) {
+		 SerialConsoleWriteString("Error initializing 2nd I2C Driver!\r\n");
+		 } else {
+		 SerialConsoleWriteString("Initialized 2nd I2C Driver!\r\n");
+	 }
+	*/
     if (0 != InitializeSeesaw()) {
         SerialConsoleWriteString("Error initializing Seesaw!\r\n");
     } else {

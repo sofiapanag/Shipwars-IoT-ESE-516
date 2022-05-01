@@ -23,8 +23,15 @@ SemaphoreHandle_t sensorI2cSemaphoreHandle;                   ///< Binary semaph
 static volatile TaskHandle_t xTaskToNotifySensorDone = NULL;  ///< Stores the handle of the task that will be notified when the SENSOR transmission is complete. */
 static uint8_t sensorTransmitError = false;                   ///< Flag used to indicate that there was an I2C transmission error on the SENSOR bus.
 
+SemaphoreHandle_t sensorI2cMutexHandle2;                       ///< Mutex to handle the sensor I2C bus thread access.
+SemaphoreHandle_t sensorI2cSemaphoreHandle2;                   ///< Binary semaphore to notify task that we have received an I2C interrupt on the Sensor bus
+static volatile TaskHandle_t xTaskToNotifySensorDone2 = NULL;  ///< Stores the handle of the task that will be notified when the SENSOR transmission is complete. */
+static uint8_t sensorTransmitError2 = false;                   ///< Flag used to indicate that there was an I2C transmission error on the SENSOR bus.
+
 struct i2c_master_module i2cSensorBusInstance;
+struct i2c_master_module i2cSensorBusInstance2;
 static I2C_Bus_State I2cSensorBusState;  ///< Structure that defines the I2C Bus used for the sensors.
+static I2C_Bus_State I2cSensorBusState2; 
 
 struct i2c_master_packet sensorPacketWrite;
 /******************************************************************************
@@ -61,6 +68,40 @@ static int32_t I2cDriverConfigureSensorBus(void)
 exit:
     return error;
 }
+
+
+static int32_t I2cDriverConfigureSensorBus2(void)
+{
+	int32_t error = STATUS_OK;
+	status_code_genare_t errCodeAsf = STATUS_OK;
+	/* Initialize config structure and software module */
+	struct i2c_master_config config_i2c_master;
+	i2c_master_get_config_defaults(&config_i2c_master);
+
+	config_i2c_master.pinmux_pad0 = PINMUX_PA22C_SERCOM3_PAD0;
+	config_i2c_master.pinmux_pad1 = PINMUX_PA17D_SERCOM3_PAD1;
+	/* Change buffer timeout to something longer */
+	config_i2c_master.buffer_timeout = 1000;
+	/* Initialize and enable device with config. Try three times to initialize */
+
+	for (uint8_t i = I2C_INIT_ATTEMPTS; i != 0; i--) {
+		errCodeAsf = i2c_master_init(&i2cSensorBusInstance2, SERCOM3, &config_i2c_master);
+		if (STATUS_OK == errCodeAsf) {
+			error = errCodeAsf;
+			break;
+			} else {
+			i2c_master_reset(&i2cSensorBusInstance);
+		}
+	}
+
+	if (STATUS_OK != error) goto exit;
+
+	i2c_master_enable(&i2cSensorBusInstance);
+
+	exit:
+	return error;
+}
+
 /******************************************************************************
  * Callback Functions
  ******************************************************************************/
@@ -85,6 +126,19 @@ void I2cSensorsTxComplete(struct i2c_master_module *const module)
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
+void I2cSensorsTxComplete2(struct i2c_master_module *const module)
+{
+	I2cSensorBusState2.i2cState = I2C_BUS_READY;
+	I2cSensorBusState2.rxDoneFlag = true;
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+	xSemaphoreGiveFromISR(sensorI2cSemaphoreHandle2, &xHigherPriorityTaskWoken);
+	sensorTransmitError2 = false;
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+}
+
+
+
 /**
   * @fn				void I2cSensorRxComplete(struct i2c_m_async_desc *const i2c)
   * @brief			Callback function for when the SENSOR I2C bus ends data reception
@@ -104,6 +158,17 @@ void I2cSensorsRxComplete(struct i2c_master_module *const module)
     xSemaphoreGiveFromISR(sensorI2cSemaphoreHandle, &xHigherPriorityTaskWoken);
     sensorTransmitError = false;
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+}
+
+void I2cSensorsRxComplete2(struct i2c_master_module *const module)
+{
+	I2cSensorBusState2.i2cState = I2C_BUS_READY;
+	I2cSensorBusState2.rxDoneFlag = true;
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+	xSemaphoreGiveFromISR(sensorI2cSemaphoreHandle2, &xHigherPriorityTaskWoken);
+	sensorTransmitError2 = false;
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 /**
@@ -126,18 +191,37 @@ void I2cSensorsError(struct i2c_master_module *const module)
     sensorTransmitError = true;
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
+void I2cSensorsError2(struct i2c_master_module *const module)
+{
+	I2cSensorBusState2.i2cState = I2C_BUS_READY;
+	I2cSensorBusState2.txDoneFlag = true;
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+	xSemaphoreGiveFromISR(sensorI2cSemaphoreHandle2, &xHigherPriorityTaskWoken);
+	sensorTransmitError2 = true;
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+}
 
 void I2cDriverRegisterSensorBusCallbacks(void)
 {
     /* Register callback function. */
-    i2c_master_register_callback(&i2cSensorBusInstance, I2cSensorsTxComplete, I2C_MASTER_CALLBACK_WRITE_COMPLETE);
+    i2c_master_register_callback(&i2cSensorBusInstance, I2cSensorsTxComplete2, I2C_MASTER_CALLBACK_WRITE_COMPLETE);
     i2c_master_enable_callback(&i2cSensorBusInstance, I2C_MASTER_CALLBACK_WRITE_COMPLETE);
 
-    i2c_master_register_callback(&i2cSensorBusInstance, I2cSensorsRxComplete, I2C_MASTER_CALLBACK_READ_COMPLETE);
+    i2c_master_register_callback(&i2cSensorBusInstance, I2cSensorsRxComplete2, I2C_MASTER_CALLBACK_READ_COMPLETE);
     i2c_master_enable_callback(&i2cSensorBusInstance, I2C_MASTER_CALLBACK_READ_COMPLETE);
 
-    i2c_master_register_callback(&i2cSensorBusInstance, I2cSensorsError, I2C_MASTER_CALLBACK_ERROR);
+    i2c_master_register_callback(&i2cSensorBusInstance, I2cSensorsError2, I2C_MASTER_CALLBACK_ERROR);
     i2c_master_enable_callback(&i2cSensorBusInstance, I2C_MASTER_CALLBACK_ERROR);
+	
+	 i2c_master_register_callback(&i2cSensorBusInstance2, I2cSensorsTxComplete2, I2C_MASTER_CALLBACK_WRITE_COMPLETE);
+	 i2c_master_enable_callback(&i2cSensorBusInstance2, I2C_MASTER_CALLBACK_WRITE_COMPLETE);
+
+	 i2c_master_register_callback(&i2cSensorBusInstance2, I2cSensorsRxComplete2, I2C_MASTER_CALLBACK_READ_COMPLETE);
+	 i2c_master_enable_callback(&i2cSensorBusInstance2, I2C_MASTER_CALLBACK_READ_COMPLETE);
+
+	 i2c_master_register_callback(&i2cSensorBusInstance2, I2cSensorsError2, I2C_MASTER_CALLBACK_ERROR);
+	 i2c_master_enable_callback(&i2cSensorBusInstance2, I2C_MASTER_CALLBACK_ERROR);
 }
 
 /**
@@ -153,14 +237,18 @@ int32_t I2cInitializeDriver(void)
     error = I2cDriverConfigureSensorBus();
     if (STATUS_OK != error) goto exit;
 
+	error = I2cDriverConfigureSensorBus2();
+	if (STATUS_OK != error) goto exit;
+	
     I2cDriverRegisterSensorBusCallbacks();
 
     sensorI2cMutexHandle = xSemaphoreCreateMutex();
-
     sensorI2cSemaphoreHandle = xSemaphoreCreateBinary();
+	sensorI2cMutexHandle2 = xSemaphoreCreateMutex();
+	sensorI2cSemaphoreHandle2 = xSemaphoreCreateBinary();
     // xSemaphoreGive(sensorI2cSemaphoreHandle);
 
-    if (NULL == sensorI2cMutexHandle || NULL == sensorI2cSemaphoreHandle) {
+    if (NULL == sensorI2cMutexHandle || NULL == sensorI2cSemaphoreHandle || NULL == sensorI2cMutexHandle2 || NULL == sensorI2cSemaphoreHandle2 ) {
         error = STATUS_SUSPEND;  // Could not initialize mutex!
         goto exit;
     }
@@ -207,6 +295,35 @@ exit:
     return error;
 }
 
+int32_t I2cWriteData2(I2C_Data *data)
+{
+	int32_t error = ERROR_NONE;
+	enum status_code hwError;
+
+	// Check parameters
+	if (data == NULL || data->msgOut == NULL) {
+		error = ERR_INVALID_ARG;
+		goto exit;
+	}
+
+	// Prepare to write
+	sensorPacketWrite.address = data->address;
+	sensorPacketWrite.data = (uint8_t *)data->msgOut;
+	sensorPacketWrite.data_length = data->lenOut;
+
+	// Write
+
+	hwError = i2c_master_write_packet_job(&i2cSensorBusInstance2, &sensorPacketWrite);
+
+	if (STATUS_OK != hwError) {
+		error = ERROR_IO;
+		goto exit;
+	}
+
+	exit:
+	return error;
+}
+
 /**
  * @fn    int32_t I2cReadData(I2C_Data *data)
  * @brief       Function call to read an specified number of bytes on the given I2C bus
@@ -221,7 +338,7 @@ int32_t I2cReadData(I2C_Data *data)
     enum status_code hwError;
 
     // Check parameters
-    if (data == NULL || data->msgIn == NULL) {
+    if (data == NULL || data->msgOut == NULL) {
         error = ERR_INVALID_ARG;
         goto exit;
     }
@@ -244,6 +361,35 @@ exit:
     return error;
 }
 
+int32_t I2cReadData2(I2C_Data *data)
+{
+	int32_t error = ERROR_NONE;
+	enum status_code hwError;
+
+	// Check parameters
+	if (data == NULL || data->msgOut == NULL) {
+		error = ERR_INVALID_ARG;
+		goto exit;
+	}
+
+	// Prepare to read
+	sensorPacketWrite.address = data->address;
+	sensorPacketWrite.data = data->msgIn;
+	sensorPacketWrite.data_length = data->lenIn;
+
+	// Read
+
+	hwError = i2c_master_read_packet_job(&i2cSensorBusInstance2, &sensorPacketWrite);
+
+	if (STATUS_OK != hwError) {
+		error = ERROR_IO;
+		goto exit;
+	}
+
+	exit:
+	return error;
+}
+
 /**
  * @fn			int32_t I2cFreeMutex(eI2cBuses bus)
  * @brief       Frees the mutex of the given I2C bus
@@ -260,6 +406,16 @@ int32_t I2cFreeMutex(void)
         error = ERROR_NOT_INITIALIZED;  // We could not return the mutex! We must not have it!
     }
     return error;
+}
+
+int32_t I2cFreeMutex2(void)
+{
+	int32_t error = ERROR_NONE;
+
+	if (xSemaphoreGive(sensorI2cMutexHandle2) != pdTRUE) {
+		error = ERROR_NOT_INITIALIZED;  // We could not return the mutex! We must not have it!
+	}
+	return error;
 }
 
 /**
@@ -279,11 +435,27 @@ int32_t I2cGetMutex(TickType_t waitTime)
     return error;
 }
 
+int32_t I2cGetMutex2(TickType_t waitTime)
+{
+	int32_t error = ERROR_NONE;
+	if (xSemaphoreTake(sensorI2cMutexHandle2, waitTime) != pdTRUE) {
+		error = ERROR_NOT_READY;
+	}
+	return error;
+}
+
 static int32_t I2cGetSemaphoreHandle(SemaphoreHandle_t *handle)
 {
     int32_t error = ERROR_NONE;
     *handle = sensorI2cSemaphoreHandle;
     return error;
+}
+
+static int32_t I2cGetSemaphoreHandle2(SemaphoreHandle_t *handle)
+{
+	int32_t error = ERROR_NONE;
+	*handle = sensorI2cSemaphoreHandle2;
+	return error;
 }
 
 /**
@@ -300,6 +472,11 @@ static uint8_t I2cGetTaskErrorStatus(void)
     return sensorTransmitError;
 }
 
+static uint8_t I2cGetTaskErrorStatus2(void)
+{
+	return sensorTransmitError2;
+}
+
 /**
  * @fn			static uint8_t I2cSetTaskErrorStatus(I2C_Data *data, uint8_t value)
  * @brief       Sets the error state of the latest I2C bus transaction for a given I2C data, which holds which physical I2C
@@ -313,6 +490,11 @@ static uint8_t I2cGetTaskErrorStatus(void)
 static void I2cSetTaskErrorStatus(uint8_t value)
 {
     sensorTransmitError = value;
+}
+
+static void I2cSetTaskErrorStatus2(uint8_t value)
+{
+	sensorTransmitError2 = value;
 }
 
 /**
@@ -378,6 +560,59 @@ exitError0:
     return error;
 }
 
+int32_t I2cWriteDataWait2(I2C_Data *data, const TickType_t xMaxBlockTime)
+{
+	int32_t error = ERROR_NONE;
+	SemaphoreHandle_t semHandle = NULL;
+
+	//---0. Get Mutex
+	error = I2cGetMutex2(WAIT_I2C_LINE_MS);
+	if (ERROR_NONE != error) goto exit;
+
+	//---1. Get Semaphore Handle
+	error = I2cGetSemaphoreHandle2(&semHandle);
+	if (ERROR_NONE != error) goto exit;
+
+	//---2. Initiate sending data
+
+	error = I2cWriteData2(data);
+	if (ERROR_NONE != error) {
+		goto exitError0;
+	}
+
+	//---2. Wait for binary semaphore to tell us that we are done!
+	if (xSemaphoreTake(semHandle, xMaxBlockTime) == pdTRUE) {
+		/* The transmission ended as expected. We now delay until the I2C sensor is finished */
+		if (I2cGetTaskErrorStatus2()) {
+			I2cSetTaskErrorStatus2(false);
+			if (error != ERROR_NONE) {
+				error = ERROR_I2C_HANG_RESET;
+				} else {
+				error = ERROR_ABORTED;
+			}
+			goto exitError0;
+		}
+		} else {
+		/* The call to ulTaskNotifyTake() timed out. */
+		error = ERR_TIMEOUT;
+		goto exitError0;
+	}
+
+	//---8. Release Mutex
+	error |= I2cFreeMutex2();
+	// xSemaphoreGive(semHandle);
+	exit:
+	return error;
+
+	exitError0:
+	error |= I2cFreeMutex2();
+	// xSemaphoreGive(semHandle);
+	return error;
+}
+
+
+
+
 /**
   * @fn			int32_t I2cReadDataWait(I2C_Data *data, const TickType_t delay, const TickType_t xMaxBlockTime)
   * @brief       This is the main function to use to read data from an I2C device on a given I2C Bus. This function is blocking.
@@ -403,30 +638,28 @@ int32_t I2cReadDataWait(I2C_Data *data, const TickType_t delay, const TickType_t
     error = I2cGetSemaphoreHandle(&semHandle);
     if (ERROR_NONE != error) goto exit;
 
-	if(data->msgOut != NULL && data->lenOut != 0 ){
-		//---2. Initiate sending data
-		error = I2cWriteData(data);
-		if (ERROR_NONE != error) {
-			goto exitError0;
-		}
+    //---2. Initiate sending data
 
-		//---2. Wait for binary semaphore to tell us that we are done!
-		if (xSemaphoreTake(semHandle, xMaxBlockTime) == pdTRUE) {
-			/* The transmission ended as expected. We now delay until the I2C sensor is finished */
-			if (I2cGetTaskErrorStatus()) {
-				I2cSetTaskErrorStatus(false);
-				error = ERROR_ABORTED;
-				goto exitError0;
-			}
-		} else {
-			/* The call to ulTaskNotifyTake() timed out. */
-			error = ERR_TIMEOUT;
-			goto exitError0;
-		}
-	}
-	
-	vTaskDelay(delay);
-	
+    error = I2cWriteData(data);
+    if (ERROR_NONE != error) {
+        goto exitError0;
+    }
+
+    //---2. Wait for binary semaphore to tell us that we are done!
+    if (xSemaphoreTake(semHandle, xMaxBlockTime) == pdTRUE) {
+        /* The transmission ended as expected. We now delay until the I2C sensor is finished */
+        if (I2cGetTaskErrorStatus()) {
+            I2cSetTaskErrorStatus(false);
+            error = ERROR_ABORTED;
+            goto exitError0;
+        }
+        vTaskDelay(delay);
+    } else {
+        /* The call to ulTaskNotifyTake() timed out. */
+        error = ERR_TIMEOUT;
+        goto exitError0;
+    }
+
     //---6. Initiate Read data
     error = I2cReadData(data);
     if (ERROR_NONE != error) {
@@ -457,3 +690,70 @@ exitError0:
     // xSemaphoreGive(semHandle);
     return error;
 }
+
+int32_t I2cReadDataWait2(I2C_Data *data, const TickType_t delay, const TickType_t xMaxBlockTime)
+{
+	int32_t error = ERROR_NONE;
+	SemaphoreHandle_t semHandle = NULL;
+
+	//---0. Get Mutex
+	error = I2cGetMutex2(WAIT_I2C_LINE_MS);
+	if (ERROR_NONE != error) goto exit;
+
+	//---1. Get Semaphore Handle
+	error = I2cGetSemaphoreHandle2(&semHandle);
+	if (ERROR_NONE != error) goto exit;
+
+	//---2. Initiate sending data
+
+	error = I2cWriteData2(data);
+	if (ERROR_NONE != error) {
+		goto exitError0;
+	}
+
+	//---2. Wait for binary semaphore to tell us that we are done!
+	if (xSemaphoreTake(semHandle, xMaxBlockTime) == pdTRUE) {
+		/* The transmission ended as expected. We now delay until the I2C sensor is finished */
+		if (I2cGetTaskErrorStatus2()) {
+			I2cSetTaskErrorStatus2(false);
+			error = ERROR_ABORTED;
+			goto exitError0;
+		}
+		vTaskDelay(delay);
+		} else {
+		/* The call to ulTaskNotifyTake() timed out. */
+		error = ERR_TIMEOUT;
+		goto exitError0;
+	}
+
+	//---6. Initiate Read data
+	error = I2cReadData2(data);
+	if (ERROR_NONE != error) {
+		goto exitError0;
+	}
+	//---7. Wait for notification
+	if (xSemaphoreTake(semHandle, xMaxBlockTime) == pdTRUE) {
+		/* The transmission ended as expected. We now delay until the I2C sensor is finished */
+		if (I2cGetTaskErrorStatus2()) {
+			I2cSetTaskErrorStatus2(false);
+			error = ERROR_ABORTED;
+			goto exitError0;
+		}
+		} else {
+		/* The call to ulTaskNotifyTake() timed out. */
+		error = ERR_TIMEOUT;
+		goto exitError0;
+	}
+
+	//---8. Release Mutex
+	error = I2cFreeMutex2();
+	// xSemaphoreGive(semHandle);
+	exit:
+	return error;
+
+	exitError0:
+	I2cFreeMutex2();
+	// xSemaphoreGive(semHandle);
+	return error;
+}
+
