@@ -34,6 +34,11 @@
 #ifndef MAIN_H_INCLUDED
 #define MAIN_H_INCLUDED
 
+#define MAX_SHIP 5
+#define MAX_SHIP_SIZE 4
+#define MAX_TILE 16
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
