@@ -22,8 +22,9 @@ extern "C" {
 #define CONTROL_TASK_PRIORITY (configMAX_PRIORITIES - 1)
 typedef enum controlStateMachine_state {
     CONTROL_WAIT_FOR_GAME = 0,  ///< State used to WAIT FOR A GAME COMMAND
-    CONTROL_PLAYING_MOVE,       ///< State used to wait for user to play a game move
-    CONTROL_END_GAME,           ///< State to show game end
+    CONTROL_WAIT_FOR_PLACE,       ///< State used to wait for user to play a game move
+    CONTROL_WAIT_FOR_TURN,           ///< State to show game end
+	CONTROL_WAIT_FOR_ACTION,
     CONTROL_STATE_MAX_STATES    ///< Max number of states
 
 } controlStateMachine_state;
@@ -31,12 +32,13 @@ typedef enum controlStateMachine_state {
 /******************************************************************************
  * Structures and Enumerations
  ******************************************************************************/
- struct GameDataPacket;
+
+
 /******************************************************************************
  * Global Function Declaration
  ******************************************************************************/
 void vControlHandlerTask(void *pvParameters);
-int ControlAddGameData(struct GameDataPacket *gameIn);
+void ControlSetGame(uint8_t *shiparr_in,uint8_t ship_num);
 
 #ifdef __cplusplus
 }

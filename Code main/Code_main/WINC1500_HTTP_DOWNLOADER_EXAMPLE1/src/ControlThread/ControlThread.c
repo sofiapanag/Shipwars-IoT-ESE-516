@@ -28,10 +28,11 @@
 /******************************************************************************
  * Variables
  ******************************************************************************/
-QueueHandle_t xQueueGameBufferIn = NULL;    ///< Queue to send the next play to the UI
-QueueHandle_t xQueueRgbColorBuffer = NULL;  ///< Queue to receive an LED Color packet
 
 controlStateMachine_state controlState;  ///< Holds the current state of the control thread
+uint8_t ship_arr[MAX_SHIP];
+uint8_t ship_num;
+bool placement_status = false;
 
 /******************************************************************************
  * Forward Declarations
@@ -58,44 +59,21 @@ void vControlHandlerTask(void *pvParameters)
 {
     SerialConsoleWriteString((char *)"ESE516 - Control Init Code\r\n");
 
-    // Initialize Queues
-    xQueueGameBufferIn = xQueueCreate(2, sizeof(struct GameDataPacket));
-    xQueueRgbColorBuffer = xQueueCreate(2, sizeof(struct RgbColorPacket));
-
-    if (xQueueGameBufferIn == NULL || xQueueRgbColorBuffer == NULL) {
-        SerialConsoleWriteString((char *)"ERROR Initializing Control Data queues!\r\n");
-    }
     controlState = CONTROL_WAIT_FOR_GAME;  // Initial state
-
+	
     while (1) {
         switch (controlState) {
-            case (CONTROL_WAIT_FOR_GAME): {  // Should set the UI to ignore button presses and should wait until there is a message from the server with a new play.
-                struct GameDataPacket gamePacketIn;
-                if (pdPASS == xQueueReceive(xQueueGameBufferIn, &gamePacketIn, 0)) {
-                    LogMessage(LOG_DEBUG_LVL, "Control Thread: Consumed game packet!\r\n");
-                    UiOrderShowMoves(&gamePacketIn);
-                    controlState = CONTROL_PLAYING_MOVE;
-                }
-
+            case (CONTROL_WAIT_FOR_GAME): { 
                 break;
             }
 
-            case (CONTROL_PLAYING_MOVE): {  // Should wait until the UI thread has showed the move AND comes back with the play from the user. Should go back to CONTROL_WAIT_FOR_GAME
-                // after posting the game to MQTT
-                if (UiPlayIsDone() == true) {
-                    // Send back local game packet
-                    if (pdTRUE != WifiAddGameDataToQueue(UiGetGamePacketOut())) {
-                        LogMessage(LOG_DEBUG_LVL, "Control Thread: Could not send game packet!\r\n");
-                    }
-                    controlState = CONTROL_WAIT_FOR_GAME;
-                }
-
+            case (CONTROL_WAIT_FOR_PLACE): {  
+				if(placement_status == true){
+				// and ship loc to queue and pub
+				}
                 break;
             }
 
-            case (CONTROL_END_GAME): {
-                break;
-            }
 
             default:
                 controlState = CONTROL_WAIT_FOR_GAME;
@@ -105,17 +83,19 @@ void vControlHandlerTask(void *pvParameters)
     }
 }
 
-/**
- int ControlAddGameData(struct GameDataPacket *gameIn);
- * @brief	Adds an game data received from the internet to the local control for play
- * @param[out]
 
- * @return		Returns pdTrue if data can be added to queue, 0 if queue is full
- * @note
 
- */
-int ControlAddGameData(struct GameDataPacket *gameIn)
+void ControlSetGame(uint8_t *shiparr_in,uint8_t ship_num_in)
 {
-    int error = xQueueSend(xQueueGameBufferIn, gameIn, (TickType_t)10);
-    return error;
+	memcpy (ship_arr, shiparr_in, ship_num_in * sizeof (uint8_t));
+	ship_num = ship_num_in;
+	placement_status = false;
+	controlState = CONTROL_WAIT_FOR_PLACE;
+	LogMessage(LOG_DEBUG_LVL, "\r\nship_arr %d %d %d\r\n", ship_arr[0], ship_arr[1], ship_arr[2]);
+	UiPlaceInit(ship_arr, ship_num);
+}
+
+
+void SetPlacementStatus(bool state){
+	placement_status = state;
 }

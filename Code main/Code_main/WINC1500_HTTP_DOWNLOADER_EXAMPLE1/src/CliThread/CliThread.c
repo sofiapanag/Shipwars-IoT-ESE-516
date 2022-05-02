@@ -43,7 +43,6 @@ static const CLI_Command_Definition_t xNeotrellisProcessButtonCommand = {"getbut
 																		 
 static const CLI_Command_Definition_t xSHTCGetCommand = {"shtc", "shtc: get temp and humidity\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_GetSHTC, 0};	
 
-static const CLI_Command_Definition_t xSendDummyGameData = {"game", "game: Sends dummy game data\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_SendDummyGameData, 0};
 static const CLI_Command_Definition_t xI2cScan = {"i2c", "i2c: Scans I2C bus\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_i2cScan, 0};	
 	
 	
@@ -77,7 +76,6 @@ void vCommandConsoleTask(void *pvParameters)
     FreeRTOS_CLIRegisterCommand(&xResetCommand);
     FreeRTOS_CLIRegisterCommand(&xNeotrellisTurnLEDCommand);
     FreeRTOS_CLIRegisterCommand(&xNeotrellisProcessButtonCommand);
-    FreeRTOS_CLIRegisterCommand(&xSendDummyGameData);
 	FreeRTOS_CLIRegisterCommand(&xI2cScan);
 
     char cRxedChar[2];
@@ -342,12 +340,66 @@ BaseType_t CLI_ResetDevice(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const 
  */
 BaseType_t CLI_NeotrellisSetLed(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
 {
-    snprintf((char *) pcWriteBuffer, xWriteBufferLen, "Students to fill out!");
-    // Check code SeesawSetLed and SeesawSetLed
-    // How do you get parameters? Checl link in comments!
-    // Check that the input is sanitized: Key between 0-15, RGB between 0-255. Print if there is an error!
-    // return pdFalse to tell the FreeRTOS CLI your call is done and does not need to call again.
-    // This function expects 4 arguments inside pcCommandString: key, R, G, B.
+    int8_t *pcParameter1, *pcParameter2, *pcParameter3, *pcParameter4;
+    int R,G,B, Keynum;
+    BaseType_t xParameter1StringLength, xParameter2StringLength, xParameter3StringLength, xParameter4StringLength;
+
+    pcParameter1 = FreeRTOS_CLIGetParameter( pcCommandString,
+    1,
+    &xParameter1StringLength);
+
+    pcParameter2 = FreeRTOS_CLIGetParameter( pcCommandString,
+    2,
+    &xParameter2StringLength );
+    
+    pcParameter3 = FreeRTOS_CLIGetParameter( pcCommandString,
+    3,
+    &xParameter3StringLength );
+    
+    pcParameter4 = FreeRTOS_CLIGetParameter( pcCommandString,
+    4,
+    &xParameter4StringLength );
+    
+    pcParameter1[ xParameter1StringLength ] = 0x00;
+    pcParameter2[ xParameter2StringLength ] = 0x00;
+    pcParameter3[ xParameter3StringLength ] = 0x00;
+    pcParameter4[ xParameter4StringLength ] = 0x00;
+    
+    Keynum = atoi(pcParameter1);
+    R = atoi(pcParameter2);
+    G = atoi(pcParameter3);
+    B = atoi(pcParameter4);
+    
+    //sanitize
+    if(Keynum < 0 || Keynum > 15){
+	    snprintf(pcWriteBuffer,xWriteBufferLen, "Keynum must be between 0 to 15\r\n");
+	    return pdFALSE;
+    }
+    
+    if (R < 0 || R > 255){
+	    snprintf(pcWriteBuffer,xWriteBufferLen, "Red must be between 0 and 255\r\n");
+	    return pdFALSE;
+    }
+    
+    if (G < 0 || G > 255){
+	    snprintf(pcWriteBuffer,xWriteBufferLen, "Green must be between 0 and 255\r\n");
+	    return pdFALSE;
+    }
+    
+    if (B < 0 || B > 255){
+	    snprintf(pcWriteBuffer,xWriteBufferLen, "Blue must be between 0 and 255\r\n");
+	    return pdFALSE;
+    }
+    
+    if (SeesawSetLed(Keynum, R, G, B)){
+	    snprintf(pcWriteBuffer,xWriteBufferLen, "unexpected I2C error\r\n");
+	    return pdFALSE;
+    }
+    
+    if(SeesawOrderLedUpdate()){
+	    snprintf(pcWriteBuffer,xWriteBufferLen, "unexpected I2C error\r\n");
+    }
+
     return pdFALSE;
 }
 
@@ -406,44 +458,6 @@ BaseType_t CLI_NeotrellProcessButtonBuffer(int8_t *pcWriteBuffer, size_t xWriteB
 }
 
 
-/**
- BaseType_t CLI_SendDummyGameData( int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString )
- * @brief	Returns dummy game data
- * @param[out] *pcWriteBuffer. Buffer we can use to write the CLI command response to! See other CLI examples on how we use this to write back!
- * @param[in] xWriteBufferLen. How much we can write into the buffer
- * @param[in] *pcCommandString. Buffer that contains the complete input. You will find the additional arguments, if needed. Please see
- https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/FreeRTOS_Plus_CLI_Implementing_A_Command.html#Example_Of_Using_FreeRTOS_CLIGetParameter
- Example 3
-
- * @return		Returns pdFALSE if the CLI command finished.
- * @note         Please see https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/FreeRTOS_Plus_CLI_Accessing_Command_Line_Parameters.html
-                                 for more information on how to use the FreeRTOS CLI.
-
- */
-BaseType_t CLI_SendDummyGameData(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
-{
-    struct GameDataPacket gamevar;
-
-    gamevar.game[0] = 0;
-    gamevar.game[1] = 1;
-    gamevar.game[2] = 2;
-    gamevar.game[3] = 3;
-    gamevar.game[4] = 4;
-    gamevar.game[5] = 5;
-    gamevar.game[6] = 6;
-    gamevar.game[7] = 7;
-    gamevar.game[8] = 8;
-    gamevar.game[9] = 9;
-    gamevar.game[10] = 0xFF;
-
-    int error = WifiAddGameDataToQueue(&gamevar);
-    if (error == pdTRUE) {
-        snprintf((char *) pcWriteBuffer, xWriteBufferLen, "Dummy Game Data MQTT Post\r\n");
-    }
-    return pdFALSE;
-}
-
-
 /**************************************************************************/ /**
  * @brief    Scan both i2c
  * @param    p_cli 
@@ -453,23 +467,23 @@ BaseType_t CLI_SendDummyGameData(int8_t *pcWriteBuffer, size_t xWriteBufferLen, 
 BaseType_t CLI_i2cScan(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
 {
 
-		I2C_Data i2cOled; 
+  I2C_Data i2cOled; 
         uint8_t address;
-		//Send 0 command byte
-		uint8_t dataOut[2] = {0,0};
-		uint8_t dataIn[2];
-		dataOut[0] = 0;
-		dataOut[1] = 0;
-		i2cOled.address = 0;
-		i2cOled.msgIn = (uint8_t*) &dataIn[0];
-		i2cOled.lenOut = 1;
-		i2cOled.msgOut = (const uint8_t*) &dataOut[0];
-		i2cOled.lenIn = 1;
+  //Send 0 command byte
+  uint8_t dataOut[2] = {0,0};
+  uint8_t dataIn[2];
+  dataOut[0] = 0;
+  dataOut[1] = 0;
+  i2cOled.address = 0;
+  i2cOled.msgIn = (uint8_t*) &dataIn[0];
+  i2cOled.lenOut = 1;
+  i2cOled.msgOut = (const uint8_t*) &dataOut[0];
+  i2cOled.lenIn = 1;
 
             SerialConsoleWriteString("0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f\r\n");
             for (int i = 0; i < 128; i += 16)
             {
-				snprintf(bufCli, CLI_MSG_LEN - 1, "%02x: ", i);
+    snprintf(bufCli, CLI_MSG_LEN - 1, "%02x: ", i);
                 SerialConsoleWriteString(bufCli);
 
                 for (int j = 0; j < 16; j++)
@@ -477,22 +491,22 @@ BaseType_t CLI_i2cScan(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8
 
                     i2cOled.address = (i + j);
 
-                    	
-                    int32_t ret = I2cReadDataWait(&i2cOled, 100, 100);
+                     
+                    int32_t ret = I2cPingAddressWait(&i2cOled, 100, 100);
                     if (ret == 0)
                     {
-						snprintf(bufCli, CLI_MSG_LEN - 1, "%02x ", i2cOled.address);
+      snprintf(bufCli, CLI_MSG_LEN - 1, "%02x ", i2cOled.address);
                         SerialConsoleWriteString(bufCli);
                     }
                     else
                     {
                         snprintf(bufCli, CLI_MSG_LEN - 1, "X  ");
-						SerialConsoleWriteString(bufCli);
+      SerialConsoleWriteString(bufCli);
                     }
                 }
                 SerialConsoleWriteString( "\r\n");
             }
             SerialConsoleWriteString( "\r\n");
-			return pdFALSE;
+   return pdFALSE;
 
 }

@@ -94,10 +94,12 @@ int32_t I2cFreeMutex(void);
 int32_t I2cReadData(I2C_Data *data);
 int32_t I2cWriteData(I2C_Data *data);
 int32_t I2cInitializeDriver(void);
+int32_t I2cPingAddressWait(I2C_Data *data, const TickType_t delay, const TickType_t xMaxBlockTime);
 void I2cDriverRegisterSensorBusCallbacks(void);
 void I2cSensorsError(struct i2c_master_module *const module);
 void I2cSensorsRxComplete(struct i2c_master_module *const module);
 void I2cSensorsTxComplete(struct i2c_master_module *const module);
+
 
 #ifdef __cplusplus
 }

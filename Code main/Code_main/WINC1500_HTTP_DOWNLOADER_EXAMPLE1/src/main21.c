@@ -41,7 +41,6 @@ void vApplicationIdleHook(void);
 //!< Initial task used to initialize HW before other tasks are initialized
 static void StartTasks(void);
 void vApplicationDaemonTaskStartupHook(void);
-
 void vApplicationStackOverflowHook(void);
 void vApplicationMallocFailedHook(void);
 void vApplicationTickHook(void);

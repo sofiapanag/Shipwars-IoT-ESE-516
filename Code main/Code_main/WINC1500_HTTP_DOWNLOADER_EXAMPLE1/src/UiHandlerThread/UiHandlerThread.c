@@ -25,26 +25,26 @@ Thread for ESE516 Spring (Online) Edition
 /******************************************************************************
  * Defines
  ******************************************************************************/
-#define BUTTON_PRESSES_MAX 16  ///< Number of maximum button presses to analize in one go
 
 /******************************************************************************
  * Variables
  ******************************************************************************/
 uiStateMachine_state uiState;         ///< Holds the current state of the UI
-struct GameDataPacket gamePacketIn;   ///< Holds the game packet to show
-struct GameDataPacket gamePacketOut;  ///< Holds the game packet to send back
-volatile uint8_t red = 0;             ///< Holds the color of the red LEDs. Can be set by MQTT
-volatile uint8_t green = 100;         ///< Holds the color of the green LEDs. Can be set by MQTT
-volatile uint8_t blue = 50;           ///< Holds the color of the blue LEDs. Can be set by MQTT
+uint8_t ship_arr[MAX_SHIP];
+uint8_t ship_num;		  
+uint8_t fire_loc;			 ///< int to hold location of fire
+uint8_t ship_loc_buffer;
+uint8_t ship_loc_out[MAX_TILE];
+uint8_t ship_loc_out_num = 0;
 
-uint8_t pressedKeys = 0;              ///< Variable to count how many presses the player has done
-uint8_t keysToPress = 0;              ///< Variable that holds the number of new keypresses the user should do
-bool playIsDone = false;              ///< Boolean flag to indicate if the player has finished moving.
-                                      ///< Useful for COntrol to determine when to send back a play.
-uint8_t buttons[BUTTON_PRESSES_MAX];  ///< Array to hold button presses
+uiPlacement_state place_tile_stat[MAX_TILE] = {UI_PLACE_INVALID};
+	
 /******************************************************************************
  * Forward Declarations
  ******************************************************************************/
+static void UiPlaceSuggest2(uint8_t loc);
+static void UiPlaceSuggest3(uint8_t loc_1, uint8_t loc_2);
+static void UiRemoveSuggest(uint8_t loc);
 
 /******************************************************************************
  * Callback Functions
@@ -68,108 +68,87 @@ void vUiHandlerTask(void *pvParameters)
     SerialConsoleWriteString("UI Task Started!");
     uiState = UI_STATE_IGNORE_PRESSES;  // Initial state
 
-    // Graphics Test - Students to uncomment to test out the OLED driver if you are using it! 
-	/*
-    gfx_mono_init();
-    gfx_mono_draw_line(0, 0, 64, 48, GFX_PIXEL_SET);
-    gfx_mono_draw_filled_circle(54, 24, 10, GFX_PIXEL_SET, GFX_WHOLE);
-	gfx_mono_draw_string("ESE516",0,0, &sysfont);
-	*/
-
     // Here we start the loop for the UI State Machine
     while (1) {
         switch (uiState) {
             case (UI_STATE_IGNORE_PRESSES): {
-                // Ignore any presses until we receive a command from the control thread
-                // to go to UI_STATE_SHOW_MOVES Will be changed by control with the
-                // function void UiOrderShowMoves(struct GameDataPacket *packetIn) which
-                // gets called when a valid MQTT Package comes in!
+				SeesawReadKeypad(&ship_loc_buffer, 1);
                 break;
             }
 
-            case (UI_STATE_SHOW_MOVES): {
-                // Set initial state variable that will be used on the
-                // UI_STATE_Handle_Buttons and need to be initialized once
-                pressedKeys = 0;  // Set number of keys pressed by player to 0.
-                keysToPress = 1;  // Set as an example to 1. STUDENTS should change this
-                                  // to the number of key presses needed.
-                memset(gamePacketOut.game, 0xff,
-                       sizeof(gamePacketOut.game));  // Erase gamePacketOut to an initial state
-                playIsDone = false;                  // Set play to false
-                uint8_t presses = SeesawGetKeypadCount();
-                if (presses >= BUTTON_PRESSES_MAX) presses = BUTTON_PRESSES_MAX;
-                if (presses != 0)
-                    SeesawReadKeypad(buttons,
-                                     presses);  // Empty Seesaw buffer just in case
-                                                // it has latent presses on it!
-                memset(buttons, 0, BUTTON_PRESSES_MAX);
-                // STUDENTS: Make this function show the moves of the gamePacketIn.
-                // You can use a static delay to show each move but a quicker delay as
-                // the message gets longer might be more fun! After you finish showing
-                // the move should go to state UI_STATE_HANDLE_BUTTONS
-
-                // In the beginner example we turn LED0 and LED15 will turn on for 500
-                // ms then we go to UI_STATE_HANDLE_BUTTONS
-                SeesawSetLed(0, red, green, blue);  // Turn button 1 on
-                SeesawOrderLedUpdate();
-                vTaskDelay(1000);
-                SeesawSetLed(0, 0, 0, 0);            // Turn button 0 off
-                SeesawSetLed(15, red, green, blue);  // Turn button 15 on
-                SeesawOrderLedUpdate();
-                vTaskDelay(1000);
-                SeesawSetLed(15, 0, 0, 0);  // Turn button 15 off
-                SeesawOrderLedUpdate();
-                vTaskDelay(1000);
-                uiState = UI_STATE_HANDLE_BUTTONS;
-
+            case (UI_STATE_PLACE_SHIP): {
+				ship_loc_out_num = 0;
+				
+				for(int i = 0; i < ship_num; i++){
+					uint8_t ship_head, ship_tail;
+					uint8_t cur_ship_size = 0;
+					uint8_t cur_ship_arr[MAX_SHIP_SIZE];
+					
+					while(cur_ship_size < ship_arr[i]){
+						if( SeesawGetKeypadCount() == 0 ){continue;}
+							
+						if( ERROR_NONE == SeesawReadKeypad(&ship_loc_buffer, 1) ){
+							
+							ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
+							
+							if(cur_ship_size == 0){
+								if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
+								cur_ship_arr[cur_ship_size] = ship_loc_buffer;
+								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
+								SeesawSetLed(ship_loc_buffer, 0, 0, 50);
+								SeesawOrderLedUpdate();
+								
+								ship_head = ship_loc_buffer;
+								ship_tail = ship_loc_buffer;
+								if(cur_ship_size != ship_arr[i]-1){
+									UiPlaceSuggest2(ship_loc_buffer);
+								}
+							}
+							else{
+								//check validity of 2nd position
+								if(place_tile_stat[ship_loc_buffer] != UI_PLACE_VALID){continue;}
+									
+								cur_ship_arr[cur_ship_size] = ship_loc_buffer;
+								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
+								SeesawSetLed(ship_loc_buffer, R_PLACE_PLACED, G_PLACE_PLACED, B_PLACE_PLACED);
+								SeesawOrderLedUpdate();
+								
+								UiRemoveSuggest(ship_head);
+								UiRemoveSuggest(ship_tail);
+								
+								if(ship_loc_buffer < ship_head){ship_head = ship_loc_buffer;}
+								else{ship_tail = ship_loc_buffer;}
+								
+								if(cur_ship_size != ship_arr[i]-1){
+									UiPlaceSuggest3(ship_head,ship_tail);
+								}
+							}
+							cur_ship_size++;
+						}
+							
+					}
+					
+					for(int j = 0; j < ship_arr[i];j++){
+						ship_loc_out[ship_loc_out_num] = cur_ship_arr[j];
+						ship_loc_out_num++;
+					}
+					
+					
+				}
+				uiState = UI_STATE_IGNORE_PRESSES;
+				//publish data back to the cloud
+				LogMessage(LOG_DEBUG_LVL, "Placement finished! \r\n");
                 break;
             }
 
-            case (UI_STATE_HANDLE_BUTTONS): {
-                // This state should accept (gamePacketIn length + 1) moves from the
-                // player (capped to maximum 19 + new move) The moves by the player
-                // should be stored on "gamePacketOut". The keypresses that should count
-                // are when the player RELEASES the button.
-
-                // In this example, we return after only one button press!
-
-                uint8_t numPresses = SeesawGetKeypadCount();
-                memset(buttons, 0, BUTTON_PRESSES_MAX);
-
-                if (numPresses >= BUTTON_PRESSES_MAX) {
-                    numPresses = BUTTON_PRESSES_MAX;
-                }
-                if (numPresses != 0 && ERROR_NONE == SeesawReadKeypad(buttons, numPresses)) {
-                    // Process Buttons
-                    for (int iter = 0; iter < numPresses; iter++) {
-                        uint8_t keynum = NEO_TRELLIS_SEESAW_KEY((buttons[iter] & 0xFD) >> 2);
-                        uint8_t actionButton = buttons[iter] & 0x03;
-                        if (actionButton == 0x03) {
-                            SeesawSetLed(keynum, red, green, blue);
-                        } else {
-                            SeesawSetLed(keynum, 0, 0, 0);
-                            // Button released! Count this into the buttons pressed by user.
-                            gamePacketOut.game[pressedKeys] = keynum;
-                            pressedKeys++;
-                        }
-                    }
-                    SeesawOrderLedUpdate();
-                }
-
-                // Check if we are done!
-                if (pressedKeys >= keysToPress || pressedKeys >= GAME_SIZE) {
-                    // Tell control gamePacketOut is ready to be send out AND go back to
-                    // UI_STATE_IGNORE_PRESSES
-                    playIsDone = true;
-                    uiState = UI_STATE_IGNORE_PRESSES;
-                }
+            case (UI_STATE_HANDLE_SHOOT): {
 
                 break;
             }
 
             default:  // In case of unforseen error, it is always good to sent state
                       // machine to an initial state.
-                uiState = UI_STATE_HANDLE_BUTTONS;
+                uiState = UI_STATE_IGNORE_PRESSES;
                 break;
         }
 
@@ -181,34 +160,130 @@ void vUiHandlerTask(void *pvParameters)
 /******************************************************************************
  * Functions
  ******************************************************************************/
-void UiOrderShowMoves(struct GameDataPacket *packetIn)
+void UiPlaceInit(uint8_t *shiparr_in,uint8_t ship_num_in)
 {
-    memcpy(&gamePacketIn, packetIn, sizeof(gamePacketIn));
-    uiState = UI_STATE_SHOW_MOVES;
-    playIsDone = false;  // Set play to false
+	LogMessage(LOG_DEBUG_LVL, "Placement started! \r\n");
+	memcpy (ship_arr, shiparr_in, ship_num * sizeof (uint8_t));
+	ship_num = ship_num_in;
+	for(int i =0 ; i < MAX_TILE; i++){
+		SeesawSetLed(i,R_PLACE_INVALID,G_PLACE_INVALID,B_PLACE_INVALID);
+		place_tile_stat[i] = UI_PLACE_INVALID;
+	}
+	SeesawOrderLedUpdate();
+	uiState = UI_STATE_PLACE_SHIP;
 }
 
-bool UiPlayIsDone(void)
+static void UiPlaceSuggest2(uint8_t loc)
 {
-    return playIsDone;
+	uint8_t rec_loc;
+	if(loc > 3){
+		rec_loc = loc - 4;
+		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
+			place_tile_stat[rec_loc] = UI_PLACE_VALID;
+			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+		}
+	}
+	
+	if(loc < 12){
+		rec_loc = loc + 4;
+		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
+			place_tile_stat[rec_loc] = UI_PLACE_VALID;
+			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+		}
+	}
+	
+	if(loc % 4 != 3){
+		rec_loc = loc + 1;
+		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
+			place_tile_stat[rec_loc] = UI_PLACE_VALID;
+			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+		}
+	}
+	
+	if(loc % 4 != 0){
+		rec_loc = loc - 1;
+		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
+			place_tile_stat[rec_loc] = UI_PLACE_VALID;
+			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			
+		}
+	}
+	SeesawOrderLedUpdate();
+	
 }
 
-struct GameDataPacket *UiGetGamePacketOut(void)
+static void UiPlaceSuggest3(uint8_t loc_1, uint8_t loc_2)
 {
-    return &gamePacketOut;
+	uint8_t loc_h, loc_t;
+	
+	if(loc_1 < loc_2){loc_h = loc_1; loc_t = loc_2;}
+	else{loc_h = loc_2; loc_t = loc_1;}
+	
+	if(loc_h % 4 == loc_t % 4){
+		if(loc_h > 4){
+			if(place_tile_stat[loc_h - 4] == UI_PLACE_INVALID){
+				place_tile_stat[loc_h - 4] = UI_PLACE_VALID;
+				SeesawSetLed(loc_h - 4, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			}
+		}
+		if(loc_t < 12){
+			if(place_tile_stat[loc_t + 4] == UI_PLACE_INVALID){
+				place_tile_stat[loc_t + 4] = UI_PLACE_VALID;
+				SeesawSetLed(loc_t + 4, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			}
+		}
+	}
+	else if((int)loc_h/4 == (int)loc_t/4){
+		// if horizontal 
+		if(loc_h % 4 != 0){
+			if(place_tile_stat[loc_h - 1] == UI_PLACE_INVALID){
+				place_tile_stat[loc_h - 1] = UI_PLACE_VALID;
+				SeesawSetLed(loc_h - 1, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			}
+		}
+		if(loc_t %4 != 3){
+			if(place_tile_stat[loc_t + 1] == UI_PLACE_INVALID){
+				place_tile_stat[loc_t + 1] = UI_PLACE_VALID;
+				SeesawSetLed(loc_t + 1, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			}
+		}
+		
+	}
+	
+	SeesawOrderLedUpdate();
 }
 
-/**
- int UIChangeColors(uint8_t r, uint8_t g, uint8_t b);
- * @brief	Changes the LED colors
- * @param [in]
- * @return
- * @note
 
-*/
-void UIChangeColors(uint8_t r, uint8_t g, uint8_t b)
+static void UiRemoveSuggest(uint8_t loc)
 {
-    red = r;
-    green = g;
-    blue = b;
+	uint8_t rec_loc;
+
+	rec_loc = loc + 4;
+	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
+		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
+		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+
+	}
+
+	rec_loc = loc - 4;
+	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
+		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
+		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+
+	}
+
+	rec_loc = loc + 1;
+	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
+		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
+		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+
+	}
+
+	rec_loc = loc - 1;
+	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
+		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
+		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+	}
+	SeesawOrderLedUpdate();
+
 }

@@ -111,7 +111,11 @@ int main(void)
 
 	//EXAMPLE CODE ON MOUNTING THE SD CARD AND WRITING TO A FILE
 	//See function inside to see how to open a file
+	
 	SerialConsoleWriteString("\x0C\n\r-- SD/MMC Card Example on FatFs --\n\r");
+	
+	SerialConsoleWriteString("skip sd card");
+	goto exit_bootloader;
 
 	if(StartFilesystemAndTest() == false)
 	{
@@ -141,13 +145,14 @@ int main(void)
 		SerialConsoleWriteString("Firmware updated!\r\n");
 	}
 
-
+	exit_bootloader:
 	//4.) DEINITIALIZE HW AND JUMP TO MAIN APPLICATION!
 	SerialConsoleWriteString("ESE516 - EXIT BOOTLOADER");	//Order to add string to TX Buffer
 	delay_cycles_ms(100); //Delay to allow print
 		
 	//Deinitialize HW - deinitialize started HW here!
 	DeinitializeSerialConsole(); //Deinitializes UART
+	
 	sd_mmc_deinit(); //Deinitialize SD CARD
 
 
