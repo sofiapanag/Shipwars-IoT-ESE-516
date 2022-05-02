@@ -86,7 +86,9 @@ void vUiHandlerTask(void *pvParameters)
 					uint8_t cur_ship_arr[MAX_SHIP_SIZE];
 					
 					while(cur_ship_size < ship_arr[i]){
-						if( SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1) == 0 ){vTaskDelay(50); continue;}
+						uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1) ;
+						if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
+						if(temp  == 0){vTaskDelay(50); continue;}
 							
 						if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_loc_buffer, 1) ){
 							

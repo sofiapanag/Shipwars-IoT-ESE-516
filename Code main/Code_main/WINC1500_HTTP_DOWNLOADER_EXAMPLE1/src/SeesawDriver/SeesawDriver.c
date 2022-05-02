@@ -129,6 +129,7 @@ uint8_t SeesawGetKeypadCount(uint8_t neotrellis_addr)
 
     if (ERROR_NONE != error) {
         SerialConsoleWriteString("Error reading Seesaw counts!/r/n");
+		return 99;
     }
     return count;
 }
