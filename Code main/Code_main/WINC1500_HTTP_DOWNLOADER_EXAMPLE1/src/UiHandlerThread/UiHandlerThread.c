@@ -72,7 +72,7 @@ void vUiHandlerTask(void *pvParameters)
     while (1) {
         switch (uiState) {
             case (UI_STATE_IGNORE_PRESSES): {
-				SeesawReadKeypad(&ship_loc_buffer, 1);
+				//SeesawReadKeypad(&ship_loc_buffer, 1);
                 break;
             }
 
@@ -142,7 +142,7 @@ void vUiHandlerTask(void *pvParameters)
             }
 
             case (UI_STATE_HANDLE_SHOOT): {
-
+				// send the ship location of firing to cloud
                 break;
             }
 

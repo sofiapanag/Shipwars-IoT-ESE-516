@@ -12,7 +12,7 @@
 #define _NEO_TRELLIS_H
 #include "I2cDriver/I2cDriver.h"
 
-#define NEO_TRELLIS_ADDR 0x2E
+#define NEO_TRELLIS_ADDR 0x2F 
 
 #define NEO_TRELLIS_NEOPIX_PIN 3
 

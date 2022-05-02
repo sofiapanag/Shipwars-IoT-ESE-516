@@ -15,7 +15,7 @@
 #include "SeesawDriver/Seesaw.h"
 #include "WifiHandlerThread/WifiHandler.h"
 #include "SHTC3/SHTC3.h"
-
+  
 /******************************************************************************
  * Defines
  ******************************************************************************/
