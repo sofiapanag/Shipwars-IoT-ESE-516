@@ -12,7 +12,8 @@
 #define _NEO_TRELLIS_H
 #include "I2cDriver/I2cDriver.h"
 
-#define NEO_TRELLIS_ADDR 0x2E
+#define NEO_TRELLIS_ADDR_1 0x2E
+#define NEO_TRELLIS_ADDR_2 0x2F
 
 #define NEO_TRELLIS_NEOPIX_PIN 3
 
@@ -264,10 +265,10 @@ union keyState {
     uint8_t reg;             ///< register format
 };
 
-int InitializeSeesaw(void);
-uint8_t SeesawGetKeypadCount(void);
-int32_t SeesawReadKeypad(uint8_t *buffer, uint8_t count);
-int32_t SeesawSetLed(uint8_t key, uint8_t red, uint8_t green, uint8_t blue);
-int32_t SeesawOrderLedUpdate(void);
-int32_t SeesawActivateKey(uint8_t key, uint8_t edge, bool enable);
+int InitializeSeesaw(uint8_t neotrellis_addr);
+uint8_t SeesawGetKeypadCount(uint8_t neotrellis_addr);
+int32_t SeesawReadKeypad(uint8_t neotrellis_addr, uint8_t *buffer, uint8_t count);
+int32_t SeesawSetLed(uint8_t neotrellis_addr, uint8_t key, uint8_t red, uint8_t green, uint8_t blue);
+int32_t SeesawOrderLedUpdate(uint8_t neotrellis_addr);
+int32_t SeesawActivateKey(uint8_t neotrellis_addr, uint8_t key, uint8_t edge, bool enable);
 #endif

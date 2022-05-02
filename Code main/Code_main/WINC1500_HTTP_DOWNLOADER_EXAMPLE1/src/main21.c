@@ -97,11 +97,20 @@ void vApplicationDaemonTaskStartupHook(void)
         SerialConsoleWriteString("Initialized I2C Driver!\r\n");
     }
 	
-    if (0 != InitializeSeesaw()) {
-        SerialConsoleWriteString("Error initializing Seesaw!\r\n");
+	
+    if (0 != InitializeSeesaw(NEO_TRELLIS_ADDR_1)) {
+        SerialConsoleWriteString("Error initializing 1st Seesaw!\r\n");
     } else {
-        SerialConsoleWriteString("Initialized Seesaw!\r\n");
+        SerialConsoleWriteString("Initialized 1st Seesaw!\r\n");
     }
+	
+	
+	if (0 != InitializeSeesaw(NEO_TRELLIS_ADDR_2)) {
+		SerialConsoleWriteString("Error initializing 2nd Seesaw!\r\n");
+		} else {
+		SerialConsoleWriteString("Initialized 2nd Seesaw!\r\n");
+	}
+	
 
     uint8_t whoamI = 0;
     (lsm6dso_device_id_get(GetImuStruct(), &whoamI));
@@ -116,12 +125,6 @@ void vApplicationDaemonTaskStartupHook(void)
             SerialConsoleWriteString("Could not initialize IMU\r\n");
         }
     }
-
-/*
-    SerialConsoleWriteString("Initializing distance sensor\r\n");
-    InitializeDistanceSensor();
-    SerialConsoleWriteString("Distance sensor initialized\r\n");
-	*/
 
     StartTasks();
 

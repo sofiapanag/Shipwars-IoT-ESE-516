@@ -38,8 +38,8 @@ const uint8_t msgKeypadGetCount[2] = {SEESAW_KEYPAD_BASE, SEESAW_KEYPAD_COUNT}; 
  * Callback Functions
  ******************************************************************************/
 
-static void SeesawTurnOnLedTest(void);
-static void SeesawInitializeKeypad(void);
+static void SeesawTurnOnLedTest(uint8_t neotrellis_addr);
+static void SeesawInitializeKeypad(uint8_t neotrellis_addr);
 /******************************************************************************
  * Functions
  ******************************************************************************/
@@ -52,10 +52,10 @@ static void SeesawInitializeKeypad(void);
  * @return		Returns 0 if no errors.
  * @note
  */
-int InitializeSeesaw(void)
+int InitializeSeesaw(uint8_t neotrellis_addr)
 {
     uint8_t readData[2];
-    seesawData.address = NEO_TRELLIS_ADDR;
+    seesawData.address = neotrellis_addr;
     seesawData.msgOut = &msgBaseGetHWID[0];
     seesawData.lenOut = sizeof(msgBaseGetHWID);
     seesawData.msgIn = &readData[0];
@@ -102,9 +102,9 @@ int InitializeSeesaw(void)
         SerialConsoleWriteString("Could not set seesaw Neopixel number of devices/r/n");
     }
 
-    SeesawTurnOnLedTest();
+    SeesawTurnOnLedTest(neotrellis_addr);
 
-    SeesawInitializeKeypad();
+    SeesawInitializeKeypad(neotrellis_addr);
     return error;
 }
 
@@ -116,10 +116,10 @@ int InitializeSeesaw(void)
  * @return		Returns the number of events in the buffer. Use SeesawReadKeypad to read these events.
  * @note
 */
-uint8_t SeesawGetKeypadCount(void)
+uint8_t SeesawGetKeypadCount(uint8_t neotrellis_addr)
 {
     uint8_t count = 0;
-    seesawData.address = NEO_TRELLIS_ADDR;
+    seesawData.address = neotrellis_addr;
     seesawData.msgOut = &msgKeypadGetCount[0];
     seesawData.lenOut = sizeof(msgKeypadGetCount);
     seesawData.msgIn = &count;
@@ -142,11 +142,11 @@ uint8_t SeesawGetKeypadCount(void)
  * @return		Returns zero if no I2C errors occurred. Other number in case of error
  * @note         Use SeesawGetKeypadCount to know how many events are in buffer.
 */
-int32_t SeesawReadKeypad(uint8_t *buffer, uint8_t count)
+int32_t SeesawReadKeypad(uint8_t neotrellis_addr, uint8_t *buffer, uint8_t count)
 {
     if (count == 0) return ERROR_NONE;
     uint8_t cmd[] = {SEESAW_KEYPAD_BASE, SEESAW_KEYPAD_FIFO};
-    seesawData.address = NEO_TRELLIS_ADDR;
+    seesawData.address = neotrellis_addr;
     seesawData.msgOut = (const uint8_t*) &cmd[0];
     seesawData.lenOut = sizeof(cmd);
     seesawData.msgIn = buffer;
@@ -170,14 +170,14 @@ int32_t SeesawReadKeypad(uint8_t *buffer, uint8_t count)
  * @return		Returns zero if no I2C errors occurred. Other number in case of error
  * @note
 */
-int32_t SeesawActivateKey(uint8_t key, uint8_t edge, bool enable)
+int32_t SeesawActivateKey(uint8_t neotrellis_addr, uint8_t key, uint8_t edge, bool enable)
 {
     union keyState ks;
     ks.bit.STATE = enable;
     ks.bit.ACTIVE = (1 << edge);
     uint8_t cmd[] = {SEESAW_KEYPAD_BASE, SEESAW_KEYPAD_EVENT, key, ks.reg};
 
-    seesawData.address = NEO_TRELLIS_ADDR;
+    //seesawData.address = neotrellis_addr;
     seesawData.msgOut = (const uint8_t *) &cmd[0];
     seesawData.lenOut = sizeof(cmd);
     seesawData.lenIn = 0;
@@ -197,7 +197,7 @@ int32_t SeesawActivateKey(uint8_t key, uint8_t edge, bool enable)
  * @note         Note that the LEDs wont turn on until you send a "SeesawOrderLedUpdate" command.
          FOR ESE516 Board, please do not turn ALL the LEDs to maximum brightness (255,255,255)!
 */
-int32_t SeesawSetLed(uint8_t key, uint8_t red, uint8_t green, uint8_t blue)
+int32_t SeesawSetLed(uint8_t neotrellis_addr, uint8_t key, uint8_t red, uint8_t green, uint8_t blue)
 {
     uint8_t write_buffer1[7] = {SEESAW_NEOPIXEL_BASE, SEESAW_NEOPIXEL_BUF, 0, 0, green, red, blue};
 
@@ -205,6 +205,7 @@ int32_t SeesawSetLed(uint8_t key, uint8_t red, uint8_t green, uint8_t blue)
     write_buffer1[2] = (offset >> 8);
     write_buffer1[3] = (offset);
 
+	seesawData.address = neotrellis_addr;
     seesawData.msgOut = (const uint8_t *)&write_buffer1[0];
     seesawData.lenOut = sizeof(write_buffer1);
     int error = I2cWriteDataWait(&seesawData, 100);
@@ -219,10 +220,12 @@ int32_t SeesawSetLed(uint8_t key, uint8_t red, uint8_t green, uint8_t blue)
  * @note         Use "SeesawSetLed" to send LED Data. The data will not be use to update the display until this function has been called!
 
 */
-int32_t SeesawOrderLedUpdate(void)
+int32_t SeesawOrderLedUpdate(uint8_t neotrellis_addr)
 {
+	
     uint8_t orderBuffer[2] = {SEESAW_NEOPIXEL_BASE, SEESAW_NEOPIXEL_SHOW};
-
+		
+	seesawData.address = neotrellis_addr;
     seesawData.msgOut = (const uint8_t *) &orderBuffer[0];
     seesawData.lenOut = sizeof(orderBuffer);
     int error = I2cWriteDataWait(&seesawData, 100);
@@ -233,9 +236,9 @@ int32_t SeesawOrderLedUpdate(void)
  *  @brief     Activates a given key on the keypad
  *  @return     Returns any error code found when executing task.
  ****************************************************************************************/
-static void SeesawInitializeKeypad(void)
+static void SeesawInitializeKeypad(uint8_t neotrellis_addr)
 {
-    seesawData.address = NEO_TRELLIS_ADDR;
+    seesawData.address = neotrellis_addr;
     seesawData.msgOut = &msgKeypadEnableInt[0];
     seesawData.lenOut = sizeof(msgKeypadEnableInt);
     seesawData.lenIn = 0;
@@ -247,20 +250,20 @@ static void SeesawInitializeKeypad(void)
 
     // Initialize all buttons to register an event for both press and release
     for (int i = 0; i < 16; i++) {
-        error = SeesawActivateKey(NEO_TRELLIS_KEY(i), SEESAW_KEYPAD_EDGE_RISING, true);
-        error |= SeesawActivateKey(NEO_TRELLIS_KEY(i), SEESAW_KEYPAD_EDGE_FALLING, true);
+        error = SeesawActivateKey(neotrellis_addr,NEO_TRELLIS_KEY(i), SEESAW_KEYPAD_EDGE_RISING, true);
+        error |= SeesawActivateKey(neotrellis_addr,NEO_TRELLIS_KEY(i), SEESAW_KEYPAD_EDGE_FALLING, true);
         if (ERROR_NONE != error) {
             SerialConsoleWriteString("Could not initialize Keypad!/r/n");
         }
     }
 }
 
-static void SeesawTurnOnLedTest(void)
+static void SeesawTurnOnLedTest(uint8_t neotrellis_addr)
 {
-    SeesawSetLed(15, 255, 255, 255);
-    SeesawOrderLedUpdate();
+    SeesawSetLed(neotrellis_addr,15, 255, 255, 255);
+    SeesawOrderLedUpdate(neotrellis_addr);
     vTaskDelay(400);
 
-    SeesawSetLed(15, 0, 0, 0);
-    SeesawOrderLedUpdate();
+    SeesawSetLed(neotrellis_addr,15, 0, 0, 0);
+    SeesawOrderLedUpdate(neotrellis_addr);
 }

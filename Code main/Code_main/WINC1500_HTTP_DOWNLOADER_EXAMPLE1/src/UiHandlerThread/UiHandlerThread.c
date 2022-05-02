@@ -72,7 +72,8 @@ void vUiHandlerTask(void *pvParameters)
     while (1) {
         switch (uiState) {
             case (UI_STATE_IGNORE_PRESSES): {
-				SeesawReadKeypad(&ship_loc_buffer, 1);
+				//SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_loc_buffer, 1);
+				//SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_loc_buffer, 1);
                 break;
             }
 
@@ -85,9 +86,9 @@ void vUiHandlerTask(void *pvParameters)
 					uint8_t cur_ship_arr[MAX_SHIP_SIZE];
 					
 					while(cur_ship_size < ship_arr[i]){
-						if( SeesawGetKeypadCount() == 0 ){continue;}
+						if( SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1) == 0 ){vTaskDelay(50); continue;}
 							
-						if( ERROR_NONE == SeesawReadKeypad(&ship_loc_buffer, 1) ){
+						if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_loc_buffer, 1) ){
 							
 							ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
 							
@@ -95,8 +96,8 @@ void vUiHandlerTask(void *pvParameters)
 								if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
 								cur_ship_arr[cur_ship_size] = ship_loc_buffer;
 								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
-								SeesawSetLed(ship_loc_buffer, 0, 0, 50);
-								SeesawOrderLedUpdate();
+								SeesawSetLed(NEO_TRELLIS_ADDR_1,ship_loc_buffer, 0, 0, 50);
+								SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 								
 								ship_head = ship_loc_buffer;
 								ship_tail = ship_loc_buffer;
@@ -110,8 +111,8 @@ void vUiHandlerTask(void *pvParameters)
 									
 								cur_ship_arr[cur_ship_size] = ship_loc_buffer;
 								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
-								SeesawSetLed(ship_loc_buffer, R_PLACE_PLACED, G_PLACE_PLACED, B_PLACE_PLACED);
-								SeesawOrderLedUpdate();
+								SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_loc_buffer, R_PLACE_PLACED, G_PLACE_PLACED, B_PLACE_PLACED);
+								SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 								
 								UiRemoveSuggest(ship_head);
 								UiRemoveSuggest(ship_tail);
@@ -166,10 +167,10 @@ void UiPlaceInit(uint8_t *shiparr_in,uint8_t ship_num_in)
 	memcpy (ship_arr, shiparr_in, ship_num * sizeof (uint8_t));
 	ship_num = ship_num_in;
 	for(int i =0 ; i < MAX_TILE; i++){
-		SeesawSetLed(i,R_PLACE_INVALID,G_PLACE_INVALID,B_PLACE_INVALID);
+		SeesawSetLed(NEO_TRELLIS_ADDR_1,i,R_PLACE_INVALID,G_PLACE_INVALID,B_PLACE_INVALID);
 		place_tile_stat[i] = UI_PLACE_INVALID;
 	}
-	SeesawOrderLedUpdate();
+	SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 	uiState = UI_STATE_PLACE_SHIP;
 }
 
@@ -180,7 +181,7 @@ static void UiPlaceSuggest2(uint8_t loc)
 		rec_loc = loc - 4;
 		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
 			place_tile_stat[rec_loc] = UI_PLACE_VALID;
-			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			SeesawSetLed(NEO_TRELLIS_ADDR_1,rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 		}
 	}
 	
@@ -188,7 +189,7 @@ static void UiPlaceSuggest2(uint8_t loc)
 		rec_loc = loc + 4;
 		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
 			place_tile_stat[rec_loc] = UI_PLACE_VALID;
-			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			SeesawSetLed(NEO_TRELLIS_ADDR_1,rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 		}
 	}
 	
@@ -196,7 +197,7 @@ static void UiPlaceSuggest2(uint8_t loc)
 		rec_loc = loc + 1;
 		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
 			place_tile_stat[rec_loc] = UI_PLACE_VALID;
-			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			SeesawSetLed(NEO_TRELLIS_ADDR_1,rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 		}
 	}
 	
@@ -204,11 +205,11 @@ static void UiPlaceSuggest2(uint8_t loc)
 		rec_loc = loc - 1;
 		if(place_tile_stat[rec_loc] != UI_PLACE_PLACED){
 			place_tile_stat[rec_loc] = UI_PLACE_VALID;
-			SeesawSetLed(rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+			SeesawSetLed(NEO_TRELLIS_ADDR_1,rec_loc, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 			
 		}
 	}
-	SeesawOrderLedUpdate();
+	SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 	
 }
 
@@ -223,13 +224,13 @@ static void UiPlaceSuggest3(uint8_t loc_1, uint8_t loc_2)
 		if(loc_h > 4){
 			if(place_tile_stat[loc_h - 4] == UI_PLACE_INVALID){
 				place_tile_stat[loc_h - 4] = UI_PLACE_VALID;
-				SeesawSetLed(loc_h - 4, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+				SeesawSetLed(NEO_TRELLIS_ADDR_1, loc_h - 4, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 			}
 		}
 		if(loc_t < 12){
 			if(place_tile_stat[loc_t + 4] == UI_PLACE_INVALID){
 				place_tile_stat[loc_t + 4] = UI_PLACE_VALID;
-				SeesawSetLed(loc_t + 4, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+				SeesawSetLed(NEO_TRELLIS_ADDR_1, loc_t + 4, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 			}
 		}
 	}
@@ -238,19 +239,19 @@ static void UiPlaceSuggest3(uint8_t loc_1, uint8_t loc_2)
 		if(loc_h % 4 != 0){
 			if(place_tile_stat[loc_h - 1] == UI_PLACE_INVALID){
 				place_tile_stat[loc_h - 1] = UI_PLACE_VALID;
-				SeesawSetLed(loc_h - 1, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+				SeesawSetLed(NEO_TRELLIS_ADDR_1, loc_h - 1, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 			}
 		}
 		if(loc_t %4 != 3){
 			if(place_tile_stat[loc_t + 1] == UI_PLACE_INVALID){
 				place_tile_stat[loc_t + 1] = UI_PLACE_VALID;
-				SeesawSetLed(loc_t + 1, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
+				SeesawSetLed(NEO_TRELLIS_ADDR_1, loc_t + 1, R_PLACE_VALID, G_PLACE_VALID, B_PLACE_VALID);
 			}
 		}
 		
 	}
 	
-	SeesawOrderLedUpdate();
+	SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 }
 
 
@@ -261,29 +262,29 @@ static void UiRemoveSuggest(uint8_t loc)
 	rec_loc = loc + 4;
 	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
 		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
-		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+		SeesawSetLed(NEO_TRELLIS_ADDR_1, rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
 
 	}
 
 	rec_loc = loc - 4;
 	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
 		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
-		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+		SeesawSetLed(NEO_TRELLIS_ADDR_1, rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
 
 	}
 
 	rec_loc = loc + 1;
 	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
 		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
-		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+		SeesawSetLed(NEO_TRELLIS_ADDR_1, rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
 
 	}
 
 	rec_loc = loc - 1;
 	if(place_tile_stat[rec_loc] == UI_PLACE_VALID){
 		place_tile_stat[rec_loc] = UI_PLACE_INVALID;
-		SeesawSetLed(rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
+		SeesawSetLed(NEO_TRELLIS_ADDR_1, rec_loc, R_PLACE_INVALID, G_PLACE_INVALID, B_PLACE_INVALID);
 	}
-	SeesawOrderLedUpdate();
+	SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 
 }

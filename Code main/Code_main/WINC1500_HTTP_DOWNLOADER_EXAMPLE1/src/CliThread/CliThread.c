@@ -32,14 +32,10 @@ static const CLI_Command_Definition_t xOTAUCommand = {"fw", "fw: Download a file
 static const CLI_Command_Definition_t xResetCommand = {"reset", "reset: Resets the device\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_ResetDevice, 0};
 
 static const CLI_Command_Definition_t xNeotrellisTurnLEDCommand = {"led",
-                                                                   "led [keynum][R][G][B]: Sets the given LED to the given R,G,B values.\r\n",
+                                                                   "led [NeoNum] [keynum][R][G][B]: Sets the given LED to the given R,G,B values.\r\n",
                                                                    (const pdCOMMAND_LINE_CALLBACK)CLI_NeotrellisSetLed,
-                                                                   4};
+                                                                   5};
 
-static const CLI_Command_Definition_t xNeotrellisProcessButtonCommand = {"getbutton",
-                                                                         "getbutton: Processes and prints the FIFO button buffer from the seesaw.\r\n",
-                                                                         (const pdCOMMAND_LINE_CALLBACK)CLI_NeotrellProcessButtonBuffer,
-                                                                         0};
 																		 
 static const CLI_Command_Definition_t xSHTCGetCommand = {"shtc", "shtc: get temp and humidity\r\n", (const pdCOMMAND_LINE_CALLBACK)CLI_GetSHTC, 0};	
 
@@ -75,7 +71,6 @@ void vCommandConsoleTask(void *pvParameters)
     FreeRTOS_CLIRegisterCommand(&xClearScreen);
     FreeRTOS_CLIRegisterCommand(&xResetCommand);
     FreeRTOS_CLIRegisterCommand(&xNeotrellisTurnLEDCommand);
-    FreeRTOS_CLIRegisterCommand(&xNeotrellisProcessButtonCommand);
 	FreeRTOS_CLIRegisterCommand(&xI2cScan);
 
     char cRxedChar[2];
@@ -340,9 +335,9 @@ BaseType_t CLI_ResetDevice(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const 
  */
 BaseType_t CLI_NeotrellisSetLed(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
 {
-    int8_t *pcParameter1, *pcParameter2, *pcParameter3, *pcParameter4;
-    int R,G,B, Keynum;
-    BaseType_t xParameter1StringLength, xParameter2StringLength, xParameter3StringLength, xParameter4StringLength;
+    int8_t  *pcParameter1, *pcParameter2, *pcParameter3, *pcParameter4, *pcParameter5;
+    int seesaw_num, R, G, B, Keynum;
+    BaseType_t xParameter1StringLength, xParameter2StringLength, xParameter3StringLength, xParameter4StringLength, xParameter5StringLength;
 
     pcParameter1 = FreeRTOS_CLIGetParameter( pcCommandString,
     1,
@@ -359,17 +354,34 @@ BaseType_t CLI_NeotrellisSetLed(int8_t *pcWriteBuffer, size_t xWriteBufferLen, c
     pcParameter4 = FreeRTOS_CLIGetParameter( pcCommandString,
     4,
     &xParameter4StringLength );
+	
+	 pcParameter5 = FreeRTOS_CLIGetParameter( pcCommandString,
+	 5,
+	 &xParameter5StringLength );
     
     pcParameter1[ xParameter1StringLength ] = 0x00;
     pcParameter2[ xParameter2StringLength ] = 0x00;
     pcParameter3[ xParameter3StringLength ] = 0x00;
     pcParameter4[ xParameter4StringLength ] = 0x00;
+	pcParameter5[ xParameter5StringLength ] = 0x00;
     
-    Keynum = atoi(pcParameter1);
-    R = atoi(pcParameter2);
-    G = atoi(pcParameter3);
-    B = atoi(pcParameter4);
+	seesaw_num = atoi(pcParameter1); 
+    Keynum = atoi(pcParameter2);
+    R = atoi(pcParameter3);
+    G = atoi(pcParameter4);
+    B = atoi(pcParameter5);
     
+	
+	if(seesaw_num == 1){
+		seesaw_num = NEO_TRELLIS_ADDR_1;
+	}
+	else if(seesaw_num == 2){
+		seesaw_num = NEO_TRELLIS_ADDR_2;
+	}
+	else{
+		return pdFALSE;
+	}
+	
     //sanitize
     if(Keynum < 0 || Keynum > 15){
 	    snprintf(pcWriteBuffer,xWriteBufferLen, "Keynum must be between 0 to 15\r\n");
@@ -391,70 +403,16 @@ BaseType_t CLI_NeotrellisSetLed(int8_t *pcWriteBuffer, size_t xWriteBufferLen, c
 	    return pdFALSE;
     }
     
-    if (SeesawSetLed(Keynum, R, G, B)){
+    if (SeesawSetLed(seesaw_num, Keynum, R, G, B)){
 	    snprintf(pcWriteBuffer,xWriteBufferLen, "unexpected I2C error\r\n");
 	    return pdFALSE;
     }
     
-    if(SeesawOrderLedUpdate()){
+    if(SeesawOrderLedUpdate(seesaw_num)){
 	    snprintf(pcWriteBuffer,xWriteBufferLen, "unexpected I2C error\r\n");
     }
 
     return pdFALSE;
-}
-
-/**
- BaseType_t CLI_NeotrellProcessButtonBuffer( int8_t *pcWriteBuffer,size_t xWriteBufferLen,const int8_t *pcCommandString )
- * @brief	CLI command to process the Neotrellis FIFO button buffer. The Seesaw driver will store all button events until we read them.
- This function will read all the events in the buffer and print the action of each one. For example this is a print:
-                 Key 10 pressed
-                 Key 11 pressed
-                 Key 11 released
-                 Key 10 released
-                 The function will print "Buffer Empty" if there is nothing on the button buffer.
- * @param[out] *pcWriteBuffer. Buffer we can use to write the CLI command response to! See other CLI examples on how we use this to write back!
- * @param[in] xWriteBufferLen. How much we can write into the buffer
- * @param[in] *pcCommandString. Buffer that contains the complete input. You will find the additional arguments, if needed. Please see
- https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/FreeRTOS_Plus_CLI_Implementing_A_Command.html#Example_Of_Using_FreeRTOS_CLIGetParameter
- Example 3
-
- * @return		Returns pdFALSE if the CLI command finished.
- * @note         Please see https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_CLI/FreeRTOS_Plus_CLI_Accessing_Command_Line_Parameters.html
-                                 for more information on how to use the FreeRTOS CLI.
-
- */
-BaseType_t CLI_NeotrellProcessButtonBuffer(int8_t *pcWriteBuffer, size_t xWriteBufferLen, const int8_t *pcCommandString)
-{
-    // See functions SeesawGetKeypadCount and SeesawReadKeypad
-    // Returns the number of key events currently on the Seesaw Keypad
-
-    // Returns the number of requested events in the Seesaw FIFO buffer into the buffer variable
-
-    //	NEO_TRELLIS_SEESAW_KEY(number) ;
-    // snprintf(pcWriteBuffer,xWriteBufferLen, "count: %d\num_req_eve:%d\t\n",count,num_req_eve);
-    // Print to pcWriteBuffer in order.
-    // If the string is too long to print, print what you can.
-    // The function you write will be useful in the future.
-    uint8_t buffer[64];
-    uint8_t count = SeesawGetKeypadCount();
-    if (count >= 1) {
-        int32_t res = SeesawReadKeypad(buffer, 1);
-        if (res == 0) {
-            uint8_t pos, press;
-            press = buffer[0] & 0x3;
-            pos = buffer[0] >> 2;
-            int num = NEO_TRELLIS_SEESAW_KEY(pos);
-            if (press == 0x2) {
-                snprintf((char *) pcWriteBuffer, xWriteBufferLen, "Button #%d is released\r\n", NEO_TRELLIS_SEESAW_KEY(num));
-            } else if (press == 0x3) {
-                snprintf((char *) pcWriteBuffer, xWriteBufferLen, "Button #%d is pressed\r\n", NEO_TRELLIS_SEESAW_KEY(num));
-            }
-        }
-        return pdTRUE;
-    } else {
-        pcWriteBuffer = 0;
-        return pdFALSE;
-    }
 }
 
 
