@@ -15,6 +15,7 @@ extern "C" {
  * Includes
  ******************************************************************************/
 #include "WifiHandlerThread/WifiHandler.h"
+#include "ControlThread/ControlThread.h"
 /******************************************************************************
  * Defines
  ******************************************************************************/
@@ -29,7 +30,6 @@ typedef enum uiStateMachine_state {
 	UI_STATE_IGNORE_PRESSES = 0,  ///< State used to handle buttons
 	UI_STATE_PLACE_SHIP,      ///< State to ignore button presses
 	UI_STATE_HANDLE_SHOOT,          ///< State to show ship loc.
-	UI_WAIT_FOR_TURN,
 	UI_STATE_MAX_STATES           ///< Max number of states
 
 } uiStateMachine_state;
@@ -59,7 +59,8 @@ typedef enum uiPlacement_state {
  ******************************************************************************/
 void vUiHandlerTask(void *pvParameters);
 void UiPlaceInit(uint8_t *shiparr_in,uint8_t ship_num_in);
-
+void UiShowLed(uint8_t ship_fire_loc, uint8_t hit_res, uint8_t board);
+void UiPlayerTurn(uint8_t turn);
 
 #ifdef __cplusplus
 }

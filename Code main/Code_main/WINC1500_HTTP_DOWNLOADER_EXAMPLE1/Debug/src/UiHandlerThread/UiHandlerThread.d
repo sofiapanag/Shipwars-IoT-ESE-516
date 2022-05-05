@@ -265,6 +265,7 @@ src/UiHandlerThread/UiHandlerThread.d \
  ../src/iot/http/http_client.h ../src/iot/sw_timer.h \
  ../src/ASF/common/components/wifi/winc1500/http_downloader_example/samd21g18a_samw25_xplained_pro/conf_sw_timer.h \
  ../src/iot/http/http_entity.h ../src/main.h \
+ ../src/ControlThread/ControlThread.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\errno.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\errno.h \
  ../src/IMU/lsm6dso_reg.h ../src/SeesawDriver/Seesaw.h \
@@ -823,6 +824,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/iot/http/http_entity.h:
 
 ../src/main.h:
+
+../src/ControlThread/ControlThread.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\errno.h:
 

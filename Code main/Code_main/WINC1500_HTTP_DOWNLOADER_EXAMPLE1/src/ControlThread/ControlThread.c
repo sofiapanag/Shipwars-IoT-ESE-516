@@ -69,10 +69,16 @@ void vControlHandlerTask(void *pvParameters)
 
             case (CONTROL_WAIT_FOR_PLACE): {  
 				if(placement_status == true){
-				// and ship loc to queue and pub
+					controlState = CONTROL_WAIT_FOR_TURN;
 				}
                 break;
             }
+			case (CONTROL_WAIT_FOR_TURN): {
+				//
+			}
+			case (CONTROL_WAIT_FOR_ACTION): {
+				
+			}
 
 
             default:
@@ -99,3 +105,41 @@ void ControlSetGame(uint8_t *shiparr_in,uint8_t ship_num_in)
 void SetPlacementStatus(bool state){
 	placement_status = state;
 }
+
+void SetWaitForTurn(void){
+	controlState = CONTROL_WAIT_FOR_PLACE;
+}
+
+void ControlTurnArray(uint8_t *shiparr_in) {
+// [winner(0/1/2), new_turn(1,2), result(0,1), board_to_check(1,2), loc(0-15), hit_res(0/1)]
+	// WINNER
+	if(controlState != CONTROL_WAIT_FOR_TURN) {return;}
+	
+	if (shiparr_in[0] == 1) {
+		controlState = CONTROL_WAIT_FOR_GAME;
+		LogMessage(LOG_DEBUG_LVL, "Player 1 Wins! \r\n");
+		return;
+	}
+	else if (shiparr_in[0] == 2) {
+		controlState = CONTROL_WAIT_FOR_GAME;
+		LogMessage(LOG_DEBUG_LVL, "Player 2 Wins! \r\n");
+		return;
+	}
+	// RESULT
+	if (shiparr_in[2] == 0) {
+		controlState = CONTROL_WAIT_FOR_TURN;
+		return;
+	}
+	
+	UiShowLed(shiparr_in[4], shiparr_in[5], shiparr_in[3]);	// send location, hit_res, board
+	
+	// check if its' our turn =>
+	//if its our turn 
+	if (shiparr_in[1] == PLAYER) {
+		controlState = CONTROL_WAIT_FOR_ACTION;
+		UiPlayerTurn(shiparr_in[1]); // send turn
+	}
+}
+
+
+

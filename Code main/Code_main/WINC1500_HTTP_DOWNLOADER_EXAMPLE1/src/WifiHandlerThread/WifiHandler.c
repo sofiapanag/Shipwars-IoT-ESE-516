@@ -668,13 +668,18 @@ void SubscribeHandlerTurnTopic(MessageData *msgData)
         LogMessage(LOG_DEBUG_LVL, "\r\nturn message received!\r\n");
         LogMessage(LOG_DEBUG_LVL, "\r\n %.*s", msgData->topicName->lenstring.len, msgData->topicName->lenstring.data);
         LogMessage(LOG_DEBUG_LVL, "\r\n%.*s", msgData->message->payloadlen, (char *)msgData->message->payload);
-
-		if (strncmp(msgData->message->payload, "[", 1) != 0) {
-			return;
+		
+		uint8_t ship_turn[6];
+		
+		char *p = (char *)&msgData->message->payload[1];
+		int nb = 0;
+		while (nb < 6 && *p) {
+			ship_turn[nb++] = strtol(p, &p, 10);
+			if (*p != ',') break;
+			p++; /* skip, */
 		}
 		
-		uint8_t ship_num = (msgData->message->payloadlen - 1) / 2;
-		uint8_t ship_arr[MAX_SHIP];
+		ControlTurnArray(ship_turn);
 		
 	}
 		// send data to control thread and start/reset the ui and the game 

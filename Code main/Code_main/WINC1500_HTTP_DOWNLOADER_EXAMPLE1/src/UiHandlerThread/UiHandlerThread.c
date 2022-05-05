@@ -139,22 +139,16 @@ void vUiHandlerTask(void *pvParameters)
 					
 				}
 				
+				
 				WifiSendShipLoc(ship_loc_out, ship_loc_out_num);
+				SetPlacementStatus(true);
 				//ConcatToArrString(ship_loc_out, ship_loc_out_num, stringOut);
 				//LogMessage(LOG_DEBUG_LVL, stringOut);
 				
-				
-				
-				uiState = UI_WAIT_FOR_TURN;
+				uiState = UI_STATE_IGNORE_PRESSES;
 				LogMessage(LOG_DEBUG_LVL, "Placement finished! \r\n");
                 break;
             }
-			
-			case(UI_WAIT_FOR_TURN): {
-				uiState = UI_STATE_HANDLE_SHOOT;
-				LogMessage(LOG_DEBUG_LVL, "Ready to fire! \r\n");
-				break;
-			}
 
             case (UI_STATE_HANDLE_SHOOT): {
 				
@@ -176,13 +170,8 @@ void vUiHandlerTask(void *pvParameters)
 					if(temp  == 0){vTaskDelay(50); continue;}
 					
 					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_fire_buffer, 1) ){
-						
 						ship_fire_buffer = NEO_TRELLIS_SEESAW_KEY((ship_fire_buffer & 0xFD) >> 2);
 						WifiSendShipLoc(ship_fire_buffer, 1);
-						
-						SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_fire_buffer, 0, 25, 25);
-						LogMessage(LOG_DEBUG_LVL, "Ship hit! \r\n");
-						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
 						
 						ship_fire = ship_fire_buffer;
 						count ++;
@@ -191,7 +180,6 @@ void vUiHandlerTask(void *pvParameters)
 				
 				uiState = UI_STATE_IGNORE_PRESSES;
 				//publish data back to the cloud
-				LogMessage(LOG_DEBUG_LVL, "Fire done! \r\n");
 				break;
 			}
 
@@ -338,3 +326,34 @@ static void UiRemoveSuggest(uint8_t loc)
 	SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 
 }
+
+void UiShowLed(uint8_t ship_fire_loc, uint8_t hit_res, uint8_t board) {
+	if (board == PLAYER) {
+		if (hit_res == 0) {
+			SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_fire_loc, 0, 0, 50);
+			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
+		}
+		else {
+			SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_fire_loc, 0, 25, 25);
+			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
+		}
+	}
+	else {
+		if (hit_res == 0) {
+			SeesawSetLed(NEO_TRELLIS_ADDR_2, ship_fire_loc, 0, 0, 50);
+			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
+		}
+		else {
+			SeesawSetLed(NEO_TRELLIS_ADDR_2, ship_fire_loc, 0, 25, 25);
+			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
+		}
+	}
+}
+
+void UiPlayerTurn(uint8_t turn) {
+	if (turn == PLAYER) {
+		uiState = UI_STATE_HANDLE_SHOOT;
+		LogMessage(LOG_DEBUG_LVL, "Ready to fire! \r\n");
+	}
+}
+
