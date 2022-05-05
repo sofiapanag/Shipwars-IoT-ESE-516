@@ -34,6 +34,7 @@ uint8_t ship_arr[MAX_SHIP];
 uint8_t ship_num;	  
 uint8_t fire_loc;			 ///< int to hold location of fire
 uint8_t ship_loc_buffer;
+uint8_t ship_fire_buffer;
 uint8_t ship_loc_out[MAX_TILE];
 uint8_t ship_loc_out_num = 0;
 
@@ -150,45 +151,44 @@ void vUiHandlerTask(void *pvParameters)
 			}
 
             case (UI_STATE_HANDLE_SHOOT): {
-				uint8_t ship_head;
-					
-				if (GAME_TURN_TOPIC_SUB == 1) {
-					uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1);
-					if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
-					if(temp  == 0){vTaskDelay(50); continue;}
-						
-					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_loc_buffer, 1) ){
-					
-						ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
-					
-						if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
-						SeesawSetLed(NEO_TRELLIS_ADDR_1,ship_loc_buffer, 0, 0, 50);
-						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
-					
-						ship_head = ship_loc_buffer;
-					}
+				uint8_t ship_fire;
+				uint8_t count = 0;
+				/*for (int i = 0; i < 15; i++) {
+					SeesawSetLed(NEO_TRELLIS_ADDR_2,i, 0, 0, 0);
 				}
 				
-				else if (1) {
-					uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2);
-					if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
-					if(temp  == 0){vTaskDelay(50); continue;}
+				SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);*/
+				
+				while(count < 1){
 					
-					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_loc_buffer, 1) ){
+					if (1) {		// if player's turn
+						uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2);
+						if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
+						if(temp  == 0){vTaskDelay(50); continue;}
+					
+						if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_fire_buffer, 1) ){
 						
-						ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
+							ship_fire_buffer = NEO_TRELLIS_SEESAW_KEY((ship_fire_buffer & 0xFD) >> 2);
 						
-						if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
-						SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_loc_buffer, 0, 0, 50);
-						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
+							if(place_tile_stat[ship_fire_buffer] == UI_PLACE_PLACED){continue;}
+							if(1) {	// if key is saved in array with ships of other player
+								SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_fire_buffer, 0, 25, 25);
+								LogMessage(LOG_DEBUG_LVL, "Ship hit! \r\n");
+							}
+							else {
+								SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_fire_buffer, 0, 0, 50);
+								LogMessage(LOG_DEBUG_LVL, "Fire done! \r\n");
+							}
+							SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
 						
-						ship_head = ship_loc_buffer;
+							ship_fire = ship_fire_buffer;
+							count ++;
+						}
 					}
 				}
 				
 				uiState = UI_STATE_IGNORE_PRESSES;
 				//publish data back to the cloud
-				LogMessage(LOG_DEBUG_LVL, "Fire done! \r\n");
 				break;
 			}
 
