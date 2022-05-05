@@ -39,9 +39,9 @@ extern "C" {
 #define WIFI_PRIORITY (configMAX_PRIORITIES - 2)
 
 /** Wi-Fi AP Settings. */
-#define MAIN_WLAN_SSID "Soff :)"//"Kim's Home" "Mi 11"            /**< Destination SSID. Change to your WIFI SSID */
+#define MAIN_WLAN_SSID "Mi 11"//"Kim's Home" "Mi 11"            /**< Destination SSID. Change to your WIFI SSID */
 #define MAIN_WLAN_AUTH M2M_WIFI_SEC_WPA_PSK /**< Security manner */
-#define MAIN_WLAN_PSK "sofiaa:)"//"25051997"  "87654321"          /**< Password for Destination SSID. Change to your password. Please dont hack my WiFi router */
+#define MAIN_WLAN_PSK "87654321"//"25051997"  "87654321"          /**< Password for Destination SSID. Change to your password. Please dont hack my WiFi router */
 
 /** IP address parsing. */
 #define IPV4_BYTE(val, index) ((val >> (index * 8)) & 0xFF)
@@ -87,6 +87,7 @@ struct GameDataPacket {
 
 /* Max size of MQTT buffer. */
 #define MAIN_MQTT_BUFFER_SIZE 512
+#define MAX_MQTT_MSG_SIZE 64
 
 /* Limitation of user name. */
 #define MAIN_CHAT_USER_NAME_SIZE 64
@@ -99,11 +100,13 @@ struct GameDataPacket {
 #ifdef PLAYER1
 /* Chat MQTT topic. */
 #define PLAYER 1
+#define PLAYER_STR "1"
 #define GAME_START_TOPIC_PUB "ESE516_T13_p1"
 
 #else
 /* Chat MQTT topic. */
 #define PLAYER 2
+#define PLAYER_STR "2"
 #define GAME_START_TOPIC_PUB "ESE516_T13_p2"
 
 #endif
@@ -147,7 +150,8 @@ void init_storage(void);
 void WifiHandlerSetState(uint8_t state);
 
 void SubscribeHandlerShipSizeTopic(MessageData *msgData);
-
+void ConcatToArrString(uint8_t *arr, uint8_t arr_size, char* output);
+int WifiSendShipLoc(uint8_t *ship_loc, uint8_t loc_num);
 
 void configure_extint_channel(void);
 void configure_extint_callbacks(void);

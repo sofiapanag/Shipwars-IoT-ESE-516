@@ -22,8 +22,6 @@
 /******************************************************************************
  * Variables
  ******************************************************************************/
-volatile char mqtt_msg[64] = "{\"d\":{\"temp\":17}}\"";
-volatile char mqtt_msg_temp[64] = "{\"d\":{\"temp\":17}}\"";
 
 volatile uint32_t temperature = 1;
 int8_t wifiStateMachine = WIFI_MQTT_INIT;   ///< Global variable that determines the state of the WIFI handler.
@@ -75,6 +73,7 @@ static unsigned char mqtt_send_buffer[MAIN_MQTT_BUFFER_SIZE];
 static void MQTT_InitRoutine(void);
 static void HTTP_DownloadFileInit(void);
 static void HTTP_DownloadFileTransaction(void);
+static void MQTT_HandleGameMessages(void);
 static void set_update_flag(void);
 
 /******************************************************************************
@@ -875,6 +874,8 @@ static void MQTT_InitRoutine(void)
     wifiStateMachine = WIFI_MQTT_HANDLE;
 }
 
+
+
 /**
  static void MQTT_HandleTransactions(void)
  * @brief	Routine to handle MQTT transactions
@@ -888,12 +889,22 @@ static void MQTT_HandleTransactions(void)
     sw_timer_task(&swt_module_inst);
 
     // Check if data has to be sent!
-
+    MQTT_HandleGameMessages();
 
     // Handle MQTT messages
     if (mqtt_inst.isConnected) mqtt_yield(&mqtt_inst, 100);
 }
 
+static void MQTT_HandleGameMessages(void)
+{
+	char game_msg_temp[MAX_MQTT_MSG_SIZE];
+    if (pdPASS == xQueueReceive(xQueueGameBuffer, &game_msg_temp, 0)) {
+		
+        LogMessage(LOG_DEBUG_LVL, game_msg_temp);
+        LogMessage(LOG_DEBUG_LVL, "\r\n");
+        mqtt_publish(&mqtt_inst, GAME_SHIPLOC_TOPIC_PUB, game_msg_temp, strlen(game_msg_temp), 1, 0);
+    }
+}
 
 /**
  * \brief Main application function.
@@ -910,7 +921,7 @@ void vWifiTask(void *pvParameters)
     init_state();
     // Create buffers to send data
     xQueueWifiState = xQueueCreate(5, sizeof(uint32_t));
-	xQueueGameBuffer = xQueueCreate(2, sizeof(struct GameDataPacket));
+	xQueueGameBuffer = xQueueCreate(2, sizeof(char) * MAX_MQTT_MSG_SIZE);
 
     if (xQueueWifiState == NULL) {
         SerialConsoleWriteString("ERROR Initializing Wifi Data queues!\r\n");
@@ -1055,3 +1066,33 @@ int WifiAddGameDataToQueue(struct GameDataPacket *game)
     return error;
 }
 
+int WifiSendShipLoc(uint8_t *ship_loc, uint8_t loc_num){
+	char mqtt_msg[MAX_MQTT_MSG_SIZE];
+	char ship_loc_str[MAX_MQTT_MSG_SIZE] = "";
+	sprintf(mqtt_msg, "{ \"p\" : %d, \"loc\":",PLAYER);
+		
+	LogMessage(LOG_DEBUG_LVL, mqtt_msg);
+	LogMessage(LOG_DEBUG_LVL, "\r\n");
+			   
+	ConcatToArrString(ship_loc, loc_num, ship_loc_str);
+	strcat(mqtt_msg,ship_loc_str);
+	
+	LogMessage(LOG_DEBUG_LVL, mqtt_msg);
+	LogMessage(LOG_DEBUG_LVL, "\r\n");
+	
+	strcat(mqtt_msg,"}");
+	int error = xQueueSend(xQueueGameBuffer, mqtt_msg, (TickType_t)10);
+    return error;
+}
+
+void ConcatToArrString(uint8_t *arr, uint8_t arr_size, char* output){
+	
+	 int n = 0;
+
+	 n += sprintf (&output[n], "[");
+	 for (int i = 0; i < arr_size - 1; i++) {
+		 n += sprintf (&output[n], "%d,", arr[i]);
+	 }
+	 n += sprintf (&output[n], "%d]", arr[arr_size - 1]);
+	 
+}

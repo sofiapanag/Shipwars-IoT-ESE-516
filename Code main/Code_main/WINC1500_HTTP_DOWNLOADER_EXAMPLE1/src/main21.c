@@ -62,6 +62,7 @@ char bufferPrint[64];  ///< Buffer for daemon task
  * @return int
  */
 int main(void)
+
 {
     /* Initialize the board. */
     system_init();

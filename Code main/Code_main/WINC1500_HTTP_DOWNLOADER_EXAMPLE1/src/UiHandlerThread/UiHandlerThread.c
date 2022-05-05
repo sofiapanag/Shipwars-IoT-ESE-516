@@ -137,8 +137,14 @@ void vUiHandlerTask(void *pvParameters)
 					}
 					
 				}
+				
+				WifiSendShipLoc(ship_loc_out, ship_loc_out_num);
+				//ConcatToArrString(ship_loc_out, ship_loc_out_num, stringOut);
+				//LogMessage(LOG_DEBUG_LVL, stringOut);
+				
+				
+				
 				uiState = UI_WAIT_FOR_TURN;
-				//publish data back to the cloud
 				LogMessage(LOG_DEBUG_LVL, "Placement finished! \r\n");
                 break;
             }
@@ -213,9 +219,11 @@ void UiPlaceInit(uint8_t *shiparr_in,uint8_t ship_num_in)
 	ship_num = ship_num_in;
 	for(int i =0 ; i < MAX_TILE; i++){
 		SeesawSetLed(NEO_TRELLIS_ADDR_1,i,R_PLACE_INVALID,G_PLACE_INVALID,B_PLACE_INVALID);
+		SeesawSetLed(NEO_TRELLIS_ADDR_2,i,R_PLACE_INVALID,G_PLACE_INVALID,B_PLACE_INVALID);
 		place_tile_stat[i] = UI_PLACE_INVALID;
 	}
 	SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
+	SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
 	uiState = UI_STATE_PLACE_SHIP;
 }
 
