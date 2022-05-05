@@ -157,9 +157,20 @@ void vUiHandlerTask(void *pvParameters)
 			}
 
             case (UI_STATE_HANDLE_SHOOT): {
-				uint8_t ship_fire;
 				
-				if (1) {
+				uint8_t ship_fire;
+				uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2);
+				uint8_t count = 0;
+				if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
+				if(temp  == 0){vTaskDelay(50); continue;}
+				
+				
+				while(SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2) != 0){
+					SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_fire_buffer, 1);
+					vTaskDelay(50);
+				}
+				
+				while(count < 1) {
 					uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2);
 					if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
 					if(temp  == 0){vTaskDelay(50); continue;}
@@ -169,10 +180,12 @@ void vUiHandlerTask(void *pvParameters)
 						ship_fire_buffer = NEO_TRELLIS_SEESAW_KEY((ship_fire_buffer & 0xFD) >> 2);
 						WifiSendShipLoc(ship_fire_buffer, 1);
 						
-						SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_fire_buffer, 0, 0, 50);
+						SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_fire_buffer, 0, 25, 25);
+						LogMessage(LOG_DEBUG_LVL, "Ship hit! \r\n");
 						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
 						
 						ship_fire = ship_fire_buffer;
+						count ++;
 					}
 				}
 				
