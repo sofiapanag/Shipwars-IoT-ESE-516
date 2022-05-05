@@ -54,6 +54,13 @@ typedef enum uiPlacement_state {
 #define G_PLACE_INVALID 0
 #define B_PLACE_INVALID 0
 
+#define R_HIT 50
+#define G_HIT 0
+#define B_HIT 0
+
+#define R_MISS 50
+#define G_MISS 50
+#define B_MISS 10
 /******************************************************************************
  * Global Function Declaration
  ******************************************************************************/

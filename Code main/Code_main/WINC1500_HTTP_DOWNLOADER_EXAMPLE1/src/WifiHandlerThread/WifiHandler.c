@@ -26,7 +26,8 @@
 volatile uint32_t temperature = 1;
 int8_t wifiStateMachine = WIFI_MQTT_INIT;   ///< Global variable that determines the state of the WIFI handler.
 QueueHandle_t xQueueWifiState = NULL;       ///< Queue to determine the Wifi state from other threads.
-QueueHandle_t xQueueGameBuffer = NULL;      ///< Queue to send the next play to the cloud
+QueueHandle_t xQueuePlaceBuffer = NULL;      ///< Queue to send the next play to the cloud
+QueueHandle_t xQueueFireBuffer = NULL;
 QueueHandle_t xQueueImuBuffer = NULL;       ///< Queue to send IMU data to the cloud
 QueueHandle_t xQueueDistanceBuffer = NULL;  ///< Queue to send the distance to the cloud
 
@@ -73,7 +74,8 @@ static unsigned char mqtt_send_buffer[MAIN_MQTT_BUFFER_SIZE];
 static void MQTT_InitRoutine(void);
 static void HTTP_DownloadFileInit(void);
 static void HTTP_DownloadFileTransaction(void);
-static void MQTT_HandleGameMessages(void);
+static void MQTT_HandlePlaceMessages(void);
+static void MQTT_HandleFireMessages(void);
 static void set_update_flag(void);
 
 /******************************************************************************
@@ -894,21 +896,33 @@ static void MQTT_HandleTransactions(void)
     sw_timer_task(&swt_module_inst);
 
     // Check if data has to be sent!
-    MQTT_HandleGameMessages();
+    MQTT_HandlePlaceMessages();
+	MQTT_HandleFireMessages();
 
     // Handle MQTT messages
     if (mqtt_inst.isConnected) mqtt_yield(&mqtt_inst, 100);
 }
 
-static void MQTT_HandleGameMessages(void)
+static void MQTT_HandlePlaceMessages(void)
 {
-	char game_msg_temp[MAX_MQTT_MSG_SIZE];
-    if (pdPASS == xQueueReceive(xQueueGameBuffer, &game_msg_temp, 0)) {
+	char game_msg[MAX_MQTT_MSG_SIZE];
+    if (pdPASS == xQueueReceive(xQueuePlaceBuffer, game_msg, 0)) {
 		
-        LogMessage(LOG_DEBUG_LVL, game_msg_temp);
+        LogMessage(LOG_DEBUG_LVL, game_msg);
         LogMessage(LOG_DEBUG_LVL, "\r\n");
-        mqtt_publish(&mqtt_inst, GAME_SHIPLOC_TOPIC_PUB, game_msg_temp, strlen(game_msg_temp), 1, 0);
+        mqtt_publish(&mqtt_inst, GAME_SHIPLOC_TOPIC_PUB,game_msg, strlen(game_msg), 1, 0);
     }
+}
+
+static void MQTT_HandleFireMessages(void)
+{
+	char game_msg[MAX_MQTT_MSG_SIZE];
+	if (pdPASS == xQueueReceive(xQueueFireBuffer, game_msg, 0)) {
+		
+		LogMessage(LOG_DEBUG_LVL, game_msg);
+		LogMessage(LOG_DEBUG_LVL, "\r\n");
+		mqtt_publish(&mqtt_inst, GAME_FIRE_TOPIC_PUB, game_msg, strlen(game_msg), 1, 0);
+	}
 }
 
 /**
@@ -926,7 +940,8 @@ void vWifiTask(void *pvParameters)
     init_state();
     // Create buffers to send data
     xQueueWifiState = xQueueCreate(5, sizeof(uint32_t));
-	xQueueGameBuffer = xQueueCreate(2, sizeof(char) * MAX_MQTT_MSG_SIZE);
+	xQueuePlaceBuffer = xQueueCreate(2, sizeof(char) * MAX_MQTT_MSG_SIZE );
+	xQueueFireBuffer = xQueueCreate(2, sizeof(char) * MAX_MQTT_MSG_SIZE );
 
     if (xQueueWifiState == NULL) {
         SerialConsoleWriteString("ERROR Initializing Wifi Data queues!\r\n");
@@ -1065,35 +1080,39 @@ void WifiHandlerSetState(uint8_t state)
  * @note
 
 */
-int WifiAddGameDataToQueue(struct GameDataPacket *game)
-{
-    int error = xQueueSend(xQueueGameBuffer, game, (TickType_t)10);
+
+int WifiSendPlaceData(uint8_t *ship_loc, uint8_t loc_num){
+	char game_msg[MAX_MQTT_MSG_SIZE] = "";
+	char ship_loc_str[MAX_MQTT_MSG_SIZE] = "";
+	
+	sprintf(game_msg, "{ \"p\" : %d, \"loc\":",PLAYER);
+	LogMessage(LOG_DEBUG_LVL, game_msg);
+	LogMessage(LOG_DEBUG_LVL, "\r\n");
+	ConcatToArrString(ship_loc, loc_num, ship_loc_str);
+	strcat(game_msg,ship_loc_str);
+	
+	strcat(game_msg,"}");
+	
+	int error = xQueueSend(xQueuePlaceBuffer, game_msg, (TickType_t)10);
     return error;
 }
 
-int WifiSendShipLoc(uint8_t *ship_loc, uint8_t loc_num){
-	char mqtt_msg[MAX_MQTT_MSG_SIZE];
-	char ship_loc_str[MAX_MQTT_MSG_SIZE] = "";
+
+int WifiSendFireData(uint8_t *ship_loc, uint8_t loc_num){
+
+	char game_msg[MAX_MQTT_MSG_SIZE] = "";	
 	char ship_fire_str[MAX_MQTT_MSG_SIZE] = "";
-	if (loc_num > 1) {
-		sprintf(mqtt_msg, "{ \"p\" : %d, \"loc\":",PLAYER);
-		LogMessage(LOG_DEBUG_LVL, mqtt_msg);
-		LogMessage(LOG_DEBUG_LVL, "\r\n");
-		ConcatToArrString(ship_loc, loc_num, ship_loc_str);
-		strcat(mqtt_msg,ship_loc_str);
+	sprintf(game_msg, "{ \"p\" : %d, \"fire\":",PLAYER);
+	LogMessage(LOG_DEBUG_LVL, game_msg);
+	LogMessage(LOG_DEBUG_LVL, "\r\n");
+	ConcatToArrStringInt(ship_loc, ship_fire_str);
+	strcat(game_msg,ship_fire_str);
+			
+	strcat(game_msg,"}");
+	int error = xQueueSend(xQueueFireBuffer, game_msg, (TickType_t)10);
+	return error;
 	}
-	else {
-		sprintf(mqtt_msg, "{ \"p\" : %d, \"fire\":",PLAYER);
-		LogMessage(LOG_DEBUG_LVL, mqtt_msg);
-		LogMessage(LOG_DEBUG_LVL, "\r\n");
-		ConcatToArrStringInt(ship_loc, ship_fire_str);
-		strcat(mqtt_msg,ship_fire_str);
-	}
-	
-	strcat(mqtt_msg,"}");
-	int error = xQueueSend(xQueueGameBuffer, mqtt_msg, (TickType_t)10);
-    return error;
-}
+
 
 void ConcatToArrString(uint8_t *arr, uint8_t arr_size, char* output){
 	

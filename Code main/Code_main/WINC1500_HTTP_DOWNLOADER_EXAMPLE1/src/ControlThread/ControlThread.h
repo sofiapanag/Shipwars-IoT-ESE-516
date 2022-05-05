@@ -41,7 +41,7 @@ void vControlHandlerTask(void *pvParameters);
 void ControlSetGame(uint8_t *shiparr_in,uint8_t ship_num);
 void ControlTurnArray(uint8_t *shiparr_in);
 void SetPlacementStatus(bool state);
-void SetWaitForTurn(void);
+void SetFireStatus(void);
 
 #ifdef __cplusplus
 }

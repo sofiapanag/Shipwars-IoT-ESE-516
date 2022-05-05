@@ -39,9 +39,9 @@ extern "C" {
 #define WIFI_PRIORITY (configMAX_PRIORITIES - 2)
 
 /** Wi-Fi AP Settings. */
-#define MAIN_WLAN_SSID "Soff :)"//"Kim's Home" "Mi 11"            /**< Destination SSID. Change to your WIFI SSID */
+#define MAIN_WLAN_SSID "Mi 11"//"Kim's Home" "Mi 11"            /**< Destination SSID. Change to your WIFI SSID */
 #define MAIN_WLAN_AUTH M2M_WIFI_SEC_WPA_PSK /**< Security manner */
-#define MAIN_WLAN_PSK "sofiaa:)"//"25051997"  "87654321"          /**< Password for Destination SSID. Change to your password. Please dont hack my WiFi router */
+#define MAIN_WLAN_PSK "87654321"//"25051997"  "87654321"          /**< Password for Destination SSID. Change to your password. Please dont hack my WiFi router */
 
 /** IP address parsing. */
 #define IPV4_BYTE(val, index) ((val >> (index * 8)) & 0xFF)
@@ -76,12 +76,6 @@ struct ImuDataPacket {
     int16_t zmg;
 };
 
-// Structure to hold a game packet
-struct GameDataPacket {
-	uint8_t game[GAME_SIZE];
-};
-
-
 /* Max size of UART buffer. */
 #define MAIN_CHAT_BUFFER_SIZE 64
 
@@ -93,6 +87,11 @@ struct GameDataPacket {
 #define MAIN_CHAT_USER_NAME_SIZE 64
 
 
+// Structure to hold a game packet
+struct GameDataPacket {
+	char game_msg[MAX_MQTT_MSG_SIZE];
+	char game_TOPIC[20];
+};
 
 
 #define PLAYER1 1  ///< Comment me to compile for player 2. Uncomment me to define for player 1.
@@ -152,7 +151,10 @@ void WifiHandlerSetState(uint8_t state);
 void SubscribeHandlerShipSizeTopic(MessageData *msgData);
 void ConcatToArrString(uint8_t *arr, uint8_t arr_size, char* output);
 void ConcatToArrStringInt(uint8_t *arr, char* output);
-int WifiSendShipLoc(uint8_t *ship_loc, uint8_t loc_num);
+int WifiSendFireData(uint8_t *ship_loc, uint8_t loc_num);
+int WifiSendPlaceData(uint8_t *ship_loc, uint8_t loc_num);
+//int WifiSendGameData(uint8_t *ship_loc, uint8_t loc_num, char* TOPIC);
+//int WifiSendGameDataInt(uint8_t *ship_loc, uint8_t loc_num);
 
 void configure_extint_channel(void);
 void configure_extint_callbacks(void);

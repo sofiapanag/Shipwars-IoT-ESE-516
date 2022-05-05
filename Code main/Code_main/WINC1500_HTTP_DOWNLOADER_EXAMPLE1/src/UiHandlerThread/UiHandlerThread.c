@@ -81,6 +81,11 @@ void vUiHandlerTask(void *pvParameters)
             case (UI_STATE_PLACE_SHIP): {
 				ship_loc_out_num = 0;
 				
+				while(SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1) != 0){
+					SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_fire_buffer, 1);
+					vTaskDelay(30);
+				}
+				
 				for(int i = 0; i < ship_num; i++){
 					uint8_t ship_head, ship_tail;
 					uint8_t cur_ship_size = 0;
@@ -140,7 +145,7 @@ void vUiHandlerTask(void *pvParameters)
 				}
 				
 				
-				WifiSendShipLoc(ship_loc_out, ship_loc_out_num);
+				WifiSendPlaceData(ship_loc_out, ship_loc_out_num);
 				SetPlacementStatus(true);
 				//ConcatToArrString(ship_loc_out, ship_loc_out_num, stringOut);
 				//LogMessage(LOG_DEBUG_LVL, stringOut);
@@ -161,7 +166,7 @@ void vUiHandlerTask(void *pvParameters)
 				
 				while(SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2) != 0){
 					SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_fire_buffer, 1);
-					vTaskDelay(50);
+					vTaskDelay(30);
 				}
 				
 				while(count < 1) {
@@ -171,15 +176,15 @@ void vUiHandlerTask(void *pvParameters)
 					
 					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_fire_buffer, 1) ){
 						ship_fire_buffer = NEO_TRELLIS_SEESAW_KEY((ship_fire_buffer & 0xFD) >> 2);
-						WifiSendShipLoc(ship_fire_buffer, 1);
+						WifiSendFireData(ship_fire_buffer, 1);
 						
 						ship_fire = ship_fire_buffer;
 						count ++;
 					}
 				}
-				
+				SetFireStatus();
 				uiState = UI_STATE_IGNORE_PRESSES;
-				//publish data back to the cloud
+				vTaskDelay(50);
 				break;
 			}
 
@@ -330,21 +335,21 @@ static void UiRemoveSuggest(uint8_t loc)
 void UiShowLed(uint8_t ship_fire_loc, uint8_t hit_res, uint8_t board) {
 	if (board == PLAYER) {
 		if (hit_res == 0) {
-			SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_fire_loc, 0, 0, 50);
+			SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_fire_loc, R_MISS, G_MISS, B_MISS);
 			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 		}
 		else {
-			SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_fire_loc, 0, 25, 25);
+			SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_fire_loc, R_HIT, G_HIT, B_HIT);
 			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 		}
 	}
 	else {
 		if (hit_res == 0) {
-			SeesawSetLed(NEO_TRELLIS_ADDR_2, ship_fire_loc, 0, 0, 50);
+			SeesawSetLed(NEO_TRELLIS_ADDR_2, ship_fire_loc, R_MISS, G_MISS, B_MISS);
 			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
 		}
 		else {
-			SeesawSetLed(NEO_TRELLIS_ADDR_2, ship_fire_loc, 0, 25, 25);
+			SeesawSetLed(NEO_TRELLIS_ADDR_2, ship_fire_loc, R_HIT, G_HIT, B_HIT);
 			SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
 		}
 	}

@@ -33,6 +33,7 @@ controlStateMachine_state controlState;  ///< Holds the current state of the con
 uint8_t ship_arr[MAX_SHIP];
 uint8_t ship_num;
 bool placement_status = false;
+bool is_fired = false;
 
 /******************************************************************************
  * Forward Declarations
@@ -74,10 +75,14 @@ void vControlHandlerTask(void *pvParameters)
                 break;
             }
 			case (CONTROL_WAIT_FOR_TURN): {
-				//
+				break;
 			}
 			case (CONTROL_WAIT_FOR_ACTION): {
-				
+				if(is_fired == true){
+					controlState = CONTROL_WAIT_FOR_TURN;
+					is_fired = false;
+				}
+				break;
 			}
 
 
@@ -96,6 +101,7 @@ void ControlSetGame(uint8_t *shiparr_in,uint8_t ship_num_in)
 	memcpy (ship_arr, shiparr_in, ship_num_in * sizeof (uint8_t));
 	ship_num = ship_num_in;
 	placement_status = false;
+	is_fired = false;
 	controlState = CONTROL_WAIT_FOR_PLACE;
 	LogMessage(LOG_DEBUG_LVL, "\r\nship_arr %d %d %d\r\n", ship_arr[0], ship_arr[1], ship_arr[2]);
 	UiPlaceInit(ship_arr, ship_num);
@@ -106,14 +112,14 @@ void SetPlacementStatus(bool state){
 	placement_status = state;
 }
 
-void SetWaitForTurn(void){
-	controlState = CONTROL_WAIT_FOR_PLACE;
+void SetFireStatus(void){
+	is_fired = true;
 }
 
 void ControlTurnArray(uint8_t *shiparr_in) {
 // [winner(0/1/2), new_turn(1,2), result(0,1), board_to_check(1,2), loc(0-15), hit_res(0/1)]
 	// WINNER
-	if(controlState != CONTROL_WAIT_FOR_TURN) {return;}
+	//if(controlState != CONTROL_WAIT_FOR_TURN) {return;}
 	
 	if (shiparr_in[0] == 1) {
 		controlState = CONTROL_WAIT_FOR_GAME;
@@ -126,15 +132,10 @@ void ControlTurnArray(uint8_t *shiparr_in) {
 		return;
 	}
 	// RESULT
-	if (shiparr_in[2] == 0) {
-		controlState = CONTROL_WAIT_FOR_TURN;
-		return;
+	if (shiparr_in[2] == 1) {
+		UiShowLed(shiparr_in[4], shiparr_in[5], shiparr_in[3]);	// send location, hit_res, board
 	}
 	
-	UiShowLed(shiparr_in[4], shiparr_in[5], shiparr_in[3]);	// send location, hit_res, board
-	
-	// check if its' our turn =>
-	//if its our turn 
 	if (shiparr_in[1] == PLAYER) {
 		controlState = CONTROL_WAIT_FOR_ACTION;
 		UiPlayerTurn(shiparr_in[1]); // send turn
