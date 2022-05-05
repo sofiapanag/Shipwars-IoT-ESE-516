@@ -76,7 +76,10 @@ struct ImuDataPacket {
     int16_t zmg;
 };
 
-
+// Structure to hold a game packet
+struct GameDataPacket {
+	uint8_t game[GAME_SIZE];
+};
 
 
 /* Max size of UART buffer. */

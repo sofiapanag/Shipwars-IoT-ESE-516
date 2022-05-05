@@ -890,7 +890,7 @@ void vWifiTask(void *pvParameters)
     init_state();
     // Create buffers to send data
     xQueueWifiState = xQueueCreate(5, sizeof(uint32_t));
-
+	xQueueGameBuffer = xQueueCreate(2, sizeof(struct GameDataPacket));
 
     if (xQueueWifiState == NULL) {
         SerialConsoleWriteString("ERROR Initializing Wifi Data queues!\r\n");
@@ -1018,5 +1018,20 @@ void WifiHandlerSetState(uint8_t state)
     if (state <= WIFI_DOWNLOAD_HANDLE) {
         xQueueSend(xQueueWifiState, &state, (TickType_t)10);
     }
+}
+
+/**
+ void WifiAddGameToQueue(struct ImuDataPacket* imuPacket)
+ * @brief	Adds an game to the queue to send via MQTT. Game data must have 0xFF IN BYTES THAT WILL NOT BE SENT!
+ * @param[out]
+
+ * @return		Returns pdTrue if data can be added to queue, pdFalse if queue is full
+ * @note
+
+*/
+int WifiAddGameDataToQueue(struct GameDataPacket *game)
+{
+    int error = xQueueSend(xQueueGameBuffer, game, (TickType_t)10);
+    return error;
 }
 

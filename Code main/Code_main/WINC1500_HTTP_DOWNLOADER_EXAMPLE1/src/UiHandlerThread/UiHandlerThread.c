@@ -30,12 +30,13 @@ Thread for ESE516 Spring (Online) Edition
  * Variables
  ******************************************************************************/
 uiStateMachine_state uiState;         ///< Holds the current state of the UI
-uint8_t ship_arr[MAX_SHIP];
-uint8_t ship_num;		  
+uint8_t ship_arr1[MAX_SHIP], ship_arr2[MAX_SHIP];
+uint8_t ship_num;	  
 uint8_t fire_loc;			 ///< int to hold location of fire
 uint8_t ship_loc_buffer;
 uint8_t ship_loc_out[MAX_TILE];
-uint8_t ship_loc_out_num = 0;
+uint8_t ship_loc_out_num1 = 0;
+uint8_t ship_loc_out_num2 = 0;
 
 uiPlacement_state place_tile_stat[MAX_TILE] = {UI_PLACE_INVALID};
 	
@@ -78,32 +79,38 @@ void vUiHandlerTask(void *pvParameters)
             }
 
             case (UI_STATE_PLACE_SHIP): {
-				ship_loc_out_num = 0;
+				ship_loc_out_num1 = 0;
+				ship_loc_out_num2 = 0;
 				
 				for(int i = 0; i < ship_num; i++){
-					uint8_t ship_head, ship_tail;
-					uint8_t cur_ship_size = 0;
-					uint8_t cur_ship_arr[MAX_SHIP_SIZE];
+					uint8_t ship_head1, ship_tail1, ship_head2, ship_tail2;
+					uint8_t cur_ship_size1 = 0, cur_ship_size2 = 0;
+					uint8_t cur_ship_arr1[MAX_SHIP_SIZE], cur_ship_arr2[MAX_SHIP_SIZE];
 					
-					while(cur_ship_size < ship_arr[i]){
-						uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1) ;
-						if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
-						if(temp  == 0){vTaskDelay(50); continue;}
+					while((cur_ship_size1 < ship_arr1[i]) || (cur_ship_size2 < ship_arr2[i])){
+						uint8_t temp1 = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1);
+						uint8_t temp2 = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2);
+						if(temp1 == 99){uiState = UI_STATE_IGNORE_PRESSES;}
+						if(temp1  == 0){vTaskDelay(50); continue;}
 							
+						if(temp2 == 99){uiState = UI_STATE_IGNORE_PRESSES;}
+						if(temp2  == 0){vTaskDelay(50); continue;}
+							
+						// SHIP 1
 						if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_loc_buffer, 1) ){
 							
 							ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
 							
-							if(cur_ship_size == 0){
+							if(cur_ship_size1 == 0){
 								if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
-								cur_ship_arr[cur_ship_size] = ship_loc_buffer;
+								cur_ship_arr1[cur_ship_size1] = ship_loc_buffer;
 								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
 								SeesawSetLed(NEO_TRELLIS_ADDR_1,ship_loc_buffer, 0, 0, 50);
 								SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 								
-								ship_head = ship_loc_buffer;
-								ship_tail = ship_loc_buffer;
-								if(cur_ship_size != ship_arr[i]-1){
+								ship_head1 = ship_loc_buffer;
+								ship_tail1 = ship_loc_buffer;
+								if(cur_ship_size1 != ship_arr1[i]-1){
 									UiPlaceSuggest2(ship_loc_buffer);
 								}
 							}
@@ -111,31 +118,73 @@ void vUiHandlerTask(void *pvParameters)
 								//check validity of 2nd position
 								if(place_tile_stat[ship_loc_buffer] != UI_PLACE_VALID){continue;}
 									
-								cur_ship_arr[cur_ship_size] = ship_loc_buffer;
+								cur_ship_arr1[cur_ship_size1] = ship_loc_buffer;
 								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
 								SeesawSetLed(NEO_TRELLIS_ADDR_1, ship_loc_buffer, R_PLACE_PLACED, G_PLACE_PLACED, B_PLACE_PLACED);
 								SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
 								
-								UiRemoveSuggest(ship_head);
-								UiRemoveSuggest(ship_tail);
+								UiRemoveSuggest(ship_head1);
+								UiRemoveSuggest(ship_tail1);
 								
-								if(ship_loc_buffer < ship_head){ship_head = ship_loc_buffer;}
-								else{ship_tail = ship_loc_buffer;}
+								if(ship_loc_buffer < ship_head1){ship_head1 = ship_loc_buffer;}
+								else{ship_tail1 = ship_loc_buffer;}
 								
-								if(cur_ship_size != ship_arr[i]-1){
-									UiPlaceSuggest3(ship_head,ship_tail);
+								if(cur_ship_size1 != ship_arr1[i]-1){
+									UiPlaceSuggest3(ship_head1,ship_tail1);
 								}
 							}
-							cur_ship_size++;
+							cur_ship_size1++;
 						}
+						// SHIP 2
+						/*if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_loc_buffer, 1) ){
+							
+							ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
+							
+							if(cur_ship_size2 == 0){
+								if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
+								cur_ship_arr2[cur_ship_size2] = ship_loc_buffer;
+								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
+								SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_loc_buffer, 0, 0, 50);
+								SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
+								
+								ship_head2 = ship_loc_buffer;
+								ship_tail2 = ship_loc_buffer;
+								if(cur_ship_size2 != ship_arr2[i]-1){
+									UiPlaceSuggest2(ship_loc_buffer);
+								}
+							}
+							else{
+								//check validity of 2nd position
+								if(place_tile_stat[ship_loc_buffer] != UI_PLACE_VALID){continue;}
+									
+								cur_ship_arr2[cur_ship_size2] = ship_loc_buffer;
+								place_tile_stat[ship_loc_buffer] = UI_PLACE_PLACED;
+								SeesawSetLed(NEO_TRELLIS_ADDR_2, ship_loc_buffer, R_PLACE_PLACED, G_PLACE_PLACED, B_PLACE_PLACED);
+								SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
+								
+								UiRemoveSuggest(ship_head2);
+								UiRemoveSuggest(ship_tail2);
+								
+								if(ship_loc_buffer < ship_head2){ship_head2 = ship_loc_buffer;}
+								else{ship_tail2 = ship_loc_buffer;}
+								
+								if(cur_ship_size2 != ship_arr2[i]-1){
+									UiPlaceSuggest3(ship_head2,ship_tail2);
+								}
+							}
+							cur_ship_size2++;
+						} */
 							
 					}
 					
-					for(int j = 0; j < ship_arr[i];j++){
-						ship_loc_out[ship_loc_out_num] = cur_ship_arr[j];
-						ship_loc_out_num++;
+					for(int j = 0; j < ship_arr1[i];j++){
+						ship_loc_out[ship_loc_out_num1] = cur_ship_arr1[j];
+						ship_loc_out_num1++;
 					}
-					
+					/*for(int j = 0; j < ship_arr2[i];j++){
+						ship_loc_out[ship_loc_out_num2] = cur_ship_arr2[j];
+						ship_loc_out_num2++;
+					}*/
 					
 				}
 				uiState = UI_STATE_IGNORE_PRESSES;
@@ -145,9 +194,48 @@ void vUiHandlerTask(void *pvParameters)
             }
 
             case (UI_STATE_HANDLE_SHOOT): {
-
-                break;
-            }
+				
+				uint8_t ship_head;
+					
+				if (GAME_TURN_TOPIC_SUB == 1) {
+					uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1);
+					if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
+					if(temp  == 0){vTaskDelay(50); continue;}
+						
+					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_loc_buffer, 1) ){
+					
+						ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
+					
+						if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
+						SeesawSetLed(NEO_TRELLIS_ADDR_1,ship_loc_buffer, 0, 0, 50);
+						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
+					
+						ship_head = ship_loc_buffer;
+					}
+				}
+				
+				else if (GAME_TURN_TOPIC_SUB == 2) {
+					uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2);
+					if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
+					if(temp  == 0){vTaskDelay(50); continue;}
+					
+					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_loc_buffer, 1) ){
+						
+						ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
+						
+						if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
+						SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_loc_buffer, 0, 0, 50);
+						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
+						
+						ship_head = ship_loc_buffer;
+					}
+				}
+				
+				uiState = UI_STATE_IGNORE_PRESSES;
+				//publish data back to the cloud
+				LogMessage(LOG_DEBUG_LVL, "Fire done! \r\n");
+				break;
+			}
 
             default:  // In case of unforseen error, it is always good to sent state
                       // machine to an initial state.
@@ -166,7 +254,8 @@ void vUiHandlerTask(void *pvParameters)
 void UiPlaceInit(uint8_t *shiparr_in,uint8_t ship_num_in)
 {
 	LogMessage(LOG_DEBUG_LVL, "Placement started! \r\n");
-	memcpy (ship_arr, shiparr_in, ship_num * sizeof (uint8_t));
+	memcpy (ship_arr1, shiparr_in, ship_num * sizeof (uint8_t));
+	memcpy (ship_arr2, shiparr_in, ship_num * sizeof (uint8_t));
 	ship_num = ship_num_in;
 	for(int i =0 ; i < MAX_TILE; i++){
 		SeesawSetLed(NEO_TRELLIS_ADDR_1,i,R_PLACE_INVALID,G_PLACE_INVALID,B_PLACE_INVALID);
