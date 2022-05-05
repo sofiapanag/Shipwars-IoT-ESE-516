@@ -662,6 +662,25 @@ void SubscribeHandlerShipSizeTopic(MessageData *msgData)
 		// send data to control thread and start/reset the ui and the game 
 }
 
+void SubscribeHandlerTurnTopic(MessageData *msgData)
+{
+    // Parse input. The start string must be '['
+    if (strncmp(msgData->message->payload, "[", 1) == 0) {
+        LogMessage(LOG_DEBUG_LVL, "\r\nturn message received!\r\n");
+        LogMessage(LOG_DEBUG_LVL, "\r\n %.*s", msgData->topicName->lenstring.len, msgData->topicName->lenstring.data);
+        LogMessage(LOG_DEBUG_LVL, "\r\n%.*s", msgData->message->payloadlen, (char *)msgData->message->payload);
+
+		if (strncmp(msgData->message->payload, "[", 1) != 0) {
+			return;
+		}
+		
+		uint8_t ship_num = (msgData->message->payloadlen - 1) / 2;
+		uint8_t ship_arr[MAX_SHIP];
+		
+	}
+		// send data to control thread and start/reset the ui and the game 
+}
+
 
 /**
  * \brief Callback to get the MQTT status update.
@@ -702,6 +721,7 @@ static void mqtt_callback(struct mqtt_module *module_inst, int type, union mqtt_
             if (data->connected.result == MQTT_CONN_RESULT_ACCEPT) {
                 /* Subscribe chat topic. */
                 mqtt_subscribe(module_inst, GAME_SHIPSIZE_TOPIC_SUB, 2, SubscribeHandlerShipSizeTopic);
+				mqtt_subscribe(module_inst, GAME_TURN_TOPIC_SUB, 2, SubscribeHandlerTurnTopic);
                 /* Enable USART receiving callback. */
 
                 LogMessage(LOG_DEBUG_LVL, "MQTT Connected\r\n");

@@ -29,6 +29,7 @@ typedef enum uiStateMachine_state {
 	UI_STATE_IGNORE_PRESSES = 0,  ///< State used to handle buttons
 	UI_STATE_PLACE_SHIP,      ///< State to ignore button presses
 	UI_STATE_HANDLE_SHOOT,          ///< State to show ship loc.
+	UI_WAIT_FOR_TURN,
 	UI_STATE_MAX_STATES           ///< Max number of states
 
 } uiStateMachine_state;
