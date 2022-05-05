@@ -121,6 +121,11 @@ void ControlTurnArray(uint8_t *shiparr_in) {
 	// WINNER
 	//if(controlState != CONTROL_WAIT_FOR_TURN) {return;}
 	
+	// RESULT
+	if (shiparr_in[2] == 1) {
+		UiShowLed(shiparr_in[4], shiparr_in[5], shiparr_in[3]);	// send location, hit_res, board
+	}
+	
 	if (shiparr_in[0] == 1) {
 		controlState = CONTROL_WAIT_FOR_GAME;
 		LogMessage(LOG_DEBUG_LVL, "Player 1 Wins! \r\n");
@@ -130,10 +135,6 @@ void ControlTurnArray(uint8_t *shiparr_in) {
 		controlState = CONTROL_WAIT_FOR_GAME;
 		LogMessage(LOG_DEBUG_LVL, "Player 2 Wins! \r\n");
 		return;
-	}
-	// RESULT
-	if (shiparr_in[2] == 1) {
-		UiShowLed(shiparr_in[4], shiparr_in[5], shiparr_in[3]);	// send location, hit_res, board
 	}
 	
 	if (shiparr_in[1] == PLAYER) {

@@ -101,18 +101,20 @@ struct GameDataPacket {
 #define PLAYER 1
 #define PLAYER_STR "1"
 #define GAME_START_TOPIC_PUB "ESE516_T13_p1"
+#define GAME_SHIPSIZE_TOPIC_SUB "ESE516_T13_shipsize_P1"
+#define GAME_TURN_TOPIC_SUB "ESE516_T13_turn_P1"
 
 #else
 /* Chat MQTT topic. */
 #define PLAYER 2
 #define PLAYER_STR "2"
 #define GAME_START_TOPIC_PUB "ESE516_T13_p2"
+#define GAME_SHIPSIZE_TOPIC_SUB "ESE516_T13_shipsize_P2"
+#define GAME_TURN_TOPIC_SUB "ESE516_T13_turn_P2"
 
 #endif
 
-#define GAME_SHIPSIZE_TOPIC_SUB "ESE516_T13_shipsize"
 #define GAME_SHIPLOC_TOPIC_PUB "ESE516_T13_loc"
-#define GAME_TURN_TOPIC_SUB "ESE516_T13_turn"
 #define GAME_FIRE_TOPIC_PUB "ESE516_T13_fire"
 
 // Cloud MQTT User
