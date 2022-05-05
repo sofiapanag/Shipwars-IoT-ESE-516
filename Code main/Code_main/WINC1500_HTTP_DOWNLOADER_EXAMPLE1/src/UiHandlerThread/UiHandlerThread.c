@@ -34,6 +34,7 @@ uint8_t ship_arr[MAX_SHIP];
 uint8_t ship_num;	  
 uint8_t fire_loc;			 ///< int to hold location of fire
 uint8_t ship_loc_buffer;
+uint8_t ship_fire_buffer;
 uint8_t ship_loc_out[MAX_TILE];
 uint8_t ship_loc_out_num = 0;
 
@@ -156,39 +157,22 @@ void vUiHandlerTask(void *pvParameters)
 			}
 
             case (UI_STATE_HANDLE_SHOOT): {
-				uint8_t ship_head;
-					
-				if (GAME_TURN_TOPIC_SUB == 1) {
-					uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_1);
-					if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
-					if(temp  == 0){vTaskDelay(50); continue;}
-						
-					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_1, &ship_loc_buffer, 1) ){
-					
-						ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
-					
-						if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
-						SeesawSetLed(NEO_TRELLIS_ADDR_1,ship_loc_buffer, 0, 0, 50);
-						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_1);
-					
-						ship_head = ship_loc_buffer;
-					}
-				}
+				uint8_t ship_fire;
 				
-				else if (1) {
+				if (1) {
 					uint8_t temp = SeesawGetKeypadCount(NEO_TRELLIS_ADDR_2);
 					if(temp == 99){uiState = UI_STATE_IGNORE_PRESSES;}
 					if(temp  == 0){vTaskDelay(50); continue;}
 					
-					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_loc_buffer, 1) ){
+					if( ERROR_NONE == SeesawReadKeypad(NEO_TRELLIS_ADDR_2, &ship_fire_buffer, 1) ){
 						
-						ship_loc_buffer = NEO_TRELLIS_SEESAW_KEY((ship_loc_buffer & 0xFD) >> 2);
+						ship_fire_buffer = NEO_TRELLIS_SEESAW_KEY((ship_fire_buffer & 0xFD) >> 2);
+						WifiSendShipLoc(ship_fire_buffer, 1);
 						
-						if(place_tile_stat[ship_loc_buffer] == UI_PLACE_PLACED){continue;}
-						SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_loc_buffer, 0, 0, 50);
+						SeesawSetLed(NEO_TRELLIS_ADDR_2,ship_fire_buffer, 0, 0, 50);
 						SeesawOrderLedUpdate(NEO_TRELLIS_ADDR_2);
 						
-						ship_head = ship_loc_buffer;
+						ship_fire = ship_fire_buffer;
 					}
 				}
 				
@@ -198,7 +182,7 @@ void vUiHandlerTask(void *pvParameters)
 				break;
 			}
 
-            default:  // In case of unforseen error, it is always good to sent state
+            default:  // In case of unforeseen error, it is always good to sent state
                       // machine to an initial state.
                 uiState = UI_STATE_IGNORE_PRESSES;
                 break;
