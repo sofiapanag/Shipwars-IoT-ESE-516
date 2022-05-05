@@ -1069,16 +1069,21 @@ int WifiAddGameDataToQueue(struct GameDataPacket *game)
 int WifiSendShipLoc(uint8_t *ship_loc, uint8_t loc_num){
 	char mqtt_msg[MAX_MQTT_MSG_SIZE];
 	char ship_loc_str[MAX_MQTT_MSG_SIZE] = "";
-	sprintf(mqtt_msg, "{ \"p\" : %d, \"loc\":",PLAYER);
-		
-	LogMessage(LOG_DEBUG_LVL, mqtt_msg);
-	LogMessage(LOG_DEBUG_LVL, "\r\n");
-			   
-	ConcatToArrString(ship_loc, loc_num, ship_loc_str);
-	strcat(mqtt_msg,ship_loc_str);
-	
-	LogMessage(LOG_DEBUG_LVL, mqtt_msg);
-	LogMessage(LOG_DEBUG_LVL, "\r\n");
+	char ship_fire_str[MAX_MQTT_MSG_SIZE] = "";
+	if (loc_num > 1) {
+		sprintf(mqtt_msg, "{ \"p\" : %d, \"loc\":",PLAYER);
+		LogMessage(LOG_DEBUG_LVL, mqtt_msg);
+		LogMessage(LOG_DEBUG_LVL, "\r\n");
+		ConcatToArrString(ship_loc, loc_num, ship_loc_str);
+		strcat(mqtt_msg,ship_loc_str);
+	}
+	else {
+		sprintf(mqtt_msg, "{ \"p\" : %d, \"fire\":",PLAYER);
+		LogMessage(LOG_DEBUG_LVL, mqtt_msg);
+		LogMessage(LOG_DEBUG_LVL, "\r\n");
+		ConcatToArrStringInt(ship_loc, ship_fire_str);
+		strcat(mqtt_msg,ship_fire_str);
+	}
 	
 	strcat(mqtt_msg,"}");
 	int error = xQueueSend(xQueueGameBuffer, mqtt_msg, (TickType_t)10);
@@ -1095,4 +1100,10 @@ void ConcatToArrString(uint8_t *arr, uint8_t arr_size, char* output){
 	 }
 	 n += sprintf (&output[n], "%d]", arr[arr_size - 1]);
 	 
+}
+
+void ConcatToArrStringInt(uint8_t *arr, char* output){
+	int n = 0;
+	n += sprintf (&output[n], " %d", arr);
+	
 }
