@@ -660,6 +660,10 @@ void SubscribeHandlerShipSizeTopic(MessageData *msgData)
 		ControlSetGame(ship_arr, ship_num);
 		
 	}
+	else{
+		LogMessage(LOG_DEBUG_LVL, "bad_data_format");
+	}
+	
 		// send data to control thread and start/reset the ui and the game 
 }
 
