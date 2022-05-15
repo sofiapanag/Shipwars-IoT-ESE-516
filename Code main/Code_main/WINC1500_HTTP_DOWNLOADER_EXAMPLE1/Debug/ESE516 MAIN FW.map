@@ -34448,7 +34448,7 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtn.o
                 0x00002000                STACK_SIZE = DEFINED (STACK_SIZE)?STACK_SIZE:DEFINED (__stack_size__)?__stack_size__:0x2000
 
-.text           0x00012000    0x284f4
+.text           0x00012000    0x284f0
                 0x00012000                . = ALIGN (0x4)
                 0x00012000                _sfixed = .
  *(.vectors .vectors.*)
@@ -36865,267 +36865,267 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
  .rodata.main_mqtt_broker
                 0x000365a0       0x12 src/WifiHandlerThread/WifiHandler.o
  *fill*         0x000365b2        0x2 
- .rodata        0x000365b4      0x8f4 src/WifiHandlerThread/WifiHandler.o
+ .rodata        0x000365b4      0x8f0 src/WifiHandlerThread/WifiHandler.o
  .rodata.http_client_callback
-                0x00036ea8       0x14 src/WifiHandlerThread/WifiHandler.o
- .rodata        0x00036ebc       0xe0 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+                0x00036ea4       0x14 src/WifiHandlerThread/WifiHandler.o
+ .rodata        0x00036eb8       0xe0 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
  .rodata.xHelpCommand
-                0x00036f9c       0x10 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
- .rodata        0x00036fac      0x37a src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcKernelPort.o
- *fill*         0x00037326        0x2 
+                0x00036f98       0x10 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+ .rodata        0x00036fa8      0x37a src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcKernelPort.o
+ *fill*         0x00037322        0x2 
  .rodata.pszTraceGetErrorNotEnoughHandles
-                0x00037328       0x24 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcKernelPort.o
- .rodata        0x0003734c     0x107b src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcSnapshotRecorder.o
- *fill*         0x000383c7        0x1 
- .rodata        0x000383c8        0x5 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/tasks.o
- *fill*         0x000383cd        0x3 
- .rodata        0x000383d0        0x8 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
+                0x00037324       0x24 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcKernelPort.o
+ .rodata        0x00037348     0x107b src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcSnapshotRecorder.o
+ *fill*         0x000383c3        0x1 
+ .rodata        0x000383c4        0x5 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/tasks.o
+ *fill*         0x000383c9        0x3 
+ .rodata        0x000383cc        0x8 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
  .rodata.prvProcessReceivedCommands
-                0x000383d8       0x28 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
+                0x000383d4       0x28 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
  .rodata.sd_mmc_trans_units
-                0x00038400       0x1c src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
-                0x00038400                sd_mmc_trans_units
+                0x000383fc       0x1c src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
+                0x000383fc                sd_mmc_trans_units
  .rodata.sd_trans_multipliers
-                0x0003841c       0x40 src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
-                0x0003841c                sd_trans_multipliers
+                0x00038418       0x40 src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
+                0x00038418                sd_trans_multipliers
  .rodata.mmc_trans_multipliers
-                0x0003845c       0x40 src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
-                0x0003845c                mmc_trans_multipliers
- .rodata        0x0003849c       0x2a src/ASF/common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.o
- *fill*         0x000384c6        0x2 
+                0x00038458       0x40 src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
+                0x00038458                mmc_trans_multipliers
+ .rodata        0x00038498       0x2a src/ASF/common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.o
+ *fill*         0x000384c2        0x2 
  .rodata.__FUNCTION__.17099
-                0x000384c8        0xd src/ASF/common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.o
- *fill*         0x000384d5        0x3 
- .rodata        0x000384d8      0x306 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
- *fill*         0x000387de        0x2 
+                0x000384c4        0xd src/ASF/common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.o
+ *fill*         0x000384d1        0x3 
+ .rodata        0x000384d4      0x306 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+ *fill*         0x000387da        0x2 
  .rodata.hif_register_cb
-                0x000387e0       0x20 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+                0x000387dc       0x20 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
  .rodata.__FUNCTION__.17967
-                0x00038800        0x9 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
- *fill*         0x00038809        0x3 
+                0x000387fc        0x9 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+ *fill*         0x00038805        0x3 
  .rodata.__FUNCTION__.17977
-                0x0003880c        0x8 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+                0x00038808        0x8 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
  .rodata.__FUNCTION__.17986
-                0x00038814        0xf src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
- *fill*         0x00038823        0x1 
+                0x00038810        0xf src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+ *fill*         0x0003881f        0x1 
  .rodata.__FUNCTION__.17998
-                0x00038824        0xc src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+                0x00038820        0xc src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
  .rodata.__FUNCTION__.18014
-                0x00038830       0x10 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
- .rodata        0x00038840      0x3c9 src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
- *fill*         0x00038c09        0x3 
+                0x0003882c       0x10 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+ .rodata        0x0003883c      0x3c9 src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
+ *fill*         0x00038c05        0x3 
  .rodata.__FUNCTION__.17949
-                0x00038c0c        0xc src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
+                0x00038c08        0xc src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
  .rodata.__FUNCTION__.17978
-                0x00038c18        0xe src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
- *fill*         0x00038c26        0x2 
+                0x00038c14        0xe src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
+ *fill*         0x00038c22        0x2 
  .rodata.__FUNCTION__.18009
-                0x00038c28       0x14 src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
- .rodata        0x00038c3c       0x89 src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
- *fill*         0x00038cc5        0x3 
+                0x00038c24       0x14 src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
+ .rodata        0x00038c38       0x89 src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
+ *fill*         0x00038cc1        0x3 
  .rodata.__FUNCTION__.17806
-                0x00038cc8        0xa src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
- *fill*         0x00038cd2        0x2 
+                0x00038cc4        0xa src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
+ *fill*         0x00038cce        0x2 
  .rodata.__FUNCTION__.17855
-                0x00038cd4        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
- .rodata        0x00038ce0       0xcf src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
- *fill*         0x00038daf        0x1 
+                0x00038cd0        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
+ .rodata        0x00038cdc       0xcf src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
+ *fill*         0x00038dab        0x1 
  .rodata.__FUNCTION__.17853
-                0x00038db0        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
+                0x00038dac        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
  .rodata.__FUNCTION__.17860
-                0x00038dbc        0xe src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
- *fill*         0x00038dca        0x2 
+                0x00038db8        0xe src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
+ *fill*         0x00038dc6        0x2 
  .rodata.crc7_syndrome_table
-                0x00038dcc      0x100 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- .rodata        0x00038ecc      0x575 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- *fill*         0x00039441        0x3 
+                0x00038dc8      0x100 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ .rodata        0x00038ec8      0x575 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ *fill*         0x0003943d        0x3 
  .rodata.spi_cmd
-                0x00039444       0x3c src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+                0x00039440       0x3c src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
  .rodata.spi_cmd_complete
-                0x00039480       0x3c src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+                0x0003947c       0x3c src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
  .rodata.__FUNCTION__.17128
-                0x000394bc        0x8 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+                0x000394b8        0x8 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
  .rodata.__FUNCTION__.17135
-                0x000394c4        0xd src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- *fill*         0x000394d1        0x3 
+                0x000394c0        0xd src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ *fill*         0x000394cd        0x3 
  .rodata.__FUNCTION__.17144
-                0x000394d4        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+                0x000394d0        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
  .rodata.__FUNCTION__.17177
-                0x000394e0       0x11 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- *fill*         0x000394f1        0x3 
+                0x000394dc       0x11 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ *fill*         0x000394ed        0x3 
  .rodata.__FUNCTION__.17223
-                0x000394f4        0xf src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- *fill*         0x00039503        0x1 
+                0x000394f0        0xf src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ *fill*         0x000394ff        0x1 
  .rodata.__FUNCTION__.17235
-                0x00039504        0xe src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- *fill*         0x00039512        0x2 
+                0x00039500        0xe src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ *fill*         0x0003950e        0x2 
  .rodata.__FUNCTION__.17246
-                0x00039514        0xd src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- *fill*         0x00039521        0x3 
+                0x00039510        0xd src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ *fill*         0x0003951d        0x3 
  .rodata.__FUNCTION__.17258
-                0x00039524        0xd src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- *fill*         0x00039531        0x3 
+                0x00039520        0xd src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ *fill*         0x0003952d        0x3 
  .rodata.__FUNCTION__.17269
-                0x00039534        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+                0x00039530        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
  .rodata.__FUNCTION__.17290
-                0x00039540        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
- .rodata        0x0003954c       0xb4 src/ASF/common/components/wifi/winc1500/socket/source/socket.o
- .rodata        0x00039600       0x15 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
- *fill*         0x00039615        0x3 
+                0x0003953c        0xc src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ .rodata        0x00039548       0xb4 src/ASF/common/components/wifi/winc1500/socket/source/socket.o
+ .rodata        0x000395fc       0x15 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
+ *fill*         0x00039611        0x3 
  .rodata.lun_desc
-                0x00039618       0x20 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
- .rodata        0x00039638       0x18 src/ASF/sam0/drivers/sercom/sercom.o
- .rodata        0x00039650        0x6 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
- *fill*         0x00039656        0x2 
+                0x00039614       0x20 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
+ .rodata        0x00039634       0x18 src/ASF/sam0/drivers/sercom/sercom.o
+ .rodata        0x0003964c        0x6 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ *fill*         0x00039652        0x2 
  .rodata.system_clock_source_get_hz
-                0x00039658       0x24 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+                0x00039654       0x24 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
  .rodata.system_clock_source_enable
-                0x0003967c       0x24 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+                0x00039678       0x24 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
  .rodata.system_clock_source_is_ready
-                0x000396a0       0x24 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+                0x0003969c       0x24 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
  .rodata.tcc_modules
-                0x000396c4        0xc src/ASF/sam0/drivers/tcc/tcc.o
-                0x000396c4                tcc_modules
+                0x000396c0        0xc src/ASF/sam0/drivers/tcc/tcc.o
+                0x000396c0                tcc_modules
  .rodata._tcc_gclk_ids
-                0x000396d0        0x3 src/ASF/sam0/drivers/tcc/tcc.o
-                0x000396d0                _tcc_gclk_ids
- *fill*         0x000396d3        0x1 
+                0x000396cc        0x3 src/ASF/sam0/drivers/tcc/tcc.o
+                0x000396cc                _tcc_gclk_ids
+ *fill*         0x000396cf        0x1 
  .rodata._tcc_apbcmasks
-                0x000396d4        0xc src/ASF/sam0/drivers/tcc/tcc.o
-                0x000396d4                _tcc_apbcmasks
+                0x000396d0        0xc src/ASF/sam0/drivers/tcc/tcc.o
+                0x000396d0                _tcc_apbcmasks
  .rodata._tcc_maxs
-                0x000396e0        0xc src/ASF/sam0/drivers/tcc/tcc.o
-                0x000396e0                _tcc_maxs
+                0x000396dc        0xc src/ASF/sam0/drivers/tcc/tcc.o
+                0x000396dc                _tcc_maxs
  .rodata._tcc_cc_nums
-                0x000396ec        0x3 src/ASF/sam0/drivers/tcc/tcc.o
-                0x000396ec                _tcc_cc_nums
- *fill*         0x000396ef        0x1 
+                0x000396e8        0x3 src/ASF/sam0/drivers/tcc/tcc.o
+                0x000396e8                _tcc_cc_nums
+ *fill*         0x000396eb        0x1 
  .rodata._tcc_ow_nums
-                0x000396f0        0x3 src/ASF/sam0/drivers/tcc/tcc.o
-                0x000396f0                _tcc_ow_nums
- *fill*         0x000396f3        0x1 
+                0x000396ec        0x3 src/ASF/sam0/drivers/tcc/tcc.o
+                0x000396ec                _tcc_ow_nums
+ *fill*         0x000396ef        0x1 
  .rodata._tcc_intflag
-                0x000396f4       0x30 src/ASF/sam0/drivers/tcc/tcc_callback.o
-                0x000396f4                _tcc_intflag
+                0x000396f0       0x30 src/ASF/sam0/drivers/tcc/tcc_callback.o
+                0x000396f0                _tcc_intflag
  .rodata.LfnOfs
-                0x00039724        0xd src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
- *fill*         0x00039731        0x3 
- .rodata        0x00039734       0x48 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
+                0x00039720        0xd src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
+ *fill*         0x0003972d        0x3 
+ .rodata        0x00039730       0x48 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
  .rodata.excvt.4558
-                0x0003977c       0x80 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
- .rodata.Tbl    0x000397fc      0x100 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
+                0x00039778       0x80 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
+ .rodata.Tbl    0x000397f8      0x100 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
  .rodata.tbl_lower.4308
-                0x000398fc      0x1e0 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
+                0x000398f8      0x1e0 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
  .rodata.tbl_upper.4309
-                0x00039adc      0x1e0 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
- .rodata.cycle  0x00039cbc       0x38 src/ASF/thirdparty/pahomqtt/MQTTClient/MQTTClient.o
- .rodata        0x00039cf4       0x58 src/ASF/thirdparty/pahomqtt/MQTTClient/MQTTClient.o
- .rodata        0x00039d4c       0x58 src/ASF/thirdparty/pahomqtt/MQTTClient/Wrapper/mqtt.o
- .rodata        0x00039da4        0xf src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTConnectClient.o
- *fill*         0x00039db3        0x1 
- .rodata        0x00039db4      0x13b src/iot/http/http_client.o
- *fill*         0x00039eef        0x1 
+                0x00039ad8      0x1e0 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
+ .rodata.cycle  0x00039cb8       0x38 src/ASF/thirdparty/pahomqtt/MQTTClient/MQTTClient.o
+ .rodata        0x00039cf0       0x58 src/ASF/thirdparty/pahomqtt/MQTTClient/MQTTClient.o
+ .rodata        0x00039d48       0x58 src/ASF/thirdparty/pahomqtt/MQTTClient/Wrapper/mqtt.o
+ .rodata        0x00039da0        0xf src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTConnectClient.o
+ *fill*         0x00039daf        0x1 
+ .rodata        0x00039db0      0x13b src/iot/http/http_client.o
+ *fill*         0x00039eeb        0x1 
  .rodata._hwerr_to_stderr
-                0x00039ef0       0x3c src/iot/http/http_client.o
- .rodata        0x00039f2c        0xc src/iot/sw_timer.o
- .rodata        0x00039f38      0x337 src/main21.o
- *fill*         0x0003a26f        0x1 
- .rodata        0x0003a270       0x40 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(mulsf3.o)
- .rodata        0x0003a2b0       0x40 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(divdf3.o)
- .rodata        0x0003a2f0       0x40 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(muldf3.o)
+                0x00039eec       0x3c src/iot/http/http_client.o
+ .rodata        0x00039f28        0xc src/iot/sw_timer.o
+ .rodata        0x00039f34      0x337 src/main21.o
+ *fill*         0x0003a26b        0x1 
+ .rodata        0x0003a26c       0x40 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(mulsf3.o)
+ .rodata        0x0003a2ac       0x40 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(divdf3.o)
+ .rodata        0x0003a2ec       0x40 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(muldf3.o)
  .rodata._global_impure_ptr
-                0x0003a330        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-impure.o)
-                0x0003a330                _global_impure_ptr
+                0x0003a32c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-impure.o)
+                0x0003a32c                _global_impure_ptr
  .rodata.__sf_fake_stderr
-                0x0003a334       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-findfp.o)
-                0x0003a334                __sf_fake_stderr
+                0x0003a330       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-findfp.o)
+                0x0003a330                __sf_fake_stderr
  .rodata.__sf_fake_stdin
-                0x0003a354       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-findfp.o)
-                0x0003a354                __sf_fake_stdin
+                0x0003a350       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-findfp.o)
+                0x0003a350                __sf_fake_stdin
  .rodata.__sf_fake_stdout
-                0x0003a374       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-findfp.o)
-                0x0003a374                __sf_fake_stdout
+                0x0003a370       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-findfp.o)
+                0x0003a370                __sf_fake_stdout
  .rodata._setlocale_r.str1.1
-                0x0003a394        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-locale.o)
+                0x0003a390        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-locale.o)
                                   0x9 (size before relaxing)
  .rodata.str1.1
-                0x0003a39c        0x2 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-locale.o)
+                0x0003a398        0x2 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-locale.o)
  .rodata._svfprintf_r.str1.1
-                0x0003a39e       0x11 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-svfprintf.o)
+                0x0003a39a       0x11 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-svfprintf.o)
  .rodata._printf_i.str1.1
-                0x0003a3af       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-vfprintf_i.o)
+                0x0003a3ab       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-vfprintf_i.o)
  .rodata._ctype_
-                0x0003a3d1      0x101 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-ctype_.o)
-                0x0003a3d1                _ctype_
+                0x0003a3cd      0x101 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-ctype_.o)
+                0x0003a3cd                _ctype_
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0003a4d4                . = ALIGN (0x4)
- *fill*         0x0003a4d2        0x2 
+                0x0003a4d0                . = ALIGN (0x4)
+ *fill*         0x0003a4ce        0x2 
  *(.init)
- .init          0x0003a4d4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crti.o
-                0x0003a4d4                _init
- .init          0x0003a4d8        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtn.o
-                0x0003a4e0                . = ALIGN (0x4)
-                0x0003a4e0                __preinit_array_start = .
+ .init          0x0003a4d0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crti.o
+                0x0003a4d0                _init
+ .init          0x0003a4d4        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtn.o
+                0x0003a4dc                . = ALIGN (0x4)
+                0x0003a4dc                __preinit_array_start = .
  *(.preinit_array)
-                0x0003a4e0                __preinit_array_end = .
-                0x0003a4e0                . = ALIGN (0x4)
-                0x0003a4e0                __init_array_start = .
+                0x0003a4dc                __preinit_array_end = .
+                0x0003a4dc                . = ALIGN (0x4)
+                0x0003a4dc                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x0003a4e0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
-                0x0003a4e4                __init_array_end = .
-                0x0003a4e4                . = ALIGN (0x4)
+ .init_array    0x0003a4dc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
+                0x0003a4e0                __init_array_end = .
+                0x0003a4e0                . = ALIGN (0x4)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *crtend.o(.ctors)
-                0x0003a4e4                . = ALIGN (0x4)
+                0x0003a4e0                . = ALIGN (0x4)
  *(.fini)
- .fini          0x0003a4e4        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crti.o
-                0x0003a4e4                _fini
- .fini          0x0003a4e8        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtn.o
-                0x0003a4f0                . = ALIGN (0x4)
-                0x0003a4f0                __fini_array_start = .
+ .fini          0x0003a4e0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crti.o
+                0x0003a4e0                _fini
+ .fini          0x0003a4e4        0x8 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtn.o
+                0x0003a4ec                . = ALIGN (0x4)
+                0x0003a4ec                __fini_array_start = .
  *(.fini_array)
- .fini_array    0x0003a4f0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
+ .fini_array    0x0003a4ec        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
  *(SORT(.fini_array.*))
-                0x0003a4f4                __fini_array_end = .
+                0x0003a4f0                __fini_array_end = .
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *crtend.o(.dtors)
-                0x0003a4f4                . = ALIGN (0x4)
-                0x0003a4f4                _efixed = .
+                0x0003a4f0                . = ALIGN (0x4)
+                0x0003a4f0                _efixed = .
                 [!provide]                PROVIDE (__exidx_start, .)
 
-.vfp11_veneer   0x0003a4f4        0x0
- .vfp11_veneer  0x0003a4f4        0x0 linker stubs
+.vfp11_veneer   0x0003a4f0        0x0
+ .vfp11_veneer  0x0003a4f0        0x0 linker stubs
 
-.v4_bx          0x0003a4f4        0x0
- .v4_bx         0x0003a4f4        0x0 linker stubs
+.v4_bx          0x0003a4f0        0x0
+ .v4_bx         0x0003a4f0        0x0 linker stubs
 
-.iplt           0x0003a4f4        0x0
- .iplt          0x0003a4f4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
+.iplt           0x0003a4f0        0x0
+ .iplt          0x0003a4f0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
 
-.eh_frame       0x0003a4f4        0x0
- .eh_frame      0x0003a4f4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
+.eh_frame       0x0003a4f0        0x0
+ .eh_frame      0x0003a4f0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
 
-.rel.dyn        0x0003a4f4        0x0
- .rel.iplt      0x0003a4f4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
+.rel.dyn        0x0003a4f0        0x0
+ .rel.iplt      0x0003a4f0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
 
-.jcr            0x0003a4f4        0x0
- .jcr           0x0003a4f4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
+.jcr            0x0003a4f0        0x0
+ .jcr           0x0003a4f0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
 
-.igot.plt       0x0003a4f4        0x0
- .igot.plt      0x0003a4f4        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
+.igot.plt       0x0003a4f0        0x0
+ .igot.plt      0x0003a4f0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtbegin.o
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
                 [!provide]                PROVIDE (__exidx_end, .)
-                0x0003a4f4                . = ALIGN (0x4)
-                0x0003a4f4                _etext = .
+                0x0003a4f0                . = ALIGN (0x4)
+                0x0003a4f0                _etext = .
 
-.relocate       0x20000000      0x2a4 load address 0x0003a4f4
+.relocate       0x20000000      0x2a4 load address 0x0003a4f0
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _srelocate = .
  *(.ramfunc .ramfunc.*)
@@ -37200,7 +37200,7 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x200002a4                . = ALIGN (0x4)
                 0x200002a4                _erelocate = .
 
-.bss            0x200002b0     0x5570 load address 0x0003a7b0
+.bss            0x200002b0     0x5570 load address 0x0003a7a0
                 0x200002b0                . = ALIGN (0x4)
                 0x200002b0                _sbss = .
                 0x200002b0                _szero = .
@@ -37620,7 +37620,7 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x20005820                _ebss = .
                 0x20005820                _ezero = .
 
-.stack          0x20005820     0x2000 load address 0x0003fd20
+.stack          0x20005820     0x2000 load address 0x0003fd10
                 0x20005820                . = ALIGN (0x8)
                 0x20005820                _sstack = .
                 0x20007820                . = (. + STACK_SIZE)
@@ -38764,7 +38764,7 @@ OUTPUT(ESE516 MAIN FW.elf elf32-littlearm)
  .debug_line    0x00057670     0x1907 src/iot/sw_timer.o
  .debug_line    0x00058f77     0x1d5b src/main21.o
 
-.debug_str      0x00000000    0xc3b29
+.debug_str      0x00000000    0xc3b35
  .debug_str     0x00000000    0x80275 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
                               0x80c7c (size before relaxing)
  .debug_str     0x00080275      0x827 src/ASF/sam0/drivers/dac/dac_sam_d_c_h/dac_callback.o
@@ -38777,160 +38777,160 @@ OUTPUT(ESE516 MAIN FW.elf elf32-littlearm)
                               0x810eb (size before relaxing)
  .debug_str     0x0008250f      0xff6 src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master_interrupt.o
                               0x8155a (size before relaxing)
- .debug_str     0x00083505    0x1f7f7 src/CliThread/CliThread.o
-                              0xa1cdf (size before relaxing)
- .debug_str     0x000a2cfc      0x766 src/ControlThread/ControlThread.o
-                              0x9ff79 (size before relaxing)
- .debug_str     0x000a3462      0x74a src/I2cDriver/I2cDriver.o
+ .debug_str     0x00083505    0x1f803 src/CliThread/CliThread.o
+                              0xa1ceb (size before relaxing)
+ .debug_str     0x000a2d08      0x766 src/ControlThread/ControlThread.o
+                              0x9ff85 (size before relaxing)
+ .debug_str     0x000a346e      0x74a src/I2cDriver/I2cDriver.o
                               0x9bd3d (size before relaxing)
- .debug_str     0x000a3bac     0x6668 src/IMU/lsm6dso_reg.o
+ .debug_str     0x000a3bb8     0x6668 src/IMU/lsm6dso_reg.o
                               0xa37e3 (size before relaxing)
- .debug_str     0x000aa214      0x416 src/SeesawDriver/SeesawDriver.o
+ .debug_str     0x000aa220      0x416 src/SeesawDriver/SeesawDriver.o
                               0x9bf7a (size before relaxing)
- .debug_str     0x000aa62a      0x12e src/SHTC3/SHTC3.o
+ .debug_str     0x000aa636      0x12e src/SHTC3/SHTC3.o
                               0x9b41a (size before relaxing)
- .debug_str     0x000aa758      0x218 src/UiHandlerThread/UiHandlerThread.o
-                              0xa1c95 (size before relaxing)
- .debug_str     0x000aa970     0x1dd0 src/WifiHandlerThread/WifiHandler.o
-                              0xa1b20 (size before relaxing)
- .debug_str     0x000ac740      0x575 src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
+ .debug_str     0x000aa764      0x218 src/UiHandlerThread/UiHandlerThread.o
+                              0xa1ca1 (size before relaxing)
+ .debug_str     0x000aa97c     0x1dd0 src/WifiHandlerThread/WifiHandler.o
+                              0xa1b2c (size before relaxing)
+ .debug_str     0x000ac74c      0x575 src/ASF/sam0/drivers/sercom/i2c/i2c_sam0/i2c_master.o
                               0x82582 (size before relaxing)
- .debug_str     0x000accb5      0x29c src/ASF/sam0/drivers/tc/tc_interrupt.o
+ .debug_str     0x000accc1      0x29c src/ASF/sam0/drivers/tc/tc_interrupt.o
                               0x8107f (size before relaxing)
- .debug_str     0x000acf51      0x26d src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
+ .debug_str     0x000acf5d      0x26d src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-CLI/FreeRTOS_CLI.o
                               0x90624 (size before relaxing)
- .debug_str     0x000ad1be      0x41e src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcKernelPort.o
+ .debug_str     0x000ad1ca      0x41e src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcKernelPort.o
                               0x90dc1 (size before relaxing)
- .debug_str     0x000ad5dc      0xf3e src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcSnapshotRecorder.o
+ .debug_str     0x000ad5e8      0xf3e src/ASF/thirdparty/freertos/freertos-10.0.0/Source/FreeRTOS-Plus-Trace/trcSnapshotRecorder.o
                               0x90719 (size before relaxing)
- .debug_str     0x000ae51a      0x13e src/ASF/thirdparty/freertos/freertos-10.0.0/Source/list.o
+ .debug_str     0x000ae526      0x13e src/ASF/thirdparty/freertos/freertos-10.0.0/Source/list.o
                               0x8fdb2 (size before relaxing)
- .debug_str     0x000ae658      0x404 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM0/port.o
+ .debug_str     0x000ae664      0x404 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/GCC/ARM_CM0/port.o
                               0x90744 (size before relaxing)
- .debug_str     0x000aea5c      0x18b src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.o
+ .debug_str     0x000aea68      0x18b src/ASF/thirdparty/freertos/freertos-10.0.0/Source/portable/MemMang/heap_1.o
                               0x90399 (size before relaxing)
- .debug_str     0x000aebe7      0x883 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/queue.o
+ .debug_str     0x000aebf3      0x883 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/queue.o
                               0x91733 (size before relaxing)
- .debug_str     0x000af46a     0x11c9 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/tasks.o
+ .debug_str     0x000af476     0x11c9 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/tasks.o
                               0x92462 (size before relaxing)
- .debug_str     0x000b0633      0x476 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
+ .debug_str     0x000b063f      0x476 src/ASF/thirdparty/freertos/freertos-10.0.0/Source/timers.o
                               0x9185f (size before relaxing)
- .debug_str     0x000b0aa9      0x1b7 src/SerialConsole/circular_buffer.o
+ .debug_str     0x000b0ab5      0x1b7 src/SerialConsole/circular_buffer.o
                                0x6863 (size before relaxing)
- .debug_str     0x000b0c60      0x861 src/SerialConsole/SerialConsole.o
+ .debug_str     0x000b0c6c      0x861 src/SerialConsole/SerialConsole.o
                               0x9bdc5 (size before relaxing)
- .debug_str     0x000b14c1     0x534b src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
+ .debug_str     0x000b14cd     0x534b src/ASF/common2/components/memory/sd_mmc/sd_mmc.o
                               0xa0303 (size before relaxing)
- .debug_str     0x000b680c      0x139 src/ASF/common2/components/memory/sd_mmc/sd_mmc_mem.o
+ .debug_str     0x000b6818      0x139 src/ASF/common2/components/memory/sd_mmc/sd_mmc_mem.o
                               0x83808 (size before relaxing)
- .debug_str     0x000b6945      0x6e0 src/ASF/common2/components/memory/sd_mmc/sd_mmc_spi.o
+ .debug_str     0x000b6951      0x6e0 src/ASF/common2/components/memory/sd_mmc/sd_mmc_spi.o
                               0xa03f7 (size before relaxing)
- .debug_str     0x000b7025       0x9f src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_str     0x000b7031       0x9f src/ASF/common2/services/delay/sam0/systick_counter.o
                               0x80148 (size before relaxing)
- .debug_str     0x000b70c4      0x137 src/ASF/common/components/wifi/winc1500/bsp/source/nm_bsp_samd21.o
+ .debug_str     0x000b70d0      0x137 src/ASF/common/components/wifi/winc1500/bsp/source/nm_bsp_samd21.o
                               0x9cbe8 (size before relaxing)
- .debug_str     0x000b71fb      0x2d3 src/ASF/common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.o
+ .debug_str     0x000b7207      0x2d3 src/ASF/common/components/wifi/winc1500/bus_wrapper/source/nm_bus_wrapper_samd21.o
                               0x9d1d2 (size before relaxing)
- .debug_str     0x000b74ce       0xf2 src/ASF/common/components/wifi/winc1500/common/source/nm_common.o
+ .debug_str     0x000b74da       0xf2 src/ASF/common/components/wifi/winc1500/common/source/nm_common.o
                               0x9bd3a (size before relaxing)
- .debug_str     0x000b75c0      0x988 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
+ .debug_str     0x000b75cc      0x988 src/ASF/common/components/wifi/winc1500/driver/source/m2m_hif.o
                               0x9e39d (size before relaxing)
- .debug_str     0x000b7f48     0x17cd src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
+ .debug_str     0x000b7f54     0x17cd src/ASF/common/components/wifi/winc1500/driver/source/m2m_wifi.o
                               0x9fce9 (size before relaxing)
- .debug_str     0x000b9715      0x38b src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
+ .debug_str     0x000b9721      0x38b src/ASF/common/components/wifi/winc1500/driver/source/nmasic.o
                               0x9d9c1 (size before relaxing)
- .debug_str     0x000b9aa0      0x168 src/ASF/common/components/wifi/winc1500/driver/source/nmbus.o
+ .debug_str     0x000b9aac      0x168 src/ASF/common/components/wifi/winc1500/driver/source/nmbus.o
                               0x9bf74 (size before relaxing)
- .debug_str     0x000b9c08       0xdd src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
+ .debug_str     0x000b9c14       0xdd src/ASF/common/components/wifi/winc1500/driver/source/nmdrv.o
                               0x9d860 (size before relaxing)
- .debug_str     0x000b9ce5      0x5c8 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
+ .debug_str     0x000b9cf1      0x5c8 src/ASF/common/components/wifi/winc1500/driver/source/nmspi.o
                               0x9ce88 (size before relaxing)
- .debug_str     0x000ba2ad      0xeca src/ASF/common/components/wifi/winc1500/socket/source/socket.o
+ .debug_str     0x000ba2b9      0xeca src/ASF/common/components/wifi/winc1500/socket/source/socket.o
                               0x9f817 (size before relaxing)
- .debug_str     0x000bb177      0x488 src/ASF/common/components/wifi/winc1500/spi_flash/source/spi_flash.o
+ .debug_str     0x000bb183      0x488 src/ASF/common/components/wifi/winc1500/spi_flash/source/spi_flash.o
                               0x9c7e6 (size before relaxing)
- .debug_str     0x000bb5ff      0x239 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
+ .debug_str     0x000bb60b      0x239 src/ASF/common/services/storage/ctrl_access/ctrl_access.o
                               0x833ac (size before relaxing)
- .debug_str     0x000bb838       0x45 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_str     0x000bb844       0x45 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
                               0x7ff38 (size before relaxing)
- .debug_str     0x000bb87d       0x4a src/ASF/sam0/boards/samw25_xplained_pro/board_init.o
+ .debug_str     0x000bb889       0x4a src/ASF/sam0/boards/samw25_xplained_pro/board_init.o
                               0x82a98 (size before relaxing)
- .debug_str     0x000bb8c7      0x411 src/ASF/sam0/drivers/extint/extint_callback.o
+ .debug_str     0x000bb8d3      0x411 src/ASF/sam0/drivers/extint/extint_callback.o
                               0x8077b (size before relaxing)
- .debug_str     0x000bbcd8      0x29c src/ASF/sam0/drivers/extint/extint_sam_d_r_h/extint.o
+ .debug_str     0x000bbce4      0x29c src/ASF/sam0/drivers/extint/extint_sam_d_r_h/extint.o
                               0x8175d (size before relaxing)
- .debug_str     0x000bbf74       0x59 src/ASF/sam0/drivers/port/port.o
+ .debug_str     0x000bbf80       0x59 src/ASF/sam0/drivers/port/port.o
                               0x80364 (size before relaxing)
- .debug_str     0x000bbfcd      0x801 src/ASF/sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar.o
+ .debug_str     0x000bbfd9      0x801 src/ASF/sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar.o
                               0x82789 (size before relaxing)
- .debug_str     0x000bc7ce       0xe6 src/ASF/sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar_interrupt.o
+ .debug_str     0x000bc7da       0xe6 src/ASF/sam0/drivers/rtc/rtc_sam_d_r_h/rtc_calendar_interrupt.o
                               0x81a4d (size before relaxing)
- .debug_str     0x000bc8b4      0x34f src/ASF/sam0/drivers/sercom/sercom.o
+ .debug_str     0x000bc8c0      0x34f src/ASF/sam0/drivers/sercom/sercom.o
                               0x81619 (size before relaxing)
- .debug_str     0x000bcc03      0x158 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ .debug_str     0x000bcc0f      0x158 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
                               0x8147c (size before relaxing)
- .debug_str     0x000bcd5b       0xeb src/ASF/sam0/drivers/sercom/spi/spi.o
+ .debug_str     0x000bcd67       0xeb src/ASF/sam0/drivers/sercom/spi/spi.o
                               0x8290b (size before relaxing)
- .debug_str     0x000bce46      0x202 src/ASF/sam0/drivers/sercom/spi/spi_interrupt.o
+ .debug_str     0x000bce52      0x202 src/ASF/sam0/drivers/sercom/spi/spi_interrupt.o
                               0x818c7 (size before relaxing)
- .debug_str     0x000bd048       0x8f src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_str     0x000bd054       0x8f src/ASF/sam0/drivers/sercom/usart/usart.o
                               0x823e4 (size before relaxing)
- .debug_str     0x000bd0d7       0xd0 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+ .debug_str     0x000bd0e3       0xd0 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
                               0x8162a (size before relaxing)
- .debug_str     0x000bd1a7     0x16df src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_str     0x000bd1b3     0x16df src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
                               0x83157 (size before relaxing)
- .debug_str     0x000be886      0x1c2 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+ .debug_str     0x000be892      0x1c2 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
                               0x80bfb (size before relaxing)
- .debug_str     0x000bea48      0x173 src/ASF/sam0/drivers/system/interrupt/system_interrupt.o
+ .debug_str     0x000bea54      0x173 src/ASF/sam0/drivers/system/interrupt/system_interrupt.o
                               0x80866 (size before relaxing)
- .debug_str     0x000bebbb      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_str     0x000bebc7      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
                               0x803da (size before relaxing)
- .debug_str     0x000bed34       0x47 src/ASF/sam0/drivers/system/system.o
+ .debug_str     0x000bed40       0x47 src/ASF/sam0/drivers/system/system.o
                               0x80015 (size before relaxing)
- .debug_str     0x000bed7b     0x1ab0 src/ASF/sam0/drivers/tcc/tcc.o
+ .debug_str     0x000bed87     0x1ab0 src/ASF/sam0/drivers/tcc/tcc.o
                               0x83406 (size before relaxing)
- .debug_str     0x000c082b      0x176 src/ASF/sam0/drivers/tcc/tcc_callback.o
+ .debug_str     0x000c0837      0x176 src/ASF/sam0/drivers/tcc/tcc_callback.o
                               0x818ad (size before relaxing)
- .debug_str     0x000c09a1      0xa9d src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_str     0x000c09ad      0xa9d src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
                               0x6b4be (size before relaxing)
- .debug_str     0x000c143e       0x2a src/ASF/sam0/utils/stdio/read.o
+ .debug_str     0x000c144a       0x2a src/ASF/sam0/utils/stdio/read.o
                               0x7fedf (size before relaxing)
- .debug_str     0x000c1468       0x24 src/ASF/sam0/utils/stdio/write.o
+ .debug_str     0x000c1474       0x24 src/ASF/sam0/utils/stdio/write.o
                               0x7fee0 (size before relaxing)
- .debug_str     0x000c148c      0x681 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_str     0x000c1498      0x681 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
                                0x74da (size before relaxing)
- .debug_str     0x000c1b0d      0x1b8 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/diskio.o
+ .debug_str     0x000c1b19      0x1b8 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/diskio.o
                               0x8518f (size before relaxing)
- .debug_str     0x000c1cc5       0x61 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/sam0/fattime_rtc.o
+ .debug_str     0x000c1cd1       0x61 src/ASF/thirdparty/fatfs/fatfs-port-r0.09/sam0/fattime_rtc.o
                               0x816d6 (size before relaxing)
- .debug_str     0x000c1d26      0xb56 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
+ .debug_str     0x000c1d32      0xb56 src/ASF/thirdparty/fatfs/fatfs-r0.09/src/ff.o
                                0x3d24 (size before relaxing)
- .debug_str     0x000c287c       0x5a src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
+ .debug_str     0x000c2888       0x5a src/ASF/thirdparty/fatfs/fatfs-r0.09/src/option/ccsbcs.o
                                0x2c91 (size before relaxing)
- .debug_str     0x000c28d6      0x4f5 src/ASF/thirdparty/pahomqtt/MQTTClient/MQTTClient.o
+ .debug_str     0x000c28e2      0x4f5 src/ASF/thirdparty/pahomqtt/MQTTClient/MQTTClient.o
                               0x9e772 (size before relaxing)
- .debug_str     0x000c2dcb      0x1f9 src/ASF/thirdparty/pahomqtt/MQTTClient/Platforms/MCHP_ATWx.o
+ .debug_str     0x000c2dd7      0x1f9 src/ASF/thirdparty/pahomqtt/MQTTClient/Platforms/MCHP_ATWx.o
                               0x9f2c6 (size before relaxing)
- .debug_str     0x000c2fc4      0x12a src/ASF/thirdparty/pahomqtt/MQTTClient/Wrapper/mqtt.o
+ .debug_str     0x000c2fd0      0x12a src/ASF/thirdparty/pahomqtt/MQTTClient/Wrapper/mqtt.o
                               0x9f2ac (size before relaxing)
- .debug_str     0x000c30ee      0x141 src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTConnectClient.o
+ .debug_str     0x000c30fa      0x141 src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTConnectClient.o
                                0x732d (size before relaxing)
- .debug_str     0x000c322f       0x78 src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTDeserializePublish.o
+ .debug_str     0x000c323b       0x78 src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTDeserializePublish.o
                                0x7166 (size before relaxing)
- .debug_str     0x000c32a7      0x109 src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTPacket.o
+ .debug_str     0x000c32b3      0x109 src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTPacket.o
                                0x725a (size before relaxing)
- .debug_str     0x000c33b0       0x9d src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTSerializePublish.o
+ .debug_str     0x000c33bc       0x9d src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTSerializePublish.o
                                0x7214 (size before relaxing)
- .debug_str     0x000c344d       0x8e src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTSubscribeClient.o
+ .debug_str     0x000c3459       0x8e src/ASF/thirdparty/pahomqtt/MQTTPacket/MQTTSubscribeClient.o
                                0x7205 (size before relaxing)
- .debug_str     0x000c34db      0x467 src/iot/http/http_client.o
+ .debug_str     0x000c34e7      0x467 src/iot/http/http_client.o
                               0x9fefe (size before relaxing)
- .debug_str     0x000c3942       0x9b src/iot/stream_writer.o
+ .debug_str     0x000c394e       0x9b src/iot/stream_writer.o
                               0x9a78e (size before relaxing)
- .debug_str     0x000c39dd       0xa0 src/iot/sw_timer.o
+ .debug_str     0x000c39e9       0xa0 src/iot/sw_timer.o
                               0x9c49d (size before relaxing)
- .debug_str     0x000c3a7d       0xac src/main21.o
-                              0xa1d1f (size before relaxing)
+ .debug_str     0x000c3a89       0xac src/main21.o
+                              0xa1d2b (size before relaxing)
 
 .debug_frame    0x00000000     0xe2e0
  .debug_frame   0x00000000      0x16c src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o

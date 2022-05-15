@@ -39,9 +39,9 @@ extern "C" {
 #define WIFI_PRIORITY (configMAX_PRIORITIES - 2)
 
 /** Wi-Fi AP Settings. */
-#define MAIN_WLAN_SSID "Mi 11"//"Kim's Home" "Mi 11"            /**< Destination SSID. Change to your WIFI SSID */
+#define MAIN_WLAN_SSID "Soff :)"//"Kim's Home" "Mi 11"            /**< Destination SSID. Change to your WIFI SSID */
 #define MAIN_WLAN_AUTH M2M_WIFI_SEC_WPA_PSK /**< Security manner */
-#define MAIN_WLAN_PSK "87654321"//"25051997"  "87654321"          /**< Password for Destination SSID. Change to your password. Please dont hack my WiFi router */
+#define MAIN_WLAN_PSK "sofiaa:)"//"25051997"  "87654321"          /**< Password for Destination SSID. Change to your password. Please dont hack my WiFi router */
 
 /** IP address parsing. */
 #define IPV4_BYTE(val, index) ((val >> (index * 8)) & 0xFF)
@@ -103,6 +103,7 @@ struct GameDataPacket {
 #define GAME_START_TOPIC_PUB "ESE516_T13_p1"
 #define GAME_SHIPSIZE_TOPIC_SUB "ESE516_T13_shipsize_P1"
 #define GAME_TURN_TOPIC_SUB "ESE516_T13_turn_P1"
+#define CLOUDMQTT_USER_ID "rttyobe"			// Cloud MQTT User	
 
 #else
 /* Chat MQTT topic. */
@@ -111,14 +112,12 @@ struct GameDataPacket {
 #define GAME_START_TOPIC_PUB "ESE516_T13_p2"
 #define GAME_SHIPSIZE_TOPIC_SUB "ESE516_T13_shipsize_P2"
 #define GAME_TURN_TOPIC_SUB "ESE516_T13_turn_P2"
+#define CLOUDMQTT_USER_ID "rttyobej"		// Cloud MQTT User	
 
 #endif
 
 #define GAME_SHIPLOC_TOPIC_PUB "ESE516_T13_loc"
 #define GAME_FIRE_TOPIC_PUB "ESE516_T13_fire"
-
-// Cloud MQTT User
-#define CLOUDMQTT_USER_ID "rttyobej"
 
 // Cloud MQTT pASSWORD
 #define CLOUDMQTT_USER_PASSWORD "BrsJBNVoQBl7"
